@@ -44,7 +44,11 @@ module.exports = {
       sale_date: {
         type: Sequelize.DATE,
         allowNull: false,
-      }
+      },
+      status: {
+        type: Sequelize.STRING(50),
+        allowNull: false,
+      },
     });
   },
 
