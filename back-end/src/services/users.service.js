@@ -11,7 +11,7 @@ const userLogin = async (body) => {
   });
 
   if (!user) {
-    throw new Error('User no found!');
+    throw new Error('Not found');
   }
 
   return user;
