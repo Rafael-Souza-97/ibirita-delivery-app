@@ -11,12 +11,28 @@ const userLogin = async (body) => {
   });
 
   if (!user) {
-    throw new Error('User no found!');
+    throw new Error('Not found');
   }
 
   return user;
 };
 
+const userRegister = async (body) => {
+  const { name, email, password, role } = body;
+
+  const newUser = await User.create({
+    name,
+    email,
+    password,
+    role,
+  });
+
+  const { password: _, ...newUserWithoutPassword } = newUser.dataValues;
+
+  return newUserWithoutPassword;
+};
+
 module.exports = {
   userLogin,
+  userRegister,
 };
