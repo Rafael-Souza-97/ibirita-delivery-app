@@ -12,8 +12,9 @@ const registerValidation = async (req, res, next) => {
   if (!verifyEmail) {
     return res.status(404).json({ message: 'Email must be a valid' });
   }
+
   if (password.length < 6) {
-  return res.status(404).json({ message: 'Password length must be at least 6 characteres long' });
+    return res.status(404).json({ message: 'Password length must be at least 6 characteres long' });
   }
   // if (role !== 'adminstrator' || role !== 'seller' || role !== 'customer') {
   //   return res.status(404).json({ message: 'Not a validate role' });
