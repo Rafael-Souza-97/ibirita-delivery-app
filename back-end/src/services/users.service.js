@@ -17,6 +17,22 @@ const userLogin = async (body) => {
   return user;
 };
 
+const userRegister = async (body) => {
+  const { name, email, password, role } = body;
+
+  const newUser = await User.create({
+    name,
+    email,
+    password,
+    role,
+  });
+
+  const { password: _, ...newUserWithoutPassword } = newUser.dataValues;
+
+  return newUserWithoutPassword;
+};
+
 module.exports = {
   userLogin,
+  userRegister,
 };
