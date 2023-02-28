@@ -7,6 +7,7 @@ const userLogin = async (body) => {
     where: {
       email,
     },
+    attributes: ['id', 'name', 'email', 'role'],
   });
 
   if (!user) {
