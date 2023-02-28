@@ -14,6 +14,6 @@ const userValidation = async (req, res, next) => {
     return res.status(404).json({ message: 'Password length must be at least 6 characteres long' });
   }
   next();
-};
+}
 
 module.exports = { userValidation };
