@@ -2,9 +2,11 @@ const registerValidation = async (req, res, next) => {
   const { name, email, password } = req.body;
   
   const verifyEmail = email.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g);
+
   if (!req.body) {
     return res.status(404).json({ message: 'Email and password are required' });
   }
+
   if (name.length < 12) {
     return res.status(404).json({ message: 'Name length must be at least 12 characteres long' });
   }
@@ -16,10 +18,7 @@ const registerValidation = async (req, res, next) => {
   if (password.length < 6) {
     return res.status(404).json({ message: 'Password length must be at least 6 characteres long' });
   }
-  // if (role !== 'adminstrator' || role !== 'seller' || role !== 'customer') {
-  //   return res.status(404).json({ message: 'Not a validate role' });
-  // }
-  // Essa validação será usada talvez no futuro, de forma diferente, para garantir que ninguem se cadastre como adm
+
   next();
 };
 
