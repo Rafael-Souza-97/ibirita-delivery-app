@@ -6,8 +6,10 @@ export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [registration, setRegistration] = useState(false);
+  const [loged, setLoged] = useState(false);
   const [invisibleElement, setInvisibleElement] = useState(false);
   if (registration) return <Redirect to="/register" />;
+  if (loged) return <Redirect to="/products" />;
 
   const handleEmail = ({ target: { value } }) => setEmail(value);
 
@@ -24,9 +26,10 @@ export default function LoginPage() {
     try {
       const endpoint = 'http://localhost:3001/login';
       const body = { email, password };
-      await requestLogin(endpoint, body);
-      localStorage.setItem('user', JSON.stringify({ email }));
+      const data = await requestLogin(endpoint, body);
+      localStorage.setItem('user', JSON.stringify({ data }));
       console.log('Login realizado com sucesso!');
+      setLoged(true);
     } catch (error) {
       setInvisibleElement(true);
     }
