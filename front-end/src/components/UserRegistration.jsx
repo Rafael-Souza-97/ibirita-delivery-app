@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import {
   NUMBER_ZERO,
   NUMBER_SIX,
@@ -19,15 +20,15 @@ function UserRegistration() {
     let newFormComplete = true;
 
     if (newUserData.name.length < NUMBER_TWELVE) {
-      newErrorMessage = 'Nome completo deve conter pelo menos 12 caracteres.';
+      newErrorMessage = 'O nome completo deve conter pelo menos 12 caracteres.';
       newFormComplete = false;
     } else if (!newUserData.email.match(/^\S+@\S+\.\S+$/)) {
       newErrorMessage = `
-        Email deve estar no formato <email>@<domínioPrincipal>.<domínioGenérico>.
+        O Email deve estar no formato <email>@<domínioPrincipal>.<domínioGenérico>.
       `;
       newFormComplete = false;
     } else if (newUserData.password.length < NUMBER_SIX) {
-      newErrorMessage = 'Senha deve conter pelo menos 6 caracteres.';
+      newErrorMessage = 'A senha deve conter pelo menos 6 caracteres.';
       newFormComplete = false;
     }
 
@@ -41,11 +42,18 @@ function UserRegistration() {
     setNewUserData((prevUserData) => ({ ...prevUserData, [name]: value }));
   };
 
-  const handleSubmit = (event) => {
+  function handleSubmit(event) {
     event.preventDefault();
-
     console.log(newUserData);
-  };
+
+    axios.post('http://localhost:3001/register', newUserData)
+      .then((response) => {
+        console.log('Novo usuário cadastrado:', response.data);
+      })
+      .catch((error) => {
+        console.log('Erro ao cadastrar novo usuário:', error);
+      });
+  }
 
   return (
     <form onSubmit={ handleSubmit } className="form-container">
@@ -85,6 +93,7 @@ function UserRegistration() {
             id="password"
             name="password"
             data-testid="common_register__input-password"
+            placeholder="Sua senha"
             value={ newUserData.password }
             onChange={ handleChange }
           />
