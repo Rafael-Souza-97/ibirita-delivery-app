@@ -22,14 +22,16 @@ module.exports = (sequelize, DataTypes) => {
     });
 
   salesModel.associate = function(models) {
-    salesModel.hasMany(models.Sales_Products, {
-      foreignKey: 'userId',
-      as: 'user',
-    },
-    {
-      foreignKey: 'sellerId',
+    salesModel.belongsTo(models.User, {
+      foreignKey: 'user_id',
       as: 'user',
     });
+
+    salesModel.belongsTo(models.User, {
+      foreignKey: 'seller_id',
+      as: 'seller',
+    });
   };
+
   return salesModel;
 }

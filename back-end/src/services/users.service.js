@@ -1,17 +1,13 @@
-const usersModel = require('../database/models/users.model');
+const { User } = require('../database/models');
 
 const userLogin = async (body) => {
   const { email } = body;
 
-  console.log(email);
-
-  const user = await usersModel.findOne({
+  const user = await User.findOne({
     where: {
       email,
     },
   });
-
-  console.log(user);
 
   if (!user) {
     throw new Error('User no found!');
