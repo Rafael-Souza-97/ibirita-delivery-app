@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import Provider from './context/provider';
+import Products from './pages/Products';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import Products from './pages/Products';
 import './App.css';
 
 function App() {
