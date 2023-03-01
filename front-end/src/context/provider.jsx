@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import context from './context';
 
 function Provider({ children }) {
+  const [productsArray, setProductsArray] = useState([]);
   const [adressValues, setAdressValues] = useState({
     seller: '',
     address: '',
@@ -11,11 +12,18 @@ function Provider({ children }) {
 
   const contextValue = useMemo(() => {
     const objState = {
+      productsArray,
+      setProductsArray,
       adressValues,
       setAdressValues,
     };
     return objState;
-  }, [adressValues, setAdressValues]);
+  }, [
+    productsArray,
+    adressValues,
+    setProductsArray,
+    setAdressValues,
+  ]);
 
   return (
     <context.Provider value={ contextValue }>
@@ -25,7 +33,6 @@ function Provider({ children }) {
 }
 
 Provider.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
   children: PropTypes.node.isRequired,
 };
 
