@@ -1,8 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import NavBar from '../components/NavBar';
+import Context from '../context/context';
 
 export default function Products() {
-  const [productsArray, setProductsArray] = useState([]);
+  const { productsArray, setProductsArray } = useContext(Context);
+  const history = useHistory();
+  const totalPrice = productsArray.map((item) => Number(item.totalValue));
 
   const handleQuantityChange = (e) => {
     const numberId = Number(e.target.id);
@@ -112,7 +116,10 @@ export default function Products() {
     }
   };
 
-  const totalPrice = productsArray.map((item) => Number(item.totalValue));
+  const disableButtton = () => {
+    const iqualZero = totalPrice.map((item) => item !== 0);
+    return iqualZero.includes(true);
+  };
 
   return (
     <div>
@@ -171,7 +178,8 @@ export default function Products() {
         <button
           type="button"
           data-testid="customer_products__button-cart"
-          disabled={ totalPrice.length === 0 }
+          disabled={ !disableButtton() }
+          onClick={ () => history.push('/customer/checkout') }
         >
           Ver Carrinho:
           <h5
@@ -181,7 +189,6 @@ export default function Products() {
             {totalPrice.reduce((acc, current) => acc + current, 0).toFixed(2)}
           </h5>
         </button>
-
       </div>
     </div>
   );
