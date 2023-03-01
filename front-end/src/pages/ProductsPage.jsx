@@ -4,6 +4,16 @@ import NavBar from '../components/NavBar';
 export default function Products() {
   const [productsArray, setProductsArray] = useState([]);
 
+  const handleQuantityChange = (e) => {
+    const numberId = Number(e.target.id);
+    const quantity = e.target.value;
+    const copyProducts = [...productsArray];
+    const element = copyProducts.find((item) => item.id === numberId);
+    element.quantity = quantity;
+    element.totalValue = (element.quantity * element.price).toFixed(2);
+    setProductsArray(copyProducts);
+  };
+
   const MOCK = [{
     id: 1,
     name: 'Skol Lata 250ml',
@@ -74,6 +84,7 @@ export default function Products() {
   useEffect(() => {
     MOCK.forEach((item) => {
       item.quantity = 0;
+      item.totalValue = 0;
     });
     setProductsArray(MOCK);
   }, []);
@@ -83,6 +94,7 @@ export default function Products() {
     const copyProducts = [...productsArray];
     const element = copyProducts.find((item) => item.id === numberId);
     element.quantity += 1;
+    element.totalValue = (element.quantity * element.price).toFixed(2);
     setProductsArray(copyProducts);
   };
 
@@ -92,12 +104,15 @@ export default function Products() {
     const element = copyProducts.find((item) => item.id === numberId);
     if (element.quantity > 0) {
       element.quantity -= 1;
+      element.totalValue = (element.quantity * element.price).toFixed(2);
       setProductsArray(copyProducts);
     } else {
       const filteredProducts = productsArray.filter((products) => products.id !== id);
       setProductsArray(filteredProducts);
     }
   };
+
+  const totalPrice = productsArray.map((item) => Number(item.totalValue));
 
   return (
     <div>
@@ -108,15 +123,15 @@ export default function Products() {
             <img
               src={ products.image }
               alt={ products.name }
-              data-testid="customer_products__img-card-bg-image-<id>"
+              data-testid={ `customer_products__img-card-bg-${product.id}` }
             />
             <h2
-              data-testid="customer_products__element-card-title-<id>"
+              data-testid={ `customer_products__element-card-title-${product.id}` }
             >
               { products.name }
             </h2>
             <p
-              data-testid="customer_products__element-card-price-<id>"
+              data-testid={ `customer_products__element-card-price-${product.id}` }
             >
               {products.price}
             </p>
@@ -125,22 +140,24 @@ export default function Products() {
                 type="button"
                 onClick={ (e) => handlePlusItem(e.target.id) }
                 id={ products.id }
-                data-testid="customer_products__button-card-add-item-<id>"
+                data-testid={ `customer_products__button-card-add-item-${product.id}` }
               >
                 +
               </button>
               <br />
-              <h5
-                data-testid="customer_products__input-card-quantity-<id>"
-              >
-                Quantity:
-                {products.quantity}
-              </h5>
+              <input
+                type="number"
+                data-testid={ `customer_products__input-card-quantity-${product.id}` }
+                placeholder="0"
+                id={ products.id }
+                value={ products.quantity }
+                onChange={ (e) => handleQuantityChange(e) }
+              />
               <button
                 type="button"
                 onClick={ (e) => handleMinusItem(e.target.id) }
                 id={ products.id }
-                data-testid="customer_products__button-card-rm-item-<id>"
+                data-testid={ `customer_products__button-card-rm-item-${product.id}` }
               >
                 -
               </button>
@@ -159,7 +176,7 @@ export default function Products() {
           data-testid="customer_products__checkout-bottom-value"
         >
           R$
-          {}
+          {totalPrice.reduce((acc, current) => acc + current, 0).toFixed(2)}
         </h5>
       </div>
     </div>
