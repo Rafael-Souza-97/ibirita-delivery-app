@@ -10,8 +10,13 @@ const userLogin = async (req, res) => {
       return res.status(401).json({ message: 'Email or password must be valid' });
     }
 
+    const { password: _, ...userWithoutPassword } = user.dataValues;
+
     const token = generateToken(user);
-    return res.status(200).json({ token });
+    return res.status(200).json({
+      ...userWithoutPassword,
+      token,
+    });
   } catch (error) {
     return res.status(404).json({ message: error.message });
   }
@@ -25,7 +30,12 @@ const userRegister = async (req, res) => {
     return res.status(409).json({ message: 'User already registered' });
   }
   const token = generateToken(newUser.data);
-  return res.status(201).json({ token });
+  const response = {
+    ...newUser.data,
+    token,
+  };
+
+  return res.status(201).json(response);
 };
 
 module.exports = {
