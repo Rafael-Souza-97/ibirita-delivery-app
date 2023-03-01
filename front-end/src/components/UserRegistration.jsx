@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import { requestRegister } from '../services/requests';
 import {
   NUMBER_ZERO,
   NUMBER_SIX,
@@ -15,26 +16,33 @@ function UserRegistration() {
   const [errorMessage, setErrorMessage] = useState('');
   const [formComplete, setFormComplete] = useState(false);
 
+  const history = useHistory();
+
   useEffect(() => {
-    let newErrorMessage = '';
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+  }, []);
+
+  useEffect(() => {
     let newFormComplete = true;
 
     if (newUserData.name.length < NUMBER_TWELVE) {
-      newErrorMessage = 'O nome completo deve conter pelo menos 12 caracteres.';
+      setErrorMessage('O nome completo deve conter pelo menos 12 caracteres.');
       newFormComplete = false;
     } else if (!newUserData.email.match(/^\S+@\S+\.\S+$/)) {
-      newErrorMessage = `
-        O Email deve estar no formato <email>@<domínioPrincipal>.<domínioGenérico>.
-      `;
+      setErrorMessage(
+        'O Email deve estar no formato <email>@<domínioPrincipal>.<domínioGenérico>.',
+      );
       newFormComplete = false;
     } else if (newUserData.password.length < NUMBER_SIX) {
-      newErrorMessage = 'A senha deve conter pelo menos 6 caracteres.';
+      setErrorMessage('A senha deve conter pelo menos 6 caracteres.');
       newFormComplete = false;
+    } else {
+      setErrorMessage('');
     }
 
-    setErrorMessage(newErrorMessage);
     setFormComplete(newFormComplete);
-  }, [newUserData, errorMessage]);
+  }, [newUserData]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -42,17 +50,28 @@ function UserRegistration() {
     setNewUserData((prevUserData) => ({ ...prevUserData, [name]: value }));
   };
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-    console.log(newUserData);
 
-    axios.post('http://localhost:3001/register', newUserData)
-      .then((response) => {
-        console.log('Novo usuário cadastrado:', response.data);
-      })
-      .catch((error) => {
-        console.log('Erro ao cadastrar novo usuário:', error);
-      });
+    const endpoint = 'http://localhost:3001/register';
+    const registerToken = await requestRegister(endpoint, newUserData);
+
+    if (registerToken === 'User already registered') {
+      setErrorMessage('Usuário já registrado. Por favor, faça login');
+      return;
+    }
+
+    const { email, name } = newUserData;
+    const { token } = registerToken;
+
+    console.log('Cadastro realizado com sucesso!');
+
+    localStorage.setItem('user', JSON.stringify({ email, name }));
+    localStorage.setItem('token', JSON.stringify({ token }));
+
+    history.push('/customer/products');
+
+    setErrorMessage('');
   }
 
   return (
@@ -109,7 +128,7 @@ function UserRegistration() {
       </div>
 
       { errorMessage.length > NUMBER_ZERO && (
-        <p data-testid="common_register__element-invalid-register">
+        <p data-testid="common_register__element-invalid_register">
           { errorMessage }
         </p>
       )}
