@@ -1,13 +1,12 @@
 import React from 'react';
 import UserRegistration from '../components/UserRegistration';
 
-function UserRegister() {
+function Register() {
   return (
     <div className="user-register-page">
       <UserRegistration />
     </div>
-
   );
 }
 
-export default UserRegister;
+export default Register;
