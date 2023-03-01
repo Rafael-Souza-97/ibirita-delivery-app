@@ -1,17 +1,29 @@
-const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-const createToken = (data) => {
-  const token = jwt.sign({ data }, process.env.JWT_SECRET, {
-      algorithm: 'HS256',
-      expiresIn: '1d',
+const jwt = require('jsonwebtoken');
 
-  });
+const secretPassword = process.env.JWT_SECRET || 'suaSenhaSecreta';
 
+const jwtConfig = {
+  algorithm: 'HS256',
+  expiresIn: '7d',
+};
+
+const generateToken = (user) => {
+  const token = jwt.sign({ data: user }, secretPassword, jwtConfig);
   return token;
 };
 
+const checkToken = (authorization) => {
+  try {
+    const payload = jwt.verify(authorization, secretPassword);
+    return payload;
+  } catch (error) {
+    return { hasError: true, error };
+  }
+};
+
 module.exports = {
-  createToken,
-  // verifyToken,
+  generateToken,
+  checkToken,
 };

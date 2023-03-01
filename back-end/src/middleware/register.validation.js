@@ -22,4 +22,6 @@ const registerValidation = async (req, res, next) => {
   next();
 };
 
-module.exports = { registerValidation };
+module.exports = {
+  registerValidation,
+};
