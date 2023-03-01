@@ -2,6 +2,7 @@ import React, { useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import Context from '../context/context';
+import { requestData } from '../services/requests';
 
 export default function Products() {
   const { productsArray, setProductsArray } = useContext(Context);
@@ -88,6 +89,12 @@ export default function Products() {
   }];
 
   useEffect(() => {
+    const endpoint = 'http://localhost:3003/products';
+    const ahh = async () => {
+      const test = await requestData(endpoint);
+      console.log(test);
+    };
+    ahh();
     MOCK.forEach((item) => {
       item.quantity = 0;
       item.totalValue = 0;

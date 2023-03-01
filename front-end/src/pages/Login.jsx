@@ -24,7 +24,7 @@ export default function LoginPage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const endpoint = 'http://localhost:3001/login';
+      const endpoint = 'http://localhost:3003/login';
       const body = { email, password };
       const data = await requestLogin(endpoint, body);
       localStorage.setItem('user', JSON.stringify(data));
