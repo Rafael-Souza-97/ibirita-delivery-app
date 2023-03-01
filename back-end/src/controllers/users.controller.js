@@ -1,9 +1,15 @@
 const { generateToken } = require('../utils/jwtConfig');
+const { convertToMD5 } = require('../utils/md5Config');
 const usersService = require('../services/users.service');
 
 const userLogin = async (req, res) => {
   try {
     const user = await usersService.userLogin(req.body);
+
+    if (user.password !== convertToMD5(req.body.password)) {
+      return res.status(401).json({ message: 'Email or password must be valid' });
+    }
+
     const token = generateToken(user);
     return res.status(200).json({ token });
   } catch (error) {
