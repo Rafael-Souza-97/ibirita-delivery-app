@@ -3,15 +3,19 @@ import PropTypes from 'prop-types';
 import context from './context';
 
 function Provider({ children }) {
-  const [search, setSearch] = useState('oi');
+  const [adressValues, setAdressValues] = useState({
+    seller: '',
+    address: '',
+    number: '',
+  });
 
   const contextValue = useMemo(() => {
     const objState = {
-      search,
-      setSearch,
+      adressValues,
+      setAdressValues,
     };
     return objState;
-  }, [search, setSearch]);
+  }, [adressValues, setAdressValues]);
 
   return (
     <context.Provider value={ contextValue }>
