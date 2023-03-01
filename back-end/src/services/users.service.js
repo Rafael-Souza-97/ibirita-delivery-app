@@ -1,4 +1,5 @@
 const { User } = require('../database/models');
+const { convertToMD5 } = require('../utils/md5Config');
 
 const userLogin = async (body) => {
   const { email } = body;
@@ -7,7 +8,6 @@ const userLogin = async (body) => {
     where: {
       email,
     },
-    attributes: ['id', 'name', 'email', 'role'],
   });
 
   if (!user) {
@@ -18,18 +18,21 @@ const userLogin = async (body) => {
 };
 
 const userRegister = async (body) => {
-  const { name, email, password, role } = body;
+  const { name, email, password } = body;
 
-  const newUser = await User.create({
-    name,
-    email,
-    password,
-    role,
+  const [newUser, created] = await User.findOrCreate({
+    where: { email },
+    defaults: {
+      name,
+      email,
+      password: convertToMD5(password),
+      role: 'customer',
+    },
   });
 
   const { password: _, ...newUserWithoutPassword } = newUser.dataValues;
 
-  return newUserWithoutPassword;
+  return { data: newUserWithoutPassword, created };
 };
 
 module.exports = {

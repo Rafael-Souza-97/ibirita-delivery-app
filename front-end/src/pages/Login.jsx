@@ -9,7 +9,7 @@ export default function LoginPage() {
   const [loged, setLoged] = useState(false);
   const [invisibleElement, setInvisibleElement] = useState(false);
   if (registration) return <Redirect to="/register" />;
-  if (loged) return <Redirect to="/products" />;
+  if (loged) return <Redirect to="/customer/products" />;
 
   const handleEmail = ({ target: { value } }) => setEmail(value);
 
@@ -24,7 +24,7 @@ export default function LoginPage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const endpoint = 'http://localhost:3003/login';
+      const endpoint = 'http://localhost:3001/login';
       const body = { email, password };
       const data = await requestLogin(endpoint, body);
       localStorage.setItem('user', JSON.stringify({ data }));

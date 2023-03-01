@@ -123,15 +123,15 @@ export default function Products() {
             <img
               src={ products.image }
               alt={ products.name }
-              data-testid={ `customer_products__img-card-bg-${product.id}` }
+              data-testid={ `customer_products__img-card-bg-${products.id}` }
             />
             <h2
-              data-testid={ `customer_products__element-card-title-${product.id}` }
+              data-testid={ `customer_products__element-card-title-${products.id}` }
             >
               { products.name }
             </h2>
             <p
-              data-testid={ `customer_products__element-card-price-${product.id}` }
+              data-testid={ `customer_products__element-card-price-${products.id}` }
             >
               {products.price}
             </p>
@@ -140,24 +140,25 @@ export default function Products() {
                 type="button"
                 onClick={ (e) => handlePlusItem(e.target.id) }
                 id={ products.id }
-                data-testid={ `customer_products__button-card-add-item-${product.id}` }
+                data-testid={ `customer_products__button-card-add-item-${products.id}` }
               >
                 +
               </button>
               <br />
               <input
                 type="number"
-                data-testid={ `customer_products__input-card-quantity-${product.id}` }
+                data-testid={ `customer_products__input-card-quantity-${products.id}` }
                 placeholder="0"
                 id={ products.id }
                 value={ products.quantity }
+                min="0"
                 onChange={ (e) => handleQuantityChange(e) }
               />
               <button
                 type="button"
                 onClick={ (e) => handleMinusItem(e.target.id) }
                 id={ products.id }
-                data-testid={ `customer_products__button-card-rm-item-${product.id}` }
+                data-testid={ `customer_products__button-card-rm-item-${products.id}` }
               >
                 -
               </button>

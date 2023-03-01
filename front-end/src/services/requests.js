@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: `http://localhost:${process.env.REACT_APP_API_PORT || '3003'}`,
+  baseURL: `http://localhost:${process.env.REACT_APP_API_PORT || '3001'}`,
 });
 
 export const setToken = (token) => {
@@ -16,6 +16,24 @@ export const requestData = async (endpoint) => {
 export const requestLogin = async (endpoint, body) => {
   const { data } = await api.post(endpoint, body);
   return data;
+};
+
+export const requestRegister = async (endpoint, body) => {
+  try {
+    const { data } = await api.post(endpoint, body);
+    return data;
+  } catch (error) {
+    if (error.response) {
+      console.log(
+        'Status:',
+        error.response.status,
+        ' Message:',
+        error.response.data.message,
+      );
+      return error.response.data.message;
+    }
+    console.log('Error', error.response.data.message);
+  }
 };
 
 export default api;
