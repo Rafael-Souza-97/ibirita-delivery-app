@@ -10,11 +10,11 @@ const userLogin = async (req, res) => {
       return res.status(401).json({ message: 'Email or password must be valid' });
     }
 
+    const { password: _, ...userWithoutPassword } = user.dataValues;
+
     const token = generateToken(user);
     return res.status(200).json({
-      name: user.name,
-      email: user.email,
-      role: user.role,
+      ...userWithoutPassword,
       token,
     });
   } catch (error) {
@@ -30,12 +30,12 @@ const userRegister = async (req, res) => {
     return res.status(409).json({ message: 'User already registered' });
   }
   const token = generateToken(newUser.data);
-  return res.status(201).json({
-    name: newUser.data.name,
-    email: newUser.data.email,
-    role: newUser.data.role,
+  const response = {
+    ...newUser.data,
     token,
-  });
+  };
+
+  return res.status(201).json(response);
 };
 
 module.exports = {
