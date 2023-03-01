@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 export default function NavBar() {
   const userJson = localStorage.getItem('user');
-  const { data } = JSON.parse(userJson);
+  const data = JSON.parse(userJson);
   const history = useHistory();
   const logout = () => {
     localStorage.removeItem('user');
