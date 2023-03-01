@@ -133,7 +133,8 @@ export default function Products() {
             <p
               data-testid={ `customer_products__element-card-price-${products.id}` }
             >
-              {products.price}
+              R$
+              {products.price.toFixed(2)}
             </p>
             <div className="btn_shopping-cart">
               <button
@@ -170,15 +171,17 @@ export default function Products() {
         <button
           type="button"
           data-testid="customer_products__button-cart"
+          disabled={ totalPrice.length === 0 }
         >
-          Carrinho de Compras
+          Ver Carrinho:
+          <h5
+            data-testid="customer_products__checkout-bottom-value"
+          >
+            R$
+            {totalPrice.reduce((acc, current) => acc + current, 0).toFixed(2)}
+          </h5>
         </button>
-        <h5
-          data-testid="customer_products__checkout-bottom-value"
-        >
-          R$
-          {totalPrice.reduce((acc, current) => acc + current, 0).toFixed(2)}
-        </h5>
+
       </div>
     </div>
   );
