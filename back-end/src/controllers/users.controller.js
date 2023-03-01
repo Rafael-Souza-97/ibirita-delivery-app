@@ -11,7 +11,12 @@ const userLogin = async (req, res) => {
     }
 
     const token = generateToken(user);
-    return res.status(200).json({ token });
+    return res.status(200).json({
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      token,
+    });
   } catch (error) {
     return res.status(404).json({ message: error.message });
   }
@@ -25,7 +30,12 @@ const userRegister = async (req, res) => {
     return res.status(409).json({ message: 'User already registered' });
   }
   const token = generateToken(newUser.data);
-  return res.status(201).json({ token });
+  return res.status(201).json({
+    name: newUser.data.name,
+    email: newUser.data.email,
+    role: newUser.data.role,
+    token,
+  });
 };
 
 module.exports = {
