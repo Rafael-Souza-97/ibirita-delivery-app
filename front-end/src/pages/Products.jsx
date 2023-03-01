@@ -5,8 +5,10 @@ import Context from '../context/context';
 
 export default function Products() {
   const { productsArray, setProductsArray } = useContext(Context);
+  const { totalValue, setTotalValue } = useContext(Context);
   const history = useHistory();
   const totalPrice = productsArray.map((item) => Number(item.totalValue));
+  setTotalValue(totalPrice.reduce((acc, current) => acc + current, 0).toFixed(2));
 
   const handleQuantityChange = (e) => {
     const numberId = Number(e.target.id);
@@ -140,7 +142,6 @@ export default function Products() {
             <p
               data-testid={ `customer_products__element-card-price-${products.id}` }
             >
-              R$
               {products.price.toFixed(2)}
             </p>
             <div className="btn_shopping-cart">
@@ -186,7 +187,7 @@ export default function Products() {
             data-testid="customer_products__checkout-bottom-value"
           >
             R$
-            {totalPrice.reduce((acc, current) => acc + current, 0).toFixed(2)}
+            {totalValue}
           </h5>
         </button>
       </div>
