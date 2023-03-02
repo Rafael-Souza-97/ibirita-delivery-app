@@ -4,18 +4,41 @@ import context from './context';
 
 function Provider({ children }) {
   const [productsArray, setProductsArray] = useState([]);
+  const [productsAPI, setProductsAPI] = useState([]);
   const [totalValue, setTotalValue] = useState([]);
+  const [cartProducts, setCartProducts] = useState([]);
+  const [adressValues, setAdressValues] = useState({
+    seller: 'fulana',
+    address: '',
+    number: '',
+  });
 
   const contextValue = useMemo(() => {
     const objState = {
       productsArray,
-      setProductsArray,
+      cartProducts,
       totalValue,
+      adressValues,
+      setProductsArray,
+      setCartProducts,
       setTotalValue,
+      setAdressValues,
+      productsAPI,
+      setProductsAPI,
     };
     return objState;
-  }, [productsArray, setProductsArray, totalValue, setTotalValue]);
-
+  }, [
+    productsArray,
+    cartProducts,
+    totalValue,
+    adressValues,
+    setProductsArray,
+    setCartProducts,
+    setTotalValue,
+    setAdressValues,
+    productsAPI,
+    setProductsAPI,
+  ]);
   return (
     <context.Provider value={ contextValue }>
       {children}
