@@ -1,12 +1,12 @@
 import React from 'react';
-import CheckoutAdress from '../components/CheckoutAdress';
-// import NavBar from '../components/NavBar';
+import CheckoutProducts from '../components/CheckoutProducts';
+import NavBar from '../components/NavBar';
 
 function Checkout() {
   return (
     <div>
-      {/* <NavBar /> */}
-      <CheckoutAdress />
+      <NavBar />
+      <CheckoutProducts />
     </div>
 
   );

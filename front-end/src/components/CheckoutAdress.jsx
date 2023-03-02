@@ -1,38 +1,59 @@
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import Context from '../context/context';
 
 function CheckoutAddress() {
   const { adressValues, setAdressValues } = useContext(Context);
+  const { cartProducts } = useContext(Context);
+
+  const history = useHistory();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
     setAdressValues((prevState) => ({
-      ...prevState,
-      [name]: value,
+      ...prevState, [name]: value,
     }));
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-  };
+  async function sellRegister() {
+    try {
+      const user = localStorage.getItem('user');
+      const { id } = JSON.parse(user);
+      const products = cartProducts.map((product) => (
+        { productId: product.id, quantity: product.quantity }));
 
+      const register = {
+        userId: id,
+        sellerId: 2,
+        products,
+        deliveryAddress: adressValues.address,
+        deliveryNumber: adressValues.number,
+      };
+      console.log(register);
+      const sellerId = 1;
+
+      history.push(`/customer/orders/${sellerId}`);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  console.log(adressValues);
   return (
     <div>
       <h2>Detalhes e Endereço para Entrega</h2>
 
-      <form onSubmit={ handleSubmit }>
+      <form>
         <label htmlFor="seller">
           P. Vendedora Responsável:
           <select
-            name="seller"
             id="seller"
-            data-testid="customer_checkout_select-seller"
+            name="seller"
+            data-testid="customer_checkout__select-seller"
+            value={ adressValues.seller }
             onChange={ handleChange }
           >
-            <option value="">-- Selecione --</option>
-            <option value="fulana">Fulana</option>
-            <option value="cicrana">Cicrana</option>
-            <option value="xablau">Xablau</option>
+            <option value="Fulana Pereira">Fulana Pereira</option>
           </select>
         </label>
 
@@ -42,7 +63,7 @@ function CheckoutAddress() {
             type="text"
             id="address"
             name="address"
-            data-testid="customer_checkout_input-address"
+            data-testid="customer_checkout__input-address"
             placeholder="Travessia Terceira da castanheira, Bairro Muruci"
             value={ adressValues.address }
             onChange={ handleChange }
@@ -55,7 +76,7 @@ function CheckoutAddress() {
             type="number"
             id="number"
             name="number"
-            data-testid="customer_checkout_input-number"
+            data-testid="customer_checkout__input-address-number"
             placeholder="Travessia Terceira da castanheira, Bairro Muruci"
             value={ adressValues.number }
             onChange={ handleChange }
@@ -64,10 +85,11 @@ function CheckoutAddress() {
 
         <button
           type="submit"
-          data-testid="customer_checkout_button-submit-order"
-          disabled={
-            !adressValues.seller || !adressValues.address || !adressValues.number
-          }
+          data-testid="customer_checkout__button-submit-order"
+          // disabled={
+          //   !adressValues.address || !adressValues.number
+          // }
+          onClick={ () => sellRegister() }
         >
           FINALIZAR PEDIDO
         </button>

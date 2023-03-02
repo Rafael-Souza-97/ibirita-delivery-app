@@ -4,9 +4,10 @@ import context from './context';
 
 function Provider({ children }) {
   const [productsArray, setProductsArray] = useState([]);
+  const [cartProducts, setCartProducts] = useState([]);
   const [totalValue, setTotalValue] = useState([]);
   const [adressValues, setAdressValues] = useState({
-    seller: '',
+    seller: 'fulana',
     address: '',
     number: '',
   });
@@ -14,18 +15,22 @@ function Provider({ children }) {
   const contextValue = useMemo(() => {
     const objState = {
       productsArray,
+      cartProducts,
       totalValue,
       adressValues,
       setProductsArray,
+      setCartProducts,
       setTotalValue,
       setAdressValues,
     };
     return objState;
   }, [
     productsArray,
+    cartProducts,
     totalValue,
     adressValues,
     setProductsArray,
+    setCartProducts,
     setTotalValue,
     setAdressValues,
   ]);

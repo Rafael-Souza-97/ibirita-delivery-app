@@ -4,10 +4,80 @@ import NavBar from '../components/NavBar';
 import Context from '../context/context';
 import { requestData } from '../services/requests';
 
+const MOCK = [{
+  id: 1,
+  name: 'Skol Lata 250ml',
+  price: 2.20,
+  url_image: 'http://localhost:3001/images/skol_lata_350ml.jpg',
+},
+{
+  id: 2,
+  name: 'Heineken 600ml',
+  price: 7.50,
+  url_image: 'http://localhost:3001/images/heineken_600ml.jpg',
+},
+{
+  id: 3,
+  name: 'Antarctica Pilsen 300ml',
+  price: 2.49,
+  url_image: 'http://localhost:3001/images/antarctica_pilsen_300ml.jpg',
+},
+{
+  id: 4,
+  name: 'Brahma 600ml',
+  price: 7.50,
+  url_image: 'http://localhost:3001/images/brahma_600ml.jpg',
+},
+{
+  id: 5,
+  name: 'Skol 269ml',
+  price: 2.19,
+  url_image: 'http://localhost:3001/images/skol_269ml.jpg',
+},
+{
+  id: 6,
+  name: 'Skol Beats Senses 313ml',
+  price: 4.49,
+  url_image: 'http://localhost:3001/images/skol_beats_senses_313ml.jpg',
+},
+{
+  id: 7,
+  name: 'Becks 330ml',
+  price: 4.99,
+  url_image: 'http://localhost:3001/images/becks_330ml.jpg',
+},
+{
+  id: 8,
+  name: 'Brahma Duplo Malte 350ml',
+  price: 2.79,
+  url_image: 'http://localhost:3001/images/brahma_duplo_malte_350ml.jpg',
+},
+{
+  id: 9,
+  name: 'Becks 600ml',
+  price: 8.89,
+  url_image: 'http://localhost:3001/images/becks_600ml.jpg',
+},
+{
+  id: 10,
+  name: 'Skol Beats Senses 269ml',
+  price: 3.57,
+  url_image: 'http://localhost:3001/images/skol_beats_senses_269ml.jpg',
+},
+{
+  id: 11,
+  name: 'Stella Artois 275ml',
+  price: 3.49,
+  url_image: 'http://localhost:3001/images/stella_artois_275ml.jpg',
+}];
+
 export default function Products() {
   const { productsArray, setProductsArray } = useContext(Context);
   const { totalValue, setTotalValue } = useContext(Context);
+  const { setCartProducts } = useContext(Context);
+
   const history = useHistory();
+
   const totalPrice = productsArray.map((item) => Number(item.totalValue));
   setTotalValue(totalPrice.reduce((acc, current) => acc + current, 0).toFixed(2));
 
@@ -21,75 +91,8 @@ export default function Products() {
     setProductsArray(copyProducts);
   };
 
-  const MOCK = [{
-    id: 1,
-    name: 'Skol Lata 250ml',
-    price: 2.20,
-    url_image: 'http://localhost:3001/images/skol_lata_350ml.jpg',
-  },
-  {
-    id: 2,
-    name: 'Heineken 600ml',
-    price: 7.50,
-    url_image: 'http://localhost:3001/images/heineken_600ml.jpg',
-  },
-  {
-    id: 3,
-    name: 'Antarctica Pilsen 300ml',
-    price: 2.49,
-    url_image: 'http://localhost:3001/images/antarctica_pilsen_300ml.jpg',
-  },
-  {
-    id: 4,
-    name: 'Brahma 600ml',
-    price: 7.50,
-    url_image: 'http://localhost:3001/images/brahma_600ml.jpg',
-  },
-  {
-    id: 5,
-    name: 'Skol 269ml',
-    price: 2.19,
-    url_image: 'http://localhost:3001/images/skol_269ml.jpg',
-  },
-  {
-    id: 6,
-    name: 'Skol Beats Senses 313ml',
-    price: 4.49,
-    url_image: 'http://localhost:3001/images/skol_beats_senses_313ml.jpg',
-  },
-  {
-    id: 7,
-    name: 'Becks 330ml',
-    price: 4.99,
-    url_image: 'http://localhost:3001/images/becks_330ml.jpg',
-  },
-  {
-    id: 8,
-    name: 'Brahma Duplo Malte 350ml',
-    price: 2.79,
-    url_image: 'http://localhost:3001/images/brahma_duplo_malte_350ml.jpg',
-  },
-  {
-    id: 9,
-    name: 'Becks 600ml',
-    price: 8.89,
-    url_image: 'http://localhost:3001/images/becks_600ml.jpg',
-  },
-  {
-    id: 10,
-    name: 'Skol Beats Senses 269ml',
-    price: 3.57,
-    url_image: 'http://localhost:3001/images/skol_beats_senses_269ml.jpg',
-  },
-  {
-    id: 11,
-    name: 'Stella Artois 275ml',
-    price: 3.49,
-    url_image: 'http://localhost:3001/images/stella_artois_275ml.jpg',
-  }];
-
   useEffect(() => {
-    const endpoint = 'http://localhost:3003/products';
+    const endpoint = 'http://localhost:3001/products';
     const ahh = async () => {
       const test = await requestData(endpoint);
       console.log(test);
@@ -130,6 +133,13 @@ export default function Products() {
     return iqualZero.includes(true);
   };
 
+  useEffect(() => {
+    const updatedCartProducts = productsArray
+      .filter((product) => product.quantity > 0)
+      .sort((a, b) => a.id - b.id);
+    setCartProducts(updatedCartProducts);
+  }, [productsArray, setCartProducts]);
+
   return (
     <div>
       <NavBar />
@@ -139,7 +149,7 @@ export default function Products() {
             <img
               src={ products.image }
               alt={ products.name }
-              data-testid={ `customer_products__img-card-bg-${products.id}` }
+              data-testid={ `customer_products__img-card-bg-image-${products.id}` }
             />
             <h2
               data-testid={ `customer_products__element-card-title-${products.id}` }
@@ -149,7 +159,8 @@ export default function Products() {
             <p
               data-testid={ `customer_products__element-card-price-${products.id}` }
             >
-              {products.price.toFixed(2)}
+              { parseFloat(products.price)
+                .toLocaleString('pt-BR', { minimumFractionDigits: 2 }) }
             </p>
             <div className="btn_shopping-cart">
               <button
@@ -189,13 +200,15 @@ export default function Products() {
           disabled={ !disableButtton() }
           onClick={ () => history.push('/customer/checkout') }
         >
-          Ver Carrinho:
-          <h5
+          Ver Carrinho: R$
+          <p
             data-testid="customer_products__checkout-bottom-value"
           >
-            R$
-            {totalValue}
-          </h5>
+            { `${
+              parseFloat(totalValue)
+                .toLocaleString('pt-BR', { minimumFractionDigits: 2 })
+            }`}
+          </p>
         </button>
       </div>
     </div>
