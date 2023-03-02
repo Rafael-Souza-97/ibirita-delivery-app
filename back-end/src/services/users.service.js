@@ -35,7 +35,16 @@ const userRegister = async (body) => {
   return { data: newUserWithoutPassword, created };
 };
 
+const getUserById = async (id) => {
+  const user = await User.findByPk(id);
+  if (!user) {
+    throw new Error('User not found');
+  }
+  return user;
+};
+
 module.exports = {
   userLogin,
   userRegister,
+  getUserById,
 };
