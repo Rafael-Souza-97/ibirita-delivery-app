@@ -38,7 +38,19 @@ const userRegister = async (req, res) => {
   return res.status(201).json(response);
 };
 
+const getUserById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const user = await usersService.getUserById(id);
+    return res.status(200).json(user);
+  } catch (error) {
+    return res.status(404).json({ message: error.message });
+  }
+};
+
 module.exports = {
   userLogin,
   userRegister,
+  getUserById,
 };

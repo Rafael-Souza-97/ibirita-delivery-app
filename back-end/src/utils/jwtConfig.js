@@ -23,7 +23,13 @@ const checkToken = (authorization) => {
   }
 };
 
+const getUserFromToken = (token) => {
+  const user = jwt.decode(token);
+  return user;
+};
+
 module.exports = {
   generateToken,
   checkToken,
+  getUserFromToken,
 };
