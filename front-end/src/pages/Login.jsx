@@ -11,6 +11,8 @@ export default function LoginPage() {
   if (registration) return <Redirect to="/register" />;
   if (loged) return <Redirect to="/customer/products" />;
 
+  localStorage.clear();
+
   const handleEmail = ({ target: { value } }) => setEmail(value);
 
   const handlePassword = ({ target: { value } }) => setPassword(value);
@@ -24,7 +26,7 @@ export default function LoginPage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const endpoint = 'http://localhost:3003/login';
+      const endpoint = 'http://localhost:3001/login';
       const body = { email, password };
       const data = await requestLogin(endpoint, body);
       localStorage.setItem('user', JSON.stringify(data));
