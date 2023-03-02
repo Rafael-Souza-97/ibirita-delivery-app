@@ -1,8 +1,8 @@
 require('dotenv').config();
-
+const fs = require('fs');
 const jwt = require('jsonwebtoken');
 
-const secretPassword = process.env.JWT_SECRET || 'suaSenhaSecreta';
+const secretPassword = fs.readFileSync('back-end/jwt.evaluation.key', 'utf8');
 
 const jwtConfig = {
   algorithm: 'HS256',
