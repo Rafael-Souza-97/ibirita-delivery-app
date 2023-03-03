@@ -3,14 +3,14 @@ import { useHistory } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import mock from '../MOCKS/OREDERSUSER';
 
-export default function Orders() {
+export default function SellerOrders() {
   const [pedidos, setPedidos] = useState();
   const [loaded, setLoaded] = useState();
   const history = useHistory();
 
   const handleClick = (e) => {
     const numberId = Number(e.target.id);
-    history.push(`/customer/orders/${numberId}`);
+    history.push(`/seller/orders/${numberId}`);
   };
 
   useEffect(() => {
@@ -32,19 +32,19 @@ export default function Orders() {
               onClick={ (e) => handleClick(e) }
             >
               <h2
-                data-testid={ `customer_orders__element-delivery-status-${orders.id}` }
+                data-testid={ `seller_orders__element-delivery-status-${orders.id}` }
                 id={ orders.id }
               >
                 { orders.status }
               </h2>
               <h2
-                data-testid={ `customer_orders__element-order-date-${orders.id}` }
+                data-testid={ `seller_orders__element-order-date-${orders.id}` }
                 id={ orders.id }
               >
                 { orders.saleDate.substring(0, 10) }
               </h2>
               <h2
-                data-testid={ `customer_orders__element-order-id-${orders.id}` }
+                data-testid={ `seller_orders__element-order-id-${orders.id}` }
                 id={ orders.id }
               >
                 { orders.id }
@@ -54,6 +54,12 @@ export default function Orders() {
                 id={ orders.id }
               >
                 {orders.totalPrice}
+              </p>
+              <p
+                data-testid={ `customer_orders__element-card-price-${orders.id}` }
+                id={ orders.id }
+              >
+                {`${orders.deliveryAddress}, ${orders.deliveryNumber}`}
               </p>
             </button>
           ))

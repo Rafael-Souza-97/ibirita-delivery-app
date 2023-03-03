@@ -10,6 +10,8 @@ import './App.css';
 import APIRequest from './components/APIRequire';
 import Orders from './pages/Orders';
 import DetailsOrders from './pages/DetailsOrders';
+import SellerOrders from './pages/SellerOrders';
+import SellerOrdersDetails from './pages/SellerOrdersDetails';
 
 function App() {
   return (
@@ -27,6 +29,8 @@ function App() {
           <Route exact path="/customer/success" component={ SuccessPage } />
           <Route exact path="/customer/orders" component={ Orders } />
           <Route exact path="/customer/orders/:id" component={ DetailsOrders } />
+          <Route exact path="/seller/orders" component={ SellerOrders } />
+          <Route exact path="/seller/orders/:id" component={ SellerOrdersDetails } />
         </Provider>
       </Switch>
     </BrowserRouter>

@@ -28,50 +28,51 @@ export default function DetailsOrders() {
             ? item.name : undefined));
           return (
             <div key={ order.id }>
-              <h2
-                data-testid={ `customer_order_details__
-                element-order-details-label-order-${order.id}` }
-                id={ order.id }
-              >
-                ID da compra:
-                <br />
-                {order.id}
-              </h2>
-              <h2
-                data-testid={ `customer_order_details__
-                element-order-details-label-seller-name` }
-                id={ order.id }
-              >
-                Vendedor:
-                <br />
-                {seller}
-              </h2>
-
-              <h2
-                data-testid={ `customer_orders__element-order-date-${order.id}` }
-                id={ order.id }
-              >
-                Data da compra:
-                <br />
-                {order.saleDate}
-              </h2>
-              <h2
-                data-testid={ `customer_order_details__
-                element-order-details-label-delivery-status${order.id}` }
-                id={ order.id }
-              >
-                Status da compra:
-                <br />
-                {order.status}
-              </h2>
-              <button
-                type="button"
-                data-testid="customer_order_details__button-delivery-check"
-                onClick={ () => console.log('clicou em mim') }
-              >
-                Marcar como entregue
-              </button>
-              <table>
+              <div className="Topo da tabela">
+                <h2
+                  data-testid={ `customer_order_details__
+                  element-order-details-label-order-${order.id}` }
+                  id={ order.id }
+                >
+                  ID da compra:
+                  <br />
+                  {order.id}
+                </h2>
+                <h2
+                  data-testid={ `customer_order_details__
+                  element-order-details-label-seller-name` }
+                  id={ order.id }
+                >
+                  Vendedor:
+                  <br />
+                  {seller}
+                </h2>
+                <h2
+                  data-testid={ `customer_orders__element-order-date-${order.id}` }
+                  id={ order.id }
+                >
+                  Data da compra:
+                  <br />
+                  {order.saleDate.substring(0, 10)}
+                </h2>
+                <h2
+                  data-testid={ `customer_order_details__
+                  element-order-details-label-delivery-status${order.id}` }
+                  id={ order.id }
+                >
+                  Status da compra:
+                  <br />
+                  {order.status}
+                </h2>
+                <button
+                  type="button"
+                  data-testid="customer_order_details__button-delivery-check"
+                  onClick={ () => console.log('clicou em mim') }
+                >
+                  Marcar como entregue
+                </button>
+              </div>
+              <table className="Tabela de produtos">
                 <thead>
                   <tr>
                     <th>Item</th>
@@ -135,17 +136,16 @@ export default function DetailsOrders() {
                   })}
                 </tbody>
               </table>
-              <h1>
-                { }
-              </h1>
-              <p
-                data-testid="customer_order_details__element-order-total-price"
-                id={ order.id }
-              >
-                Valor Total:
-                <br />
-                {order.totalPrice}
-              </p>
+              <div className="Valor Total">
+                <p
+                  data-testid="customer_order_details__element-order-total-price"
+                  id={ order.id }
+                >
+                  Valor Total:
+                  <br />
+                  {order.totalPrice}
+                </p>
+              </div>
             </div>
           );
         })
