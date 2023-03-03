@@ -25,10 +25,9 @@ export default function NavBar() {
               Produtos
             </button>
           </li>
-          <li
-            data-testid="customer_products__element-navbar-link-orders"
-          >
+          <li>
             <button
+              data-testid="customer_products__element-navbar-link-orders"
               type="button"
               onClick={ () => history.push('/customer/orders') }
             >

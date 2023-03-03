@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import Context from '../context/context';
+import { requestCheckout } from '../services/requests';
 
 function CheckoutAddress() {
-  const { adressValues, setAdressValues } = useContext(Context);
-  const { cartProducts } = useContext(Context);
+  const {
+    adressValues, setAdressValues, cartProducts, checkoutTotal,
+  } = useContext(Context);
 
   const history = useHistory();
 
@@ -17,28 +19,41 @@ function CheckoutAddress() {
 
   async function sellRegister() {
     try {
+      // if (cartProducts.length === 0) {
+      //   alert('Não há produtos no carrinho.');
+      //   return;
+      // }
+      console.log('entrou no if');
       const user = localStorage.getItem('user');
-      const { id } = JSON.parse(user);
-      const products = cartProducts.map((product) => (
-        { productId: product.id, quantity: product.quantity }));
+      if (!user) {
+        history.push('/login');
+        return;
+      }
+      const { id: userId } = JSON.parse(user);
 
-      const register = {
-        userId: id,
+      const products = cartProducts.map((item) => (
+        { productId: item.id, quantity: item.quantity }));
+
+      const saleData = {
+        userId,
         sellerId: 2,
         products,
+        totalPrice: parseFloat(checkoutTotal.replace(',', '.')),
         deliveryAddress: adressValues.address,
-        deliveryNumber: adressValues.number,
+        deliveryNumber: Number(adressValues.number),
       };
-      console.log(register);
-      const sellerId = 1;
+      console.log(saleData);
+      const request = await requestCheckout(saleData);
+      console.log(request);
 
-      history.push(`/customer/orders/${sellerId}`);
+      const { id } = request;
+
+      history.push(`/customer/orders/${id}`);
     } catch (err) {
       console.log(err);
     }
   }
 
-  console.log(adressValues);
   return (
     <div>
       <h2>Detalhes e Endereço para Entrega</h2>
@@ -77,18 +92,15 @@ function CheckoutAddress() {
             id="number"
             name="number"
             data-testid="customer_checkout__input-address-number"
-            placeholder="Travessia Terceira da castanheira, Bairro Muruci"
+            placeholder="Número"
             value={ adressValues.number }
             onChange={ handleChange }
           />
         </label>
 
         <button
-          type="submit"
+          type="button"
           data-testid="customer_checkout__button-submit-order"
-          // disabled={
-          //   !adressValues.address || !adressValues.number
-          // }
           onClick={ () => sellRegister() }
         >
           FINALIZAR PEDIDO

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import mock from '../MOCKS/OREDERSUSER';
+import { NUMBER_TEN } from '../utils/NumberConsts';
 
 export default function Orders() {
   const [pedidos, setPedidos] = useState();
@@ -41,7 +42,7 @@ export default function Orders() {
                 data-testid={ `customer_orders__element-order-date-${orders.id}` }
                 id={ orders.id }
               >
-                { orders.saleDate.substring(0, 10) }
+                { orders.saleDate.substring(0, NUMBER_TEN) }
               </h2>
               <h2
                 data-testid={ `customer_orders__element-order-id-${orders.id}` }

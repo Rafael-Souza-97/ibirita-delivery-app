@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import Context from '../context/context';
 import mock from '../MOCKS/OREDERSUSER';
+import { NUMBER_TEN } from '../utils/NumberConsts';
 
 export default function SellerOrdersDetails() {
   const [orders, setOrder] = useState([{}]);
@@ -39,7 +40,7 @@ export default function SellerOrdersDetails() {
               >
                 Data da compra:
                 <br />
-                {order.saleDate.substring(0, 10)}
+                {order.saleDate.substring(0, NUMBER_TEN)}
               </h2>
               <h2
                 data-testid={ `customer_order_details__

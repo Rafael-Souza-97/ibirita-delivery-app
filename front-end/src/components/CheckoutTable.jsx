@@ -1,7 +1,24 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import Context from '../context/context';
 
 function CheckoutTable({ products, onRemove }) {
+  const { setCheckoutTotal } = useContext(Context);
+
+  const getTotalPrice = () => {
+    const totalPrice = products.reduce(
+      (total, product) => total + product.price * product.quantity,
+      0,
+    );
+
+    const formattedPrice = (parseFloat(totalPrice))
+      .toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+
+    setCheckoutTotal(formattedPrice);
+
+    return formattedPrice;
+  };
+
   return (
     <div data-testid="customer_element-order-table">
       <table>
@@ -25,11 +42,17 @@ function CheckoutTable({ products, onRemove }) {
               >
                 { index + 1 }
               </td>
-              <td data-testid={ `customer_checkout__element-order-table-name-${index}` }>
+              <td
+                data-testid={
+                  `customer_checkout__element-order-table-name-${index}`
+                }
+              >
                 { product.name }
               </td>
               <td
-                data-testid={ `customer_checkout__element-order-table-quantity-${index}` }
+                data-testid={
+                  `customer_checkout__element-order-table-quantity-${index}`
+                }
               >
                 { product.quantity }
               </td>
@@ -69,6 +92,15 @@ function CheckoutTable({ products, onRemove }) {
           ))}
         </tbody>
       </table>
+
+      <div>
+        <h4>Total:</h4>
+        <h3 data-testid="customer_checkout__element-order-total-price">
+          {`${
+            getTotalPrice()
+          }`}
+        </h3>
+      </div>
     </div>
   );
 }
@@ -78,7 +110,7 @@ CheckoutTable.propTypes = {
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
+      price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
       quantity: PropTypes.number.isRequired,
     }),
   ).isRequired,

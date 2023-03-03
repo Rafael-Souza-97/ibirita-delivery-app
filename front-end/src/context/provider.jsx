@@ -6,8 +6,9 @@ function Provider({ children }) {
   const [productsArray, setProductsArray] = useState([]);
   const [insertProp, setIsertProp] = useState(false);
   const [isLoged, setIsLoged] = useState(false);
-  const [totalValue, setTotalValue] = useState([]);
   const [cartProducts, setCartProducts] = useState([]);
+  const [totalValue, setTotalValue] = useState(0);
+  const [checkoutTotal, setCheckoutTotal] = useState(0);
   const [adressValues, setAdressValues] = useState({
     seller: 'fulana',
     address: '',
@@ -20,10 +21,12 @@ function Provider({ children }) {
       productsArray,
       cartProducts,
       totalValue,
+      checkoutTotal,
       adressValues,
       setProductsArray,
       setCartProducts,
       setTotalValue,
+      setCheckoutTotal,
       setAdressValues,
       insertProp,
       setIsertProp,
@@ -37,10 +40,12 @@ function Provider({ children }) {
     productsArray,
     cartProducts,
     totalValue,
+    checkoutTotal,
     adressValues,
     setProductsArray,
     setCartProducts,
     setTotalValue,
+    setCheckoutTotal,
     setAdressValues,
     insertProp,
     setIsertProp,
