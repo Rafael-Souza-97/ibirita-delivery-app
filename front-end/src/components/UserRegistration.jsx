@@ -61,13 +61,11 @@ function UserRegistration() {
       return;
     }
 
-    const { email, name } = newUserData;
-    const { token } = registerToken;
+    console.log(registerToken);
 
     console.log('Cadastro realizado com sucesso!');
 
-    localStorage.setItem('user', JSON.stringify({ email, name }));
-    localStorage.setItem('token', JSON.stringify({ token }));
+    localStorage.setItem('user', JSON.stringify(registerToken));
 
     history.push('/customer/products');
 

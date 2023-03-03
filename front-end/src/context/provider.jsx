@@ -4,7 +4,7 @@ import context from './context';
 
 function Provider({ children }) {
   const [productsArray, setProductsArray] = useState([]);
-  const [productsAPI, setProductsAPI] = useState([]);
+  const [insertProp, setIsertProp] = useState(false);
   const [totalValue, setTotalValue] = useState([]);
   const [cartProducts, setCartProducts] = useState([]);
   const [adressValues, setAdressValues] = useState({
@@ -12,6 +12,7 @@ function Provider({ children }) {
     address: '',
     number: '',
   });
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const contextValue = useMemo(() => {
     const objState = {
@@ -23,8 +24,10 @@ function Provider({ children }) {
       setCartProducts,
       setTotalValue,
       setAdressValues,
-      productsAPI,
-      setProductsAPI,
+      insertProp,
+      setIsertProp,
+      isLoaded,
+      setIsLoaded,
     };
     return objState;
   }, [
@@ -36,8 +39,10 @@ function Provider({ children }) {
     setCartProducts,
     setTotalValue,
     setAdressValues,
-    productsAPI,
-    setProductsAPI,
+    insertProp,
+    setIsertProp,
+    isLoaded,
+    setIsLoaded,
   ]);
   return (
     <context.Provider value={ contextValue }>
