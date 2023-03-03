@@ -12,7 +12,7 @@ const userLogin = async (req, res) => {
 
     const { password: _, ...userWithoutPassword } = user.dataValues;
 
-    const token = generateToken(user);
+    const token = generateToken(userWithoutPassword);
     return res.status(200).json({
       ...userWithoutPassword,
       token,
