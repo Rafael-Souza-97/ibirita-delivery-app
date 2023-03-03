@@ -74,7 +74,7 @@ export default function LoginPage() {
         </button>
         <button
           data-testid="common_login__button-register"
-          type="submit"
+          type="button"
           onClick={ () => setRegistration(true) }
         >
           Ainda não tenho conta

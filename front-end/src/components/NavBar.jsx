@@ -7,7 +7,7 @@ export default function NavBar() {
   const history = useHistory();
   const logout = () => {
     localStorage.removeItem('user');
-    history.push('/');
+    history.push('/login');
   };
 
   return (
@@ -33,10 +33,9 @@ export default function NavBar() {
           >
             {data.name}
           </li>
-          <li
-            data-testid="customer_products__element-navbar-link-logout"
-          >
+          <li>
             <button
+              data-testid="customer_products__element-navbar-link-logout"
               type="button"
               onClick={ logout }
             >
