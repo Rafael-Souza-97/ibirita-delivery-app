@@ -6,7 +6,7 @@ export default function NavBar() {
   const data = JSON.parse(userJson);
   const history = useHistory();
   const logout = () => {
-    localStorage.removeItem('user');
+    localStorage.clear();
     history.push('/login');
   };
 
