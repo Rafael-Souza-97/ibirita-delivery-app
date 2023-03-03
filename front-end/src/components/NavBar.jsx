@@ -5,6 +5,7 @@ export default function NavBar() {
   const userJson = localStorage.getItem('user');
   const data = JSON.parse(userJson);
   const history = useHistory();
+
   const logout = () => {
     localStorage.clear();
     history.push('/login');
@@ -17,16 +18,21 @@ export default function NavBar() {
           <li
             data-testid="customer_products__element-navbar-link-products"
           >
-            <a href="/customer/products">
+            <button
+              type="button"
+              onClick={ () => history.push('/customer/products') }
+            >
               Produtos
-            </a>
+            </button>
           </li>
-          <li
-            data-testid="customer_products__element-navbar-link-orders"
-          >
-            <a href="/">
+          <li>
+            <button
+              data-testid="customer_products__element-navbar-link-orders"
+              type="button"
+              onClick={ () => history.push('/customer/orders') }
+            >
               Meus Pedidos
-            </a>
+            </button>
           </li>
           <li
             data-testid="customer_products__element-navbar-user-full-name"
