@@ -37,4 +37,24 @@ export const requestRegister = async (endpoint, body) => {
   }
 };
 
+export const requestCheckout = async (body) => {
+  try {
+    const { data } = await api.post('http://localhost:3001/sales', body);
+    console.log(data);
+
+    return data;
+  } catch (error) {
+    if (error.response) {
+      console.log(
+        'Status:',
+        error.response.status,
+        ' Message:',
+        error.response.data.message,
+      );
+      return error.response.data.message;
+    }
+    console.log('Error', error.response.data.message);
+  }
+};
+
 export default api;

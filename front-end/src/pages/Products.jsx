@@ -44,7 +44,6 @@ export default function Products() {
     const element = copyProducts.find((item) => +item.id === +numberId);
     element.quantity += 1;
     element.totalValue = (element.quantity * +element.price).toFixed(2);
-    console.log(copyProducts);
     setProductsArray(copyProducts);
   };
 

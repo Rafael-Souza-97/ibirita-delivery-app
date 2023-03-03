@@ -3,8 +3,6 @@ const jwt = require('jsonwebtoken');
 
 const secretPassword = fs.readFileSync('./jwt.evaluation.key');
 
-console.log(secretPassword);
-
 const jwtConfig = {
   algorithm: 'HS256',
   expiresIn: '7d',
