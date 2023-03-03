@@ -5,6 +5,7 @@ import context from './context';
 function Provider({ children }) {
   const [productsArray, setProductsArray] = useState([]);
   const [insertProp, setIsertProp] = useState(false);
+  const [isLoged, setIsLoged] = useState(false);
   const [totalValue, setTotalValue] = useState([]);
   const [cartProducts, setCartProducts] = useState([]);
   const [adressValues, setAdressValues] = useState({
@@ -28,6 +29,8 @@ function Provider({ children }) {
       setIsertProp,
       isLoaded,
       setIsLoaded,
+      isLoged,
+      setIsLoged,
     };
     return objState;
   }, [
@@ -43,6 +46,8 @@ function Provider({ children }) {
     setIsertProp,
     isLoaded,
     setIsLoaded,
+    isLoged,
+    setIsLoged,
   ]);
   return (
     <context.Provider value={ contextValue }>

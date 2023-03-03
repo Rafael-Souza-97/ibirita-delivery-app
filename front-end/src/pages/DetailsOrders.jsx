@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import Context from '../context/context';
 import mock from '../MOCKS/OREDERSUSER';
@@ -9,107 +9,15 @@ export default function DetailsOrders() {
   const [orders, setOrder] = useState([{}]);
   const [loaded, setLoaded] = useState(false);
   const { productsArray } = useContext(Context);
-  const history = useHistory();
+  const params = useParams();
 
   useEffect(() => {
-    const minusOne = -1;
-    const sellId = Number(history.location.pathname.slice(minusOne));
     const orderNumber = mock.find((item) => item.id
-    === sellId);
+    === Number(params.id));
     setLoaded(true);
     setOrder([orderNumber]);
   }, []);
 
-  // return (
-  //   <div>
-  //     <NavBar />
-  //     {loaded
-  //       ? orders.map((order) => (
-  //         (
-  //           <div key={ order.id }>
-  //             <h2
-  //               data-testid={ `customer_orders__element-delivery-status-${order.id}` }
-  //               id={ order.id }
-  //             >
-  //               { sellerName }
-  //             </h2>
-  //             <h2
-  //               data-testid={ `customer_orders__element-delivery-status-${order.id}` }
-  //               id={ order.id }
-  //             >
-  //               { order.status }
-  //             </h2>
-  //             <h2
-  //               data-testid={ `customer_orders__element-order-date-${order.id}` }
-  //               id={ order.id }
-  //             >
-  //               { order.saleDate }
-  //             </h2>
-  //             <h2
-  //               data-testid={ `customer_orders__element-order-id-${order.id}` }
-  //               id={ order.id }
-  //             >
-  //               { order.id }
-  //             </h2>
-  //             <p
-  //               data-testid={ `customer_orders__element-card-price-${order.id}` }
-  //               id={ order.id }
-  //             >
-  //               {order.totalPrice}
-  //             </p>
-  //             <table>
-  //               <thead>
-  //                 <tr>
-  //                   <th>Item</th>
-  //                   <th>Descrição</th>
-  //                   <th>Quantidade</th>
-  //                   <th>Valor Unitário</th>
-  //                   <th>Sub-Total</th>
-  //                 </tr>
-  //               </thead>
-  //               <tbody>
-  //                 { order.products.map((products, index) => (
-  //                   <tr key={ index + 1 }>
-  //                     <td
-  //                       data-testid={
-  //                         `customer_checkout__element-order-table-item-number-${index}`
-  //                       }
-  //                     >
-  //                       { index + 1 }
-  //                     </td>
-  //                     <td>
-  //                       { productsArray.map((item) => (item.id === products.productId
-  //                         ? item.name : undefined))}
-  //                     </td>
-  //                     <td>
-  //                       { products.quantity }
-  //                     </td>
-  //                     <td
-  //                       data-testid={
-  //                         `customer_checkout__element-order-table-unit-price-${index}`
-  //                       }
-  //                     >
-  //                       { productsArray.map((item) => (item.id === products.productId
-  //                         ? item.price : undefined))}
-  //                     </td>
-  //                     <td
-  //                       data-testid={
-  //                         `customer_checkout__element-order-table-sub-total-${index}`
-  //                       }
-  //                     >
-  //                       { productsArray.map((item) => (item.id === products.productId
-  //                         ? item.price * products.quantity
-  //                         : undefined))}
-  //                     </td>
-  //                   </tr>
-  //                 ))}
-  //               </tbody>
-  //             </table>
-  //           </div>
-  //         )
-  //       )) : <div>Loading</div>}
-  //   </div>
-  // );
   return (
     <div>
       <NavBar />
@@ -121,39 +29,45 @@ export default function DetailsOrders() {
           return (
             <div key={ order.id }>
               <h2
-                data-testid={ `customer_orders__element-delivery-status-${order.id}` }
+                data-testid={ `customer_order_details__
+                element-order-details-label-order-${order.id}` }
                 id={ order.id }
               >
-                {seller}
+                ID da compra:
+                <br />
+                {order.id}
               </h2>
               <h2
-                data-testid={ `customer_orders__element-delivery-status-${order.id}` }
+                data-testid={ `customer_order_details__
+                element-order-details-label-seller-name` }
                 id={ order.id }
               >
-                {order.status}
+                Vendedor:
+                <br />
+                {seller}
               </h2>
+
               <h2
                 data-testid={ `customer_orders__element-order-date-${order.id}` }
                 id={ order.id }
               >
+                Data da compra:
+                <br />
                 {order.saleDate}
               </h2>
               <h2
-                data-testid={ `customer_orders__element-order-id-${order.id}` }
+                data-testid={ `customer_order_details__
+                element-order-details-label-delivery-status${order.id}` }
                 id={ order.id }
               >
-                {order.id}
+                Status da compra:
+                <br />
+                {order.status}
               </h2>
-              <p
-                data-testid={ `customer_orders__element-card-price-${order.id}` }
-                id={ order.id }
-              >
-                {order.totalPrice}
-              </p>
               <button
                 type="button"
-                data-testid={ `customer_order_details__
-                element-order-details-label-seller-name` }
+                data-testid="customer_order_details__button-delivery-check"
+                onClick={ () => console.log('clicou em mim') }
               >
                 Marcar como entregue
               </button>
@@ -173,28 +87,45 @@ export default function DetailsOrders() {
                     === product.productId);
                     const itemName = item ? item.name : undefined;
                     const itemPrice = item ? item.price : undefined;
-                    const subTotal = item ? item.price * product.quantity : undefined;
+                    const subTotal = item ? (item.price * product.quantity)
+                      .toFixed(2) : undefined;
                     return (
                       <tr key={ index + 1 }>
                         <td
                           data-testid={
-                            `customer_checkout__element-order-table-item-number-${index}`
+                            `customer_order_details__element-order-table-item-number
+                            -${index}`
                           }
                         >
                           {index + 1}
                         </td>
-                        <td>{itemName}</td>
-                        <td>{product.quantity}</td>
                         <td
                           data-testid={
-                            `customer_checkout__element-order-table-unit-price-${index}`
+                            `customer_order_details__element-order-table-name-${index}`
+                          }
+                        >
+                          {itemName}
+                        </td>
+                        <td
+                          data-testid={
+                            `customer_order_details__
+                            element-order-table-quantity-${index}`
+                          }
+                        >
+                          {product.quantity}
+                        </td>
+                        <td
+                          data-testid={
+                            `ustomer_order_details__element-order-table-
+                            unit-price-${index}`
                           }
                         >
                           {itemPrice}
                         </td>
                         <td
                           data-testid={
-                            `customer_checkout__element-order-table-sub-total-${index}`
+                            `customer_order_details__element-order-table-sub-total
+                            -${index}`
                           }
                         >
                           {subTotal}
@@ -204,6 +135,17 @@ export default function DetailsOrders() {
                   })}
                 </tbody>
               </table>
+              <h1>
+                { }
+              </h1>
+              <p
+                data-testid="customer_order_details__element-order-total-price"
+                id={ order.id }
+              >
+                Valor Total:
+                <br />
+                {order.totalPrice}
+              </p>
             </div>
           );
         })

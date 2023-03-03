@@ -70,7 +70,7 @@ export default function Products() {
         {isLoaded ? productsArray.map((products) => (
           <div key={ products.id } className="product-card">
             <img
-              src={ products.image }
+              src={ products.urlImage }
               alt={ products.name }
               data-testid={ `customer_products__img-card-bg-${products.id}` }
             />

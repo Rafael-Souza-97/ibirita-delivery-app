@@ -19,6 +19,7 @@ function App() {
           <Route exact path="/">
             <Redirect to="/login" />
           </Route>
+          <APIRequest />
           <Route exact path="/login" component={ Login } />
           <Route exact path="/register" component={ Register } />
           <Route exact path="/customer/products" component={ Products } />
@@ -26,7 +27,6 @@ function App() {
           <Route exact path="/customer/success" component={ SuccessPage } />
           <Route exact path="/customer/orders" component={ Orders } />
           <Route exact path="/customer/orders/:id" component={ DetailsOrders } />
-          <APIRequest />
         </Provider>
       </Switch>
     </BrowserRouter>

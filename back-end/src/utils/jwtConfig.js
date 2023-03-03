@@ -1,8 +1,7 @@
-require('dotenv').config();
-
+const fs = require('fs');
 const jwt = require('jsonwebtoken');
 
-const secretPassword = process.env.JWT_SECRET || 'suaSenhaSecreta';
+const secretPassword = fs.readFileSync('./jwt.evaluation.key', { encoding: 'utf-8' }).trim();
 
 const jwtConfig = {
   algorithm: 'HS256',
@@ -23,7 +22,13 @@ const checkToken = (authorization) => {
   }
 };
 
+const getUserFromToken = (token) => {
+  const user = jwt.decode(token);
+  return user;
+};
+
 module.exports = {
   generateToken,
   checkToken,
+  getUserFromToken,
 };

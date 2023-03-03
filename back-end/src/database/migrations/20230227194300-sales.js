@@ -9,32 +9,46 @@ module.exports = {
         autoIncrement: true,
         allowNull: false,
       },
-      user_id: {
+      userId: {
         type: Sequelize.INTEGER,
+        field: 'user_id',
         allowNull: false,
+        references: {
+          model: 'users',
+          key: 'id',
+        },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-      seller_id: {
+      sellerId: {
         type: Sequelize.INTEGER,
+        field: 'seller_id',
         allowNull: false,
+        references: {
+          model: 'users',
+          key: 'id',
+        },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-      total_price: {
+      totalPrice: {
         type: Sequelize.DECIMAL(9, 2),
+        field: 'total_price',
         allowNull: false,
       },
-      delivery_address: {
+      deliveryAddress: {
         type: Sequelize.STRING(100),
+        field: 'delivery_address',
         allowNull: false,
       },
-      delivery_number: {
+      deliveryNumber: {
         type: Sequelize.STRING(50),
+        field: 'delivery_number',
         allowNull: false,
       },
-      sale_date: {
+      saleDate: {
         type: Sequelize.DATE,
+        field: 'sale_date',
         allowNull: false,
       },
       status: {

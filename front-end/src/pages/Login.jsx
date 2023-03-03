@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 import { requestLogin } from '../services/requests';
+import Context from '../context/context';
 
 export default function LoginPage() {
+  const { setIsLoged } = useContext(Context);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [registration, setRegistration] = useState(false);
@@ -10,8 +13,6 @@ export default function LoginPage() {
   const [invisibleElement, setInvisibleElement] = useState(false);
   if (registration) return <Redirect to="/register" />;
   if (loged) return <Redirect to="/customer/products" />;
-
-  localStorage.clear();
 
   const handleEmail = ({ target: { value } }) => setEmail(value);
 
@@ -30,6 +31,7 @@ export default function LoginPage() {
       const body = { email, password };
       const data = await requestLogin(endpoint, body);
       localStorage.setItem('user', JSON.stringify(data));
+      setIsLoged(true);
       console.log('Login realizado com sucesso!');
       setLoged(true);
     } catch (error) {
