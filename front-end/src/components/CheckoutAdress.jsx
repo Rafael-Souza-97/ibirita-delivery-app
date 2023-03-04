@@ -19,11 +19,10 @@ function CheckoutAddress() {
 
   async function sellRegister() {
     try {
-      // if (cartProducts.length === 0) {
-      //   alert('Não há produtos no carrinho.');
-      //   return;
-      // }
-      console.log('entrou no if');
+      if (cartProducts.length === 0) {
+        alert('Não há produtos no carrinho.');
+        return;
+      }
       const user = localStorage.getItem('user');
       if (!user) {
         history.push('/login');
@@ -102,6 +101,7 @@ function CheckoutAddress() {
           type="button"
           data-testid="customer_checkout__button-submit-order"
           onClick={ () => sellRegister() }
+          disabled={ !adressValues.address || !adressValues.number }
         >
           FINALIZAR PEDIDO
         </button>

@@ -34,7 +34,6 @@ export default function Products() {
         item.totalValue = 0;
       });
       setProductsArray(products);
-      console.log(products);
     };
     fetchProducts();
   }, []);
