@@ -6,7 +6,7 @@ import '../styles/CheckoutAddress.css';
 
 function CheckoutAddress() {
   const {
-    adressValues, setAdressValues, cartProducts, checkoutTotal, setCheckoutResponse,
+    adressValues, setAdressValues, cartProducts, checkoutTotal, setOrderResponse,
   } = useContext(Context);
 
   const history = useHistory();
@@ -42,14 +42,14 @@ function CheckoutAddress() {
         deliveryAddress: adressValues.address,
         deliveryNumber: Number(adressValues.number),
       };
-      console.log(saleData);
       const request = await requestCheckout(saleData);
 
-      setCheckoutResponse(saleData);
-      console.log(request);
+      setOrderResponse(request);
 
-      const { id } = request;
+      const lastOrder = request[request.length - 1];
+      console.log('ULTIMA ORDEM --> ', lastOrder);
 
+      const { id } = lastOrder;
       history.push(`/customer/orders/${id}`);
     } catch (err) {
       console.log(err);

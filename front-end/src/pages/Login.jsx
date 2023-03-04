@@ -1,17 +1,21 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Redirect } from 'react-router-dom';
+import Context from '../context/context';
 import { requestLogin } from '../services/requests';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [registration, setRegistration] = useState(false);
-  const [loged, setLoged] = useState(false);
   const [invisibleElement, setInvisibleElement] = useState(false);
-  if (registration) return <Redirect to="/register" />;
-  if (loged) return <Redirect to="/customer/products" />;
+  const { isLoged, setIsLoged } = useContext(Context);
 
-  localStorage.clear();
+  const userJson = localStorage.getItem('user');
+  const userData = JSON.parse(userJson);
+
+  if (userData) setIsLoged(true);
+  if (isLoged) return <Redirect to="/customer/products" />;
+  if (registration) return <Redirect to="/register" />;
 
   const handleEmail = ({ target: { value } }) => setEmail(value);
 
@@ -31,7 +35,7 @@ export default function LoginPage() {
       const data = await requestLogin(endpoint, body);
       localStorage.setItem('user', JSON.stringify(data));
       console.log('Login realizado com sucesso!');
-      setLoged(true);
+      setIsLoged(true);
     } catch (error) {
       setInvisibleElement(true);
     }

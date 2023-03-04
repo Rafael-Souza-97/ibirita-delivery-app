@@ -6,8 +6,6 @@ import '../styles/CheckoutTable.css';
 function CheckoutTable({ products, onRemove }) {
   const { setCheckoutTotal, cartProducts, setCartProducts } = useContext(Context);
 
-  console.log(cartProducts);
-
   const getTotalPrice = () => {
     const totalPrice = products.reduce(
       (total, product) => total + product.price * product.quantity,

@@ -9,7 +9,7 @@ const mock = [
     deliveryAddress: endereço,
     deliveryNumber: '1350',
     saleDate: '2023-03-02T20:11:13.000Z',
-    status: 'pending',
+    status: 'Pendente',
     products: [
       { productId: 1, quantity: 4 },
       { productId: 2, quantity: 3 },
@@ -25,7 +25,7 @@ const mock = [
     deliveryAddress: endereço,
     deliveryNumber: '1350',
     saleDate: '2023-03-02T20:13:00.000Z',
-    status: 'pending',
+    status: 'Pendente',
     products: [
       { productId: 1, quantity: 4 },
       { productId: 2, quantity: 3 },
@@ -41,7 +41,7 @@ const mock = [
     deliveryAddress: endereço,
     deliveryNumber: '1350',
     saleDate: '2023-03-02T20:13:13.000Z',
-    status: 'pending',
+    status: 'Pendente',
     products: [
       { productId: 1, quantity: 4 },
       { productId: 2, quantity: 3 },
@@ -57,7 +57,7 @@ const mock = [
     deliveryAddress: endereço,
     deliveryNumber: '1350',
     saleDate: '2023-03-02T20:13:51.000Z',
-    status: 'pending',
+    status: 'Pendente',
     products: [
       { productId: 1, quantity: 4 },
       { productId: 2, quantity: 3 },
@@ -73,7 +73,7 @@ const mock = [
     deliveryAddress: endereço,
     deliveryNumber: '1350',
     saleDate: '2023-03-02T21:32:46.000Z',
-    status: 'pending',
+    status: 'Pendente',
     products: [
       { productId: 1, quantity: 4 },
       { productId: 2, quantity: 3 },
