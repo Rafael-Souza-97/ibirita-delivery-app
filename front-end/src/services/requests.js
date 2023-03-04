@@ -40,7 +40,6 @@ export const requestRegister = async (endpoint, body) => {
 export const requestCheckout = async (body) => {
   try {
     const { data } = await api.post('http://localhost:3001/sales', body);
-    console.log(data);
 
     return data;
   } catch (error) {

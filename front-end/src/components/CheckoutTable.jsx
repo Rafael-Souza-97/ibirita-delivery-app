@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import Context from '../context/context';
 
 function CheckoutTable({ products, onRemove }) {
-  const { setCheckoutTotal } = useContext(Context);
+  const { setCheckoutTotal, cartProducts, setCartProducts } = useContext(Context);
+
+  console.log(cartProducts);
 
   const getTotalPrice = () => {
     const totalPrice = products.reduce(
@@ -17,6 +19,12 @@ function CheckoutTable({ products, onRemove }) {
     setCheckoutTotal(formattedPrice);
 
     return formattedPrice;
+  };
+
+  const handleRemoveProduct = (productId) => {
+    const newCartProducts = cartProducts.filter((product) => product.id !== productId);
+    setCartProducts(newCartProducts);
+    onRemove(productId);
   };
 
   return (
@@ -83,7 +91,7 @@ function CheckoutTable({ products, onRemove }) {
               >
                 <button
                   type="button"
-                  onClick={ () => onRemove(product.id) }
+                  onClick={ () => handleRemoveProduct(product.id) }
                 >
                   Remover
                 </button>
