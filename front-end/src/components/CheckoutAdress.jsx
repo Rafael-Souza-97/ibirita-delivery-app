@@ -5,7 +5,7 @@ import { requestCheckout } from '../services/requests';
 
 function CheckoutAddress() {
   const {
-    adressValues, setAdressValues, cartProducts, checkoutTotal,
+    adressValues, setAdressValues, cartProducts, checkoutTotal, setCheckoutResponse,
   } = useContext(Context);
 
   const history = useHistory();
@@ -43,6 +43,8 @@ function CheckoutAddress() {
       };
       console.log(saleData);
       const request = await requestCheckout(saleData);
+
+      setCheckoutResponse(saleData);
       console.log(request);
 
       const { id } = request;

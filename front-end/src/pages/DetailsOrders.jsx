@@ -9,8 +9,10 @@ import { NUMBER_TEN } from '../utils/NumberConsts';
 export default function DetailsOrders() {
   const [orders, setOrder] = useState([{}]);
   const [loaded, setLoaded] = useState(false);
-  const { productsArray } = useContext(Context);
+  const { productsArray, checkoutResponse } = useContext(Context);
   const params = useParams();
+
+  console.log(checkoutResponse);
 
   useEffect(() => {
     const orderNumber = mock.find((item) => item.id
