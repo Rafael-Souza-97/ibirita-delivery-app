@@ -1,8 +1,23 @@
-const { Sale } = require('../database/models');
+const {
+  SalesProducts,
+  Sale,
+} = require('../database/models');
 
 const createSale = async (userId, saleData) => {
   const sale = await Sale.create({ userId, ...saleData });
-  return sale;
+  await Promise.all(saleData.products.map((product) => {
+    const saleProduct = SalesProducts.create({
+      saleId: sale.dataValues.id,
+      productId: product.productId,
+      quantity: product.quantity,
+    });
+    return saleProduct;
+  }));
+  const checkoutData = {
+    ...sale.dataValues,
+    products: saleData.products,
+  }
+  return checkoutData;
 };
 
 const getAllSales = async () => {
