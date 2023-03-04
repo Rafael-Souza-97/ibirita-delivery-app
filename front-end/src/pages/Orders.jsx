@@ -1,23 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import NavBar from '../components/NavBar';
-import mock from '../MOCKS/OREDERSUSER';
-import { NUMBER_TEN } from '../utils/NumberConsts';
+import Context from '../context/context';
 
 export default function Orders() {
-  const [pedidos, setPedidos] = useState();
-  const [loaded, setLoaded] = useState();
+  const { orderResponse } = useContext(Context);
   const history = useHistory();
+
+  if (!orderResponse) history.push('/customer/products');
+
+  console.log(orderResponse);
+  const [pedidos, setPedidos] = useState(orderResponse);
+  const [loaded, setLoaded] = useState();
 
   const handleClick = (e) => {
     const numberId = Number(e.target.id);
     history.push(`/customer/orders/${numberId}`);
   };
 
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('pt-BR');
+  }
+
   useEffect(() => {
-    setPedidos(mock);
+    setPedidos(orderResponse);
     setLoaded(true);
   }, []);
+
+  console.log('MEUS PEDIDOS ---> ', pedidos.map((orders) => orders.id));
 
   return (
     <div>
@@ -42,7 +53,7 @@ export default function Orders() {
                 data-testid={ `customer_orders__element-order-date-${orders.id}` }
                 id={ orders.id }
               >
-                { orders.saleDate.substring(0, NUMBER_TEN) }
+                { formatDate(orders.saleDate) }
               </h2>
               <h2
                 data-testid={ `customer_orders__element-order-id-${orders.id}` }
@@ -54,7 +65,7 @@ export default function Orders() {
                 data-testid={ `customer_orders__element-card-price-${orders.id}` }
                 id={ orders.id }
               >
-                {orders.totalPrice}
+                { orders.totalPrice }
               </p>
             </button>
           ))

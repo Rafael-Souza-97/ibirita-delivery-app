@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import Context from '../context/context';
 import '../styles/NavBar.css';
 
 export default function NavBar() {
+  const { setIsLoged } = useContext(Context);
   const userJson = localStorage.getItem('user');
   const data = JSON.parse(userJson);
   const history = useHistory();
 
   const logout = () => {
+    setIsLoged(false);
     localStorage.clear();
     history.push('/login');
   };

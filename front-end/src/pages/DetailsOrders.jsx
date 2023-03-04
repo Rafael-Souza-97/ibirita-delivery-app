@@ -2,30 +2,31 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import Context from '../context/context';
-import mock from '../MOCKS/OREDERSUSER';
 import users from '../MOCKS/USERS';
-import { NUMBER_TEN } from '../utils/NumberConsts';
 
 export default function DetailsOrders() {
   const [orders, setOrder] = useState([{}]);
   const [loaded, setLoaded] = useState(false);
-  const { productsArray, checkoutResponse } = useContext(Context);
+  const { orderResponse } = useContext(Context);
   const params = useParams();
 
-  console.log(checkoutResponse);
-
   useEffect(() => {
-    const orderNumber = mock.find((item) => item.id
+    const orderNumber = orderResponse.find((item) => item.id
     === Number(params.id));
     setLoaded(true);
     setOrder([orderNumber]);
   }, []);
 
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('pt-BR');
+  }
+
   return (
     <div>
       <NavBar />
       {loaded ? (
-        orders.map((order) => {
+        orders.map((order, orderIndex) => {
           const seller = users.map((item) => (Number(item.id)
           === Number(order.sellerId)
             ? item.name : undefined));
@@ -33,8 +34,9 @@ export default function DetailsOrders() {
             <div key={ order.id }>
               <div className="Topo da tabela">
                 <h2
-                  data-testid={ `customer_order_details__
-                  element-order-details-label-order-${order.id}` }
+                  data-testid={ `
+                  customer_order_details__element-order-details-label-order-id
+                  ` }
                   id={ order.id }
                 >
                   ID da compra:
@@ -51,21 +53,22 @@ export default function DetailsOrders() {
                   {seller}
                 </h2>
                 <h2
-                  data-testid={ `customer_orders__element-order-date-${order.id}` }
+                  data-testid="customer_orders_details
+                  __element-order-details-label-order-date"
                   id={ order.id }
                 >
                   Data da compra:
                   <br />
-                  {order.saleDate.substring(0, NUMBER_TEN)}
+                  {formatDate(order.saleDate)}
                 </h2>
                 <h2
-                  data-testid={ `customer_order_details__
-                  element-order-details-label-delivery-status${order.id}` }
+                  data-testid={ `customer_order_details_
+                  _element-order-details-label-delivery-status${orderIndex}` }
                   id={ order.id }
                 >
                   Status da compra:
                   <br />
-                  {order.status}
+                  { order.status }
                 </h2>
                 <button
                   type="button"
@@ -87,11 +90,10 @@ export default function DetailsOrders() {
                 </thead>
                 <tbody>
                   {order.products.map((product, index) => {
-                    const item = productsArray.find((element) => element.id
-                    === product.productId);
-                    const itemName = item ? item.name : undefined;
-                    const itemPrice = item ? item.price : undefined;
-                    const subTotal = item ? (item.price * product.quantity)
+                    const itemName = product ? product.name : undefined;
+                    const itemPrice = product ? product.price : undefined;
+                    const subTotal = product ? (
+                      product.price * product.SalesProducts.quantity)
                       .toFixed(2) : undefined;
                     return (
                       <tr key={ index + 1 }>
@@ -116,12 +118,12 @@ export default function DetailsOrders() {
                             element-order-table-quantity-${index}`
                           }
                         >
-                          {product.quantity}
+                          {product.SalesProducts.quantity}
                         </td>
                         <td
                           data-testid={
-                            `ustomer_order_details__element-order-table-
-                            unit-price-${index}`
+                            `customer_order_details_
+                            _element-order-table-unit-price-${index}`
                           }
                         >
                           {itemPrice}
