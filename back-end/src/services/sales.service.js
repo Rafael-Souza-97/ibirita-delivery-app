@@ -16,7 +16,7 @@ const createSale = async (userId, saleData) => {
   const checkoutData = {
     ...sale.dataValues,
     products: saleData.products,
-  }
+  };
   return checkoutData;
 };
 
