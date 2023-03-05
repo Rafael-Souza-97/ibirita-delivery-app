@@ -32,6 +32,9 @@ const getAllSales = async () => {
       },
     ],
   });
+  if (sales.length === 0) {
+    throw new Error('No sales found');
+  }
   return sales;
 };
 
@@ -48,9 +51,62 @@ const getSalesByUserId = async (userId) => {
   return sales;
 };
 
+const updateSaleToPreparing = async (id) => {
+  const sale = await Sale.findByPk(id);
+  if (!sale) {
+    throw new Error('Sale not found');
+  }
+  if (sale.status === 'Preparando') {
+    throw new Error('Sale is already in preparing');
+  }
+  await sale.update({ status: 'Preparando' });
+  const allSalesWithProducts = await getAllSales();
+  return allSalesWithProducts;
+};
+
+const updateSaleToOnTheWay = async (id) => {
+  const sale = await Sale.findByPk(id);
+  if (!sale) {
+    throw new Error('Sale not found');
+  }
+  if (sale.status === 'Em Trânsito') {
+    throw new Error('Sale is already on the way');
+  }
+  await sale.update({ status: 'Em Trânsito' });
+  const allSalesWithProducts = await getAllSales();
+  return allSalesWithProducts;
+};
+
+const updateSaleToFinished = async (id) => {
+  const sale = await Sale.findByPk(id);
+  if (!sale) {
+    throw new Error('Sale not found');
+  }
+  if (sale.status === 'Entregue') {
+    throw new Error('Sale is already finished');
+  }
+  await sale.update({ status: 'Entregue' });
+  const allSalesWithProducts = await getAllSales();
+  return allSalesWithProducts;
+};
+
+const deleteSaleIfFinished = async (id) => {
+  const sale = await Sale.findByPk(id);
+  if (!sale) {
+    throw new Error('Sale not found');
+  }
+  await sale.destroy();
+  const allSalesWithProducts = await getAllSales();
+  return allSalesWithProducts;
+};
+
 module.exports = {
   createSale,
   getAllSales,
   getSaleById,
   getSalesByUserId,
+  updateSaleToPreparing,
+  updateSaleToOnTheWay,
+  updateSaleToFinished,
+  deleteSaleIfFinished,
 };
