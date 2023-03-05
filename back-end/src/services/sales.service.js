@@ -1,8 +1,31 @@
 const {
   SalesProducts,
   Sale,
-  Product
+  Product,
 } = require('../database/models');
+const {
+  SALES_NOT_FOUND_ERROR,
+  SALE_NOT_FOUND_ERROR,
+} = require('../utils/error.messages');
+
+const getAllSales = async () => {
+  const sales = await Sale.findAll({
+    include: [
+      {
+        model: Product,
+        as: 'products',
+        through: {
+          model: SalesProducts,
+          attributes: ['quantity'],
+        },
+      },
+    ],
+  });
+  if (sales.length === 0) {
+    throw SALES_NOT_FOUND_ERROR;
+  }
+  return sales;
+};
 
 const createSale = async (userId, saleData) => {
   const sale = await Sale.create({ userId, ...saleData });
@@ -19,29 +42,10 @@ const createSale = async (userId, saleData) => {
   return allSalesWithProducts;
 };
 
-const getAllSales = async () => {
-  const sales = await Sale.findAll({
-    include: [
-      {
-        model: Product,
-        as: 'products',
-        through: {
-          model: SalesProducts,
-          attributes: ['quantity'],
-        },
-      },
-    ],
-  });
-  if (sales.length === 0) {
-    throw new Error('No sales found');
-  }
-  return sales;
-};
-
 const getSaleById = async (id) => {
   const sale = await Sale.findByPk(id);
   if (!sale) {
-    throw new Error('Sale not found');
+    throw SALE_NOT_FOUND_ERROR;
   }
   return sale;
 };
@@ -54,7 +58,7 @@ const getSalesByUserId = async (userId) => {
 const updateSaleToPreparing = async (id) => {
   const sale = await Sale.findByPk(id);
   if (!sale) {
-    throw new Error('Sale not found');
+    throw SALE_NOT_FOUND_ERROR;
   }
   if (sale.status === 'Preparando') {
     throw new Error('Sale is already in preparing');
@@ -67,7 +71,7 @@ const updateSaleToPreparing = async (id) => {
 const updateSaleToOnTheWay = async (id) => {
   const sale = await Sale.findByPk(id);
   if (!sale) {
-    throw new Error('Sale not found');
+    throw SALE_NOT_FOUND_ERROR;
   }
   if (sale.status === 'Em Trânsito') {
     throw new Error('Sale is already on the way');
@@ -80,7 +84,7 @@ const updateSaleToOnTheWay = async (id) => {
 const updateSaleToFinished = async (id) => {
   const sale = await Sale.findByPk(id);
   if (!sale) {
-    throw new Error('Sale not found');
+    throw SALE_NOT_FOUND_ERROR;
   }
   if (sale.status === 'Entregue') {
     throw new Error('Sale is already finished');
@@ -93,7 +97,7 @@ const updateSaleToFinished = async (id) => {
 const deleteSaleIfFinished = async (id) => {
   const sale = await Sale.findByPk(id);
   if (!sale) {
-    throw new Error('Sale not found');
+    throw SALE_NOT_FOUND_ERROR;
   }
   await sale.destroy();
   const allSalesWithProducts = await getAllSales();
