@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import NavBar from '../components/NavBar';
-import mock from '../MOCKS/OREDERSUSER';
+import { requestData } from '../services/requests';
 import { NUMBER_TEN } from '../utils/NumberConsts';
 
 export default function SellerOrders() {
-  const [pedidos, setPedidos] = useState();
+  const [pedidos, setPedidos] = useState([]);
   const [loaded, setLoaded] = useState();
   const history = useHistory();
 
@@ -15,7 +15,14 @@ export default function SellerOrders() {
   };
 
   useEffect(() => {
-    setPedidos(mock);
+    const endpoint = 'http://localhost:3001/sales/';
+    const { token, id } = JSON.parse(localStorage.getItem('user'));
+    const fetchProducts = async () => {
+      const products = await requestData(endpoint, token);
+      const salesOfSeller = products.filter((item) => item.sellerId === id);
+      setPedidos(salesOfSeller);
+    };
+    fetchProducts();
     setLoaded(true);
   }, []);
 

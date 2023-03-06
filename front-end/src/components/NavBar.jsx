@@ -23,7 +23,7 @@ export default function NavBar() {
     case 'administrator':
       return history.push('/admin/manage');
     default:
-      return history.push('/customer/products');
+      return history.push('/customer/orders');
     }
   };
 
