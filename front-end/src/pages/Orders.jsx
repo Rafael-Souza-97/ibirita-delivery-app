@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import { requestSales } from '../services/requests';
-import '../styles/Orders.css';
+// import '../styles/Orders.css';
 
 export default function Orders() {
   const [sales, setSales] = useState([]);
