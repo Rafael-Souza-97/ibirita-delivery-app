@@ -56,4 +56,23 @@ export const requestCheckout = async (body) => {
   }
 };
 
+export const requestSales = async () => {
+  try {
+    const { data } = await api.get('http://localhost:3001/sales');
+
+    return data;
+  } catch (error) {
+    if (error.response) {
+      console.log(
+        'Status:',
+        error.response.status,
+        ' Message:',
+        error.response.data.message,
+      );
+      return error.response.data.message;
+    }
+    console.log('Error', error.response.data.message);
+  }
+};
+
 export default api;
