@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import Context from '../context/context';
+
 import { requestLogin } from '../services/requests';
 
 export default function LoginPage() {
@@ -8,6 +9,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [registration, setRegistration] = useState(false);
   const [invisibleElement, setInvisibleElement] = useState(false);
+  
   const { isLoged, setIsLoged } = useContext(Context);
 
   const history = useHistory();
@@ -19,6 +21,8 @@ export default function LoginPage() {
 
   if (registration) return <Redirect to="/register" />;
   if (isLoged) return <Redirect to="/customer/products" />;
+
+  localStorage.clear();
 
   const handleEmail = ({ target: { value } }) => setEmail(value);
 
