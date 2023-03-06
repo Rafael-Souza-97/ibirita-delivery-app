@@ -98,8 +98,9 @@ export default function DetailsOrders() {
                     const itemName = product ? product.name : undefined;
                     const itemPrice = product ? product.price : undefined;
                     const subTotal = product ? (
-                      product.price * product.SalesProducts.quantity)
-                      .toFixed(2) : undefined;
+                      parseFloat(product.price * product.SalesProducts.quantity)
+                        .toLocaleString('pt-BR', { minimumFractionDigits: 2 }))
+                      : undefined;
                     return (
                       <tr key={ index + 1 }>
                         <td
@@ -128,14 +129,16 @@ export default function DetailsOrders() {
                             `${dataTestPrefix}element-order-table-unit-price-${index}`
                           }
                         >
-                          {itemPrice}
+                          {parseFloat(itemPrice)
+                            .toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
                         </td>
                         <td
                           data-testid={
                             `${dataTestPrefix}element-order-table-sub-total-${index}`
                           }
                         >
-                          { subTotal }
+                          { parseFloat(subTotal)
+                            .toLocaleString('pt-BR', { minimumFractionDigits: 2 }) }
                         </td>
                       </tr>
                     );
@@ -147,7 +150,8 @@ export default function DetailsOrders() {
                   data-testid="customer_order_details__element-order-total-price"
                   id={ order.id }
                 >
-                  { order.totalPrice }
+                  { parseFloat(order.totalPrice)
+                    .toLocaleString('pt-BR', { minimumFractionDigits: 2 }) }
                 </p>
               </div>
             </div>

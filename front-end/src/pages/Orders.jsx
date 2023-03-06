@@ -76,7 +76,8 @@ export default function Orders() {
               data-testid={ `customer_orders__elementcard-price-${orders.id}` }
               id={ orders.id }
             >
-              { orders.totalPrice }
+              { parseFloat(orders.totalPrice)
+                .toLocaleString('pt-BR', { minimumFractionDigits: 2 }) }
             </p>
           </div>
         ))}
