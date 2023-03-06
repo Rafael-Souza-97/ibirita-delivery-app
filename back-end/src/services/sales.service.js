@@ -6,6 +6,7 @@ const {
 const {
   SALES_NOT_FOUND_ERROR,
   SALE_NOT_FOUND_ERROR,
+  STATUS_REQUIRED_ERROR,
 } = require('../utils/error.messages');
 
 const getAllSales = async () => {
@@ -55,43 +56,17 @@ const getSalesByUserId = async (userId) => {
   return sales;
 };
 
-const updateSaleToPreparing = async (id) => {
+const updateStatusTo = async (id, status) => {
   const sale = await Sale.findByPk(id);
   if (!sale) {
     throw SALE_NOT_FOUND_ERROR;
   }
-  if (sale.status === 'Preparando') {
-    throw new Error('Sale is already in preparing');
+  if (!status) {
+    throw STATUS_REQUIRED_ERROR;
   }
-  await sale.update({ status: 'Preparando' });
-  const allSalesWithProducts = await getAllSales();
-  return allSalesWithProducts;
-};
-
-const updateSaleToOnTheWay = async (id) => {
-  const sale = await Sale.findByPk(id);
-  if (!sale) {
-    throw SALE_NOT_FOUND_ERROR;
-  }
-  if (sale.status === 'Em Trânsito') {
-    throw new Error('Sale is already on the way');
-  }
-  await sale.update({ status: 'Em Trânsito' });
-  const allSalesWithProducts = await getAllSales();
-  return allSalesWithProducts;
-};
-
-const updateSaleToFinished = async (id) => {
-  const sale = await Sale.findByPk(id);
-  if (!sale) {
-    throw SALE_NOT_FOUND_ERROR;
-  }
-  if (sale.status === 'Entregue') {
-    throw new Error('Sale is already finished');
-  }
-  await sale.update({ status: 'Entregue' });
-  const allSalesWithProducts = await getAllSales();
-  return allSalesWithProducts;
+  await Sale.update({ status }, { where: { id } });
+  const updatedSales = await getAllSales();
+  return updatedSales;
 };
 
 const deleteSaleIfFinished = async (id) => {
@@ -109,8 +84,6 @@ module.exports = {
   getAllSales,
   getSaleById,
   getSalesByUserId,
-  updateSaleToPreparing,
-  updateSaleToOnTheWay,
-  updateSaleToFinished,
+  updateStatusTo,
   deleteSaleIfFinished,
 };
