@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import mock from '../MOCKS/OREDERSUSER';
 import { NUMBER_TEN } from '../utils/NumberConsts';
-// git add .
 
 export default function SellerOrders() {
   const [pedidos, setPedidos] = useState();

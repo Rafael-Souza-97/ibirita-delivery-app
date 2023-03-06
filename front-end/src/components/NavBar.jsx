@@ -15,6 +15,18 @@ export default function NavBar() {
     history.push('/login');
   };
 
+  const handleOrders = () => {
+    const { role } = JSON.parse(userJson);
+    switch (role) {
+    case 'seller':
+      return history.push('/seller/orders');
+    case 'administrator':
+      return history.push('/admin/manage');
+    default:
+      return history.push('/customer/products');
+    }
+  };
+
   return (
     <div className="header">
       <nav className="navbar-left">
@@ -36,7 +48,7 @@ export default function NavBar() {
               className="nav-button"
               data-testid="customer_products__element-navbar-link-orders"
               type="button"
-              onClick={ () => history.push('/customer/orders') }
+              onClick={ () => handleOrders() }
             >
               Meus Pedidos
             </button>

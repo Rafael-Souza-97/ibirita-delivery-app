@@ -5,6 +5,9 @@ import Context from '../context/context';
 import mock from '../MOCKS/OREDERSUSER';
 import { NUMBER_TEN } from '../utils/NumberConsts';
 
+const prefix = 'seller_order_details__';
+const prefixStatus = 'seller_order_details__element-order-details-label-delivery-status';
+
 export default function SellerOrdersDetails() {
   const [orders, setOrder] = useState([{}]);
   const [loaded, setLoaded] = useState(false);
@@ -18,6 +21,29 @@ export default function SellerOrdersDetails() {
     setOrder([orderNumber]);
   }, []);
 
+  const handlePreparing = (id) => {
+    const idNumber = Number(id);
+    const status = 'Preparando';
+    const url = `sales/status/${idNumber}`;
+    console.log({
+      status,
+      url,
+    });
+    console.log(orders[0].status);
+    const copyOrders = orders;
+    copyOrders[0].status = 'preparing';
+
+    setOrder([copyOrders]);
+  };
+
+  const handleDispatch = (id) => {
+    const idNumber = Number(id);
+    const status = 'Em Trânsito';
+    console.log(`O pedido numbero: ${idNumber} já estamos ${status}`);
+  };
+
+  console.log(orders);
+
   return (
     <div>
       <NavBar />
@@ -26,8 +52,7 @@ export default function SellerOrdersDetails() {
           <div key={ order.id }>
             <div className="Topo da tabela">
               <h2
-                data-testid={ `customer_order_details__
-                element-order-details-label-order-${order.id}` }
+                data-testid={ `${prefix}element-order-details-label-order-${order.id}` }
                 id={ order.id }
               >
                 ID da compra:
@@ -35,7 +60,7 @@ export default function SellerOrdersDetails() {
                 {order.id}
               </h2>
               <h2
-                data-testid={ `customer_orders__element-order-date-${order.id}` }
+                data-testid={ `${prefix}element-order-date-${order.id}` }
                 id={ order.id }
               >
                 Data da compra:
@@ -43,8 +68,7 @@ export default function SellerOrdersDetails() {
                 {order.saleDate.substring(0, NUMBER_TEN)}
               </h2>
               <h2
-                data-testid={ `customer_order_details__
-                element-order-details-label-delivery-status${order.id}` }
+                data-testid={ `${prefixStatus}-${order.id}` }
                 id={ order.id }
               >
                 Status da compra:
@@ -53,22 +77,18 @@ export default function SellerOrdersDetails() {
               </h2>
               <button
                 type="button"
-                data-testid="customer_order_details__button-delivery-check"
-                onClick={ () => console.log('clicou em mim') }
-              >
-                Marcar como entregue
-              </button>
-              <button
-                type="button"
-                data-testid="customer_order_details__button-delivery-check"
-                onClick={ () => console.log('Preparar Pedido') }
+                data-testid="seller_order_details__button-preparing-check"
+                onClick={ (e) => handlePreparing(e.target.id) }
+                id={ order.id }
               >
                 Preparar Pedido
               </button>
               <button
                 type="button"
-                data-testid="customer_order_details__button-delivery-check"
-                onClick={ () => console.log('Saiu para entrega') }
+                data-testid="seller_order_details__button-dispatch-check"
+                id={ order.id }
+                onClick={ (e) => handleDispatch(e.target.id) }
+                disabled={ order.status !== 'preparing' }
               >
                 Saiu para entrega
               </button>
@@ -95,39 +115,35 @@ export default function SellerOrdersDetails() {
                     <tr key={ index + 1 }>
                       <td
                         data-testid={
-                          `customer_order_details__element-order-table-item-number
-                          -${index}`
+                          `${prefix}element-order-table-item-numbers-${index}`
                         }
                       >
                         {index + 1}
                       </td>
                       <td
                         data-testid={
-                          `customer_order_details__element-order-table-name-${index}`
+                          `${prefix}element-order-table-name-${index}`
                         }
                       >
                         {itemName}
                       </td>
                       <td
                         data-testid={
-                          `customer_order_details__
-                          element-order-table-quantity-${index}`
+                          `${prefix}element-order-table-quantity-${index}`
                         }
                       >
                         {product.quantity}
                       </td>
                       <td
                         data-testid={
-                          `ustomer_order_details__element-order-table-
-                          unit-price-${index}`
+                          `${prefix}element-order-table-unit-price-${index}`
                         }
                       >
                         {itemPrice}
                       </td>
                       <td
                         data-testid={
-                          `customer_order_details__element-order-table-sub-total
-                          -${index}`
+                          `${prefix}element-order-table-sub-total-${index}`
                         }
                       >
                         {subTotal}
@@ -139,7 +155,7 @@ export default function SellerOrdersDetails() {
             </table>
             <div className="Valor Total">
               <p
-                data-testid="customer_order_details__element-order-total-price"
+                data-testid="seller_order_details__element-order-total-price"
                 id={ order.id }
               >
                 Valor Total:
