@@ -4,7 +4,6 @@ import NavBar from '../components/NavBar';
 import Context from '../context/context';
 import mock from '../MOCKS/OREDERSUSER';
 import { requestData, requestUpdateStatus } from '../services/requests';
-// import { NUMBER_TEN } from '../utils/NumberConsts';
 
 const prefix = 'seller_order_details__';
 const prefixStatus = 'seller_order_details__element-order-details-label-delivery-status';
