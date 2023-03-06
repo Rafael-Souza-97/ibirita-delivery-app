@@ -38,6 +38,22 @@ const userRegister = async (req, res) => {
   return res.status(201).json(response);
 };
 
+const sellerRegister = async (req, res) => {
+  const { name, email, password } = req.body;
+  const newSeller = await sellerRegisterService.sellerRegister({ name, email, password });
+
+  if (!newSeller.created) {
+    return res.status(409).json({ message: 'Seller already registered' });
+  }
+  const token = generateToken(newSeller.data);
+  const response = {
+    ...newSeller.data,
+    token,
+  };
+
+  return res.status(201).json(response);
+};
+
 const getUserById = async (req, res) => {
   const { id } = req.params;
 
@@ -53,4 +69,5 @@ module.exports = {
   userLogin,
   userRegister,
   getUserById,
+  sellerRegister,
 };
