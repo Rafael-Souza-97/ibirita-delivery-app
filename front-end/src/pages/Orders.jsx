@@ -73,7 +73,7 @@ export default function Orders() {
               { orders.id }
             </h2>
             <p
-              data-testid={ `customer_orders__elementcard-price-${orders.id}` }
+              data-testid={ `customer_orders__element-card-price-${orders.id}` }
               id={ orders.id }
             >
               { parseFloat(orders.totalPrice)
