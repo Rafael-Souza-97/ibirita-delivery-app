@@ -20,6 +20,8 @@ export default function LoginPage() {
   if (registration) return <Redirect to="/register" />;
   if (isLoged) return <Redirect to="/customer/products" />;
 
+  localStorage.clear();
+
   const handleEmail = ({ target: { value } }) => setEmail(value);
 
   const handlePassword = ({ target: { value } }) => setPassword(value);
