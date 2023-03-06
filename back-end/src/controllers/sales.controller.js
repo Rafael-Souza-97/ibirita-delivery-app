@@ -35,33 +35,14 @@ const getSalesByUserId = async (req, res) => {
   return res.status(200).json(sales);
 };
 
-const updateSaleToPreparing = async (req, res) => {
+const updateStatusTo = async (req, res) => {
   const { id } = req.params;
+  const { status } = req.body;
   try {
-    const sale = await salesService.updateSaleToPreparing(id);
+    const sale = await salesService.updateStatusTo(id, status);
     return res.status(200).json(sale);
   } catch (error) {
-    return res.status(400).json({ message: error.message });
-  }
-};
-
-const updateSaleToOnTheWay = async (req, res) => {
-  const { id } = req.params;
-  try {
-    const sale = await salesService.updateSaleToOnTheWay(id);
-    return res.status(200).json(sale);
-  } catch (error) {
-    return res.status(400).json({ message: error.message });
-  }
-};
-
-const updateSaleToFinished = async (req, res) => {
-  const { id } = req.params;
-  try {
-    const sale = await salesService.updateSaleToFinished(id);
-    return res.status(200).json(sale);
-  } catch (error) {
-    return res.status(400).json({ message: error.message });
+    return res.status(404).json({ message: error.message });
   }
 };
 
@@ -80,8 +61,6 @@ module.exports = {
   getAllSales,
   getSaleById,
   getSalesByUserId,
-  updateSaleToPreparing,
-  updateSaleToOnTheWay,
-  updateSaleToFinished,
+  updateStatusTo,
   deleteSaleIfFinished,
 };

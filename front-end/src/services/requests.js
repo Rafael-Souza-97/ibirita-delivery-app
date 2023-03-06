@@ -19,6 +19,11 @@ export const requestLogin = async (endpoint, body) => {
   return data;
 };
 
+export const requestUpdateStatus = async (endpoint, body) => {
+  const { data } = await api.put(endpoint, body);
+  return data;
+};
+
 export const requestRegister = async (endpoint, body) => {
   try {
     const { data } = await api.post(endpoint, body);
