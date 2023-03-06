@@ -10,6 +10,8 @@ export default function DetailsOrders() {
   const { orderResponse } = useContext(Context);
   const params = useParams();
 
+  console.log('CHECKOUT RESPONSE -->', orderResponse);
+
   useEffect(() => {
     const orderNumber = orderResponse.find((item) => item.id
     === Number(params.id));
@@ -22,11 +24,14 @@ export default function DetailsOrders() {
     return date.toLocaleDateString('pt-BR');
   }
 
+  const dataTestPrefix = 'customer_order_details__';
+  const dataTestPrefix2 = 'customer_order_details__element-order-details-label-delivery';
+
   return (
     <div>
       <NavBar />
       {loaded ? (
-        orders.map((order, orderIndex) => {
+        orders.map((order) => {
           const seller = users.map((item) => (Number(item.id)
           === Number(order.sellerId)
             ? item.name : undefined));
@@ -34,9 +39,7 @@ export default function DetailsOrders() {
             <div key={ order.id }>
               <div className="Topo da tabela">
                 <h2
-                  data-testid={ `
-                  customer_order_details__element-order-details-label-order-id
-                  ` }
+                  data-testid={ `${dataTestPrefix}element-order-details-label-order-id` }
                   id={ order.id }
                 >
                   ID da compra:
@@ -44,8 +47,9 @@ export default function DetailsOrders() {
                   {order.id}
                 </h2>
                 <h2
-                  data-testid={ `customer_order_details__
-                  element-order-details-label-seller-name` }
+                  data-testid={
+                    `${dataTestPrefix}element-order-details-label-seller-name`
+                  }
                   id={ order.id }
                 >
                   Vendedor:
@@ -53,8 +57,9 @@ export default function DetailsOrders() {
                   {seller}
                 </h2>
                 <h2
-                  data-testid="customer_orders_details
-                  __element-order-details-label-order-date"
+                  data-testid={
+                    `${dataTestPrefix}element-order-details-label-order-date`
+                  }
                   id={ order.id }
                 >
                   Data da compra:
@@ -62,8 +67,7 @@ export default function DetailsOrders() {
                   {formatDate(order.saleDate)}
                 </h2>
                 <h2
-                  data-testid={ `customer_order_details_
-                  _element-order-details-label-delivery-status${orderIndex}` }
+                  data-testid={ `${dataTestPrefix2}-status-${order.id}` }
                   id={ order.id }
                 >
                   Status da compra:
@@ -74,6 +78,7 @@ export default function DetailsOrders() {
                   type="button"
                   data-testid="customer_order_details__button-delivery-check"
                   onClick={ () => console.log('clicou em mim') }
+                  disabled
                 >
                   Marcar como entregue
                 </button>
@@ -99,8 +104,7 @@ export default function DetailsOrders() {
                       <tr key={ index + 1 }>
                         <td
                           data-testid={
-                            `customer_order_details__element-order-table-item-number
-                            -${index}`
+                            `${dataTestPrefix}element-order-table-item-number-${index}`
                           }
                         >
                           {index + 1}
@@ -114,27 +118,24 @@ export default function DetailsOrders() {
                         </td>
                         <td
                           data-testid={
-                            `customer_order_details__
-                            element-order-table-quantity-${index}`
+                            `${dataTestPrefix}element-order-table-quantity-${index}`
                           }
                         >
                           {product.SalesProducts.quantity}
                         </td>
                         <td
                           data-testid={
-                            `customer_order_details_
-                            _element-order-table-unit-price-${index}`
+                            `${dataTestPrefix}element-order-table-unit-price-${index}`
                           }
                         >
                           {itemPrice}
                         </td>
                         <td
                           data-testid={
-                            `customer_order_details__element-order-table-sub-total
-                            -${index}`
+                            `${dataTestPrefix}element-order-table-sub-total-${index}`
                           }
                         >
-                          {subTotal}
+                          { subTotal }
                         </td>
                       </tr>
                     );
@@ -146,9 +147,7 @@ export default function DetailsOrders() {
                   data-testid="customer_order_details__element-order-total-price"
                   id={ order.id }
                 >
-                  Valor Total:
-                  <br />
-                  {order.totalPrice}
+                  { order.totalPrice }
                 </p>
               </div>
             </div>
