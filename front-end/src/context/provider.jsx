@@ -15,6 +15,7 @@ function Provider({ children }) {
     number: '',
   });
   const [isLoaded, setIsLoaded] = useState(false);
+  const [orderResponse, setOrderResponse] = useState({});
 
   const contextValue = useMemo(() => {
     const objState = {
@@ -23,17 +24,19 @@ function Provider({ children }) {
       totalValue,
       checkoutTotal,
       adressValues,
+      insertProp,
+      isLoaded,
+      isLoged,
+      orderResponse,
       setProductsArray,
       setCartProducts,
       setTotalValue,
       setCheckoutTotal,
       setAdressValues,
-      insertProp,
       setIsertProp,
-      isLoaded,
       setIsLoaded,
-      isLoged,
       setIsLoged,
+      setOrderResponse,
     };
     return objState;
   }, [
@@ -42,21 +45,23 @@ function Provider({ children }) {
     totalValue,
     checkoutTotal,
     adressValues,
+    insertProp,
+    isLoaded,
+    isLoged,
+    orderResponse,
     setProductsArray,
     setCartProducts,
     setTotalValue,
     setCheckoutTotal,
     setAdressValues,
-    insertProp,
     setIsertProp,
-    isLoaded,
     setIsLoaded,
-    isLoged,
     setIsLoged,
+    setOrderResponse,
   ]);
   return (
     <context.Provider value={ contextValue }>
-      {children}
+      { children }
     </context.Provider>
   );
 }

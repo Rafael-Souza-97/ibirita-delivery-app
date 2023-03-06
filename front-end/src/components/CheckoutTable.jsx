@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import Context from '../context/context';
+import '../styles/CheckoutTable.css';
 
 function CheckoutTable({ products, onRemove }) {
-  const { setCheckoutTotal } = useContext(Context);
+  const { setCheckoutTotal, cartProducts, setCartProducts } = useContext(Context);
 
   const getTotalPrice = () => {
     const totalPrice = products.reduce(
@@ -19,71 +20,80 @@ function CheckoutTable({ products, onRemove }) {
     return formattedPrice;
   };
 
+  const handleRemoveProduct = (productId) => {
+    const newCartProducts = cartProducts.filter((product) => product.id !== productId);
+    setCartProducts(newCartProducts);
+    onRemove(productId);
+  };
+
   return (
-    <div data-testid="customer_element-order-table">
-      <table>
+    <div
+      className="checkout-table__order-table"
+      data-testid="customer_element-order-table"
+    >
+      <table className="checkout-table__table">
         <thead>
           <tr>
-            <th>Item</th>
-            <th>Descrição</th>
-            <th>Quantidade</th>
-            <th>Valor Unitário</th>
-            <th>Sub-Total</th>
-            <th>Remover item</th>
+            <th className="checkout-table__header">Item</th>
+            <th className="checkout-table__header">Descrição</th>
+            <th className="checkout-table__header">Quantidade</th>
+            <th className="checkout-table__header">Valor Unitário</th>
+            <th className="checkout-table__header">Sub-Total</th>
+            <th className="checkout-table__header">Remover item</th>
           </tr>
         </thead>
         <tbody>
-          { products.map((product, index) => (
+          {products.map((product, index) => (
             <tr key={ index + 1 }>
               <td
+                className="checkout-table__data"
                 data-testid={
                   `customer_checkout__element-order-table-item-number-${index}`
                 }
               >
-                { index + 1 }
+                {index + 1}
               </td>
               <td
-                data-testid={
-                  `customer_checkout__element-order-table-name-${index}`
-                }
+                className="checkout-table__data"
+                data-testid={ `customer_checkout__element-order-table-name-${index}` }
               >
-                { product.name }
+                {product.name}
               </td>
               <td
-                data-testid={
-                  `customer_checkout__element-order-table-quantity-${index}`
-                }
+                className="checkout-table__data"
+                data-testid={ `customer_checkout__element-order-table-quantity-${index}` }
               >
-                { product.quantity }
+                {product.quantity}
               </td>
               <td
+                className="checkout-table__data"
                 data-testid={
                   `customer_checkout__element-order-table-unit-price-${index}`
                 }
               >
-                {
-                  `${(parseFloat(product.price))
-                    .toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`
-                }
+                {`${(parseFloat(product.price)).toLocaleString('pt-BR', {
+                  minimumFractionDigits: 2,
+                })}`}
               </td>
               <td
+                className="checkout-table__data"
                 data-testid={
                   `customer_checkout__element-order-table-sub-total-${index}`
                 }
               >
-                {
-                  `${(parseFloat(product.price * product.quantity))
-                    .toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`
-                }
+                {`${(parseFloat(product.price * product.quantity)).toLocaleString(
+                  'pt-BR',
+                  { minimumFractionDigits: 2 },
+                )}`}
               </td>
               <td
-                data-testid={
-                  `customer_checkout__element-order-table-remove-${index}`
-                }
+                className="checkout-table__data"
+                data-testid={ `customer_checkout__element-order-table-remove-${index}` }
               >
                 <button
                   type="button"
-                  onClick={ () => onRemove(product.id) }
+                  onClick={ () => handleRemoveProduct(product.id) }
+                  className="checkout-table__button"
                 >
                   Remover
                 </button>
@@ -93,12 +103,13 @@ function CheckoutTable({ products, onRemove }) {
         </tbody>
       </table>
 
-      <div>
-        <h4>Total:</h4>
-        <h3 data-testid="customer_checkout__element-order-total-price">
-          {`${
-            getTotalPrice()
-          }`}
+      <div className="checkout-table__order-summary">
+        <h4 className="checkout-table__order-summary__title">Total:</h4>
+        <h3
+          className="checkout-table__order-summary__price"
+          data-testid="customer_checkout__element-order-total-price"
+        >
+          {`${getTotalPrice()}`}
         </h3>
       </div>
     </div>

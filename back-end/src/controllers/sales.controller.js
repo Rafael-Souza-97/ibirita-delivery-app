@@ -10,8 +10,12 @@ const createSale = async (req, res) => {
 };
 
 const getAllSales = async (_req, res) => {
-  const sales = await salesService.getAllSales();
-  return res.status(200).json(sales);
+  try {
+    const sales = await salesService.getAllSales();
+    return res.status(200).json(sales);
+  } catch (error) {
+    return res.status(404).json({ message: error.message });
+  }
 };
 
 const getSaleById = async (req, res) => {
@@ -31,9 +35,53 @@ const getSalesByUserId = async (req, res) => {
   return res.status(200).json(sales);
 };
 
+const updateSaleToPreparing = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const sale = await salesService.updateSaleToPreparing(id);
+    return res.status(200).json(sale);
+  } catch (error) {
+    return res.status(400).json({ message: error.message });
+  }
+};
+
+const updateSaleToOnTheWay = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const sale = await salesService.updateSaleToOnTheWay(id);
+    return res.status(200).json(sale);
+  } catch (error) {
+    return res.status(400).json({ message: error.message });
+  }
+};
+
+const updateSaleToFinished = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const sale = await salesService.updateSaleToFinished(id);
+    return res.status(200).json(sale);
+  } catch (error) {
+    return res.status(400).json({ message: error.message });
+  }
+};
+
+const deleteSaleIfFinished = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const sale = await salesService.deleteSaleIfFinished(id);
+    return res.status(200).json(sale);
+  } catch (error) {
+    return res.status(400).json({ message: error.message });
+  }
+};
+
 module.exports = {
   createSale,
   getAllSales,
   getSaleById,
   getSalesByUserId,
+  updateSaleToPreparing,
+  updateSaleToOnTheWay,
+  updateSaleToFinished,
+  deleteSaleIfFinished,
 };

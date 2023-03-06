@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import Context from '../context/context';
 import { requestData } from '../services/requests';
+import '../styles/Products.css';
 
 export default function Products() {
   const { productsArray, setProductsArray } = useContext(Context);
@@ -34,7 +35,6 @@ export default function Products() {
         item.totalValue = 0;
       });
       setProductsArray(products);
-      console.log(products);
     };
     fetchProducts();
   }, []);
@@ -78,34 +78,38 @@ export default function Products() {
     <div>
       <NavBar />
       <div className="product-grid">
-        {productsArray.map((products) => (
+        { productsArray.map((products) => (
           <div key={ products.id } className="product-card">
             <img
               src={ products.urlImage }
               alt={ products.name }
               data-testid={ `customer_products__img-card-bg-image-${products.id}` }
             />
+
             <h2
               data-testid={ `customer_products__element-card-title-${products.id}` }
             >
               { products.name }
             </h2>
+
             <p
               data-testid={ `customer_products__element-card-price-${products.id}` }
             >
               { parseFloat(products.price)
                 .toLocaleString('pt-BR', { minimumFractionDigits: 2 }) }
             </p>
+
             <div className="btn_shopping-cart">
               <button
                 type="button"
-                onClick={ (e) => handlePlusItem(e.target.id) }
                 id={ products.id }
-                data-testid={ `customer_products__button-card-add-item-${products.id}` }
+                data-testid={ `customer_products__button-card-rm-item-${products.id}` }
+                className="button-minus-item"
+                onClick={ (e) => handleMinusItem(e.target.id) }
               >
-                +
+                -
               </button>
-              <br />
+
               <input
                 type="number"
                 data-testid={ `customer_products__input-card-quantity-${products.id}` }
@@ -113,24 +117,29 @@ export default function Products() {
                 id={ products.id }
                 value={ products.quantity }
                 min="0"
+                className="input-quantity-products"
                 onChange={ (e) => handleQuantityChange(e) }
               />
+
               <button
                 type="button"
-                onClick={ (e) => handleMinusItem(e.target.id) }
+                onClick={ (e) => handlePlusItem(e.target.id) }
                 id={ products.id }
-                data-testid={ `customer_products__button-card-rm-item-${products.id}` }
+                className="button-plus-item"
+                data-testid={ `customer_products__button-card-add-item-${products.id}` }
               >
-                -
+                +
               </button>
+
             </div>
           </div>
         ))}
       </div>
-      <div>
+      <div className="submit-products-button-container">
         <button
           type="button"
           data-testid="customer_products__button-cart"
+          className="submit-products"
           disabled={ !disableButtton() }
           onClick={ () => history.push('/customer/checkout') }
         >

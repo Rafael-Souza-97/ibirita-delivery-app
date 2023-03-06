@@ -2,10 +2,11 @@ import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import Context from '../context/context';
 import { requestCheckout } from '../services/requests';
+import '../styles/CheckoutAddress.css';
 
 function CheckoutAddress() {
   const {
-    adressValues, setAdressValues, cartProducts, checkoutTotal,
+    adressValues, setAdressValues, cartProducts, checkoutTotal, setOrderResponse,
   } = useContext(Context);
 
   const history = useHistory();
@@ -19,11 +20,10 @@ function CheckoutAddress() {
 
   async function sellRegister() {
     try {
-      // if (cartProducts.length === 0) {
-      //   alert('Não há produtos no carrinho.');
-      //   return;
-      // }
-      console.log('entrou no if');
+      if (cartProducts.length === 0) {
+        alert('Não há produtos no carrinho.');
+        return;
+      }
       const user = localStorage.getItem('user');
       if (!user) {
         history.push('/login');
@@ -42,12 +42,14 @@ function CheckoutAddress() {
         deliveryAddress: adressValues.address,
         deliveryNumber: Number(adressValues.number),
       };
-      console.log(saleData);
       const request = await requestCheckout(saleData);
-      console.log(request);
 
-      const { id } = request;
+      setOrderResponse(request);
 
+      const lastOrder = request[request.length - 1];
+      console.log('ULTIMA ORDEM --> ', lastOrder);
+
+      const { id } = lastOrder;
       history.push(`/customer/orders/${id}`);
     } catch (err) {
       console.log(err);
@@ -55,11 +57,11 @@ function CheckoutAddress() {
   }
 
   return (
-    <div>
-      <h2>Detalhes e Endereço para Entrega</h2>
+    <div className="checkout-form">
+      <h2 className="checkout-title">Detalhes e Endereço para Entrega</h2>
 
-      <form>
-        <label htmlFor="seller">
+      <form className="checkout-form-fields">
+        <label htmlFor="seller" className="checkout-label">
           P. Vendedora Responsável:
           <select
             id="seller"
@@ -67,12 +69,13 @@ function CheckoutAddress() {
             data-testid="customer_checkout__select-seller"
             value={ adressValues.seller }
             onChange={ handleChange }
+            className="checkout-select"
           >
             <option value="Fulana Pereira">Fulana Pereira</option>
           </select>
         </label>
 
-        <label htmlFor="address">
+        <label htmlFor="address" className="checkout-label">
           Endereço
           <input
             type="text"
@@ -82,10 +85,11 @@ function CheckoutAddress() {
             placeholder="Travessia Terceira da castanheira, Bairro Muruci"
             value={ adressValues.address }
             onChange={ handleChange }
+            className="checkout-input"
           />
         </label>
 
-        <label htmlFor="number">
+        <label htmlFor="number" className="checkout-label">
           Número
           <input
             type="number"
@@ -95,16 +99,21 @@ function CheckoutAddress() {
             placeholder="Número"
             value={ adressValues.number }
             onChange={ handleChange }
+            className="checkout-input"
           />
         </label>
 
-        <button
-          type="button"
-          data-testid="customer_checkout__button-submit-order"
-          onClick={ () => sellRegister() }
-        >
-          FINALIZAR PEDIDO
-        </button>
+        <div className="checkout-button">
+          <button
+            type="button"
+            data-testid="customer_checkout__button-submit-order"
+            onClick={ () => sellRegister() }
+            disabled={ !adressValues.address || !adressValues.number }
+            className="checkout-button"
+          >
+            FINALIZAR PEDIDO
+          </button>
+        </div>
       </form>
     </div>
   );
