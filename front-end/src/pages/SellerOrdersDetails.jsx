@@ -16,7 +16,7 @@ export default function SellerOrdersDetails() {
     === Number(params.id));
     setLoaded(true);
     setOrder([orderNumber]);
-  }, []);
+  }, [params.id]);
 
   return (
     <div>
