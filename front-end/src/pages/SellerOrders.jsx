@@ -21,9 +21,9 @@ export default function SellerOrders() {
       const products = await requestData(endpoint, token);
       const salesOfSeller = products.filter((item) => item.sellerId === id);
       setPedidos(salesOfSeller);
+      setLoaded(true);
     };
     fetchProducts();
-    setLoaded(true);
   }, []);
 
   return (

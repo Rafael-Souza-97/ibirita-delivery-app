@@ -12,6 +12,11 @@ export default function LoginPage() {
 
   localStorage.clear();
 
+  const userJson = localStorage.getItem('user');
+  const userData = JSON.parse(userJson);
+
+  if (userData) setIsLoged(true);
+
   const handleEmail = ({ target: { value } }) => setEmail(value);
 
   const handlePassword = ({ target: { value } }) => setPassword(value);
@@ -29,9 +34,7 @@ export default function LoginPage() {
       const body = { email, password };
       const data = await requestLogin(endpoint, body);
       localStorage.setItem('user', JSON.stringify(data));
-      const userJson = localStorage.getItem('user');
       const { role } = JSON.parse(userJson);
-      console.log(role);
       switch (role) {
       case 'seller':
         return history.push('/seller/orders');
