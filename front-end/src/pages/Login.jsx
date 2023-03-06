@@ -1,6 +1,5 @@
-import React, { useContext, useState } from 'react';
-import { Redirect } from 'react-router-dom';
-import Context from '../context/context';
+import React, { useState } from 'react';
+import { Redirect, useHistory } from 'react-router-dom';
 import { requestLogin } from '../services/requests';
 
 export default function LoginPage() {
@@ -8,14 +7,10 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [registration, setRegistration] = useState(false);
   const [invisibleElement, setInvisibleElement] = useState(false);
-  const { isLoged, setIsLoged } = useContext(Context);
-
-  const userJson = localStorage.getItem('user');
-  const userData = JSON.parse(userJson);
-
-  if (userData) setIsLoged(true);
-  if (isLoged) return <Redirect to="/customer/products" />;
+  const history = useHistory();
   if (registration) return <Redirect to="/register" />;
+
+  localStorage.clear();
 
   const handleEmail = ({ target: { value } }) => setEmail(value);
 
@@ -34,8 +29,17 @@ export default function LoginPage() {
       const body = { email, password };
       const data = await requestLogin(endpoint, body);
       localStorage.setItem('user', JSON.stringify(data));
-      console.log('Login realizado com sucesso!');
-      setIsLoged(true);
+      const userJson = localStorage.getItem('user');
+      const { role } = JSON.parse(userJson);
+      console.log(role);
+      switch (role) {
+      case 'seller':
+        return history.push('/seller/orders');
+      case 'administrator':
+        return history.push('/admin/manage');
+      default:
+        return history.push('/customer/products');
+      }
     } catch (error) {
       setInvisibleElement(true);
     }
