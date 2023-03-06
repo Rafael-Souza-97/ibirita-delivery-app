@@ -40,7 +40,7 @@ const userRegister = async (req, res) => {
 
 const sellerRegister = async (req, res) => {
   const { name, email, password } = req.body;
-  const newSeller = await sellerRegisterService.sellerRegister({ name, email, password });
+  const newSeller = await usersService.sellerRegister({ name, email, password });
 
   if (!newSeller.created) {
     return res.status(409).json({ message: 'Seller already registered' });
