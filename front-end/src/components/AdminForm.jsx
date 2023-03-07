@@ -46,6 +46,10 @@ function AdminForm() {
   async function handleSubmit(event) {
     event.preventDefault();
 
+    const adminData = JSON.parse(localStorage.getItem('user'));
+    console.log('LOCAL STORAGE --->', adminData);
+    const { token } = adminData;
+
     console.log('USUARIO --> ', newUserData);
     const newUser = await requestUsersAdmin(newUserData, token);
     console.log('RESPOSTA DA API -->', newUserData);
@@ -122,7 +126,7 @@ function AdminForm() {
             value={ newUserData.role }
             onChange={ handleChange }
           >
-            <option defaultValue="seller">Vendedor</option>
+            <option value="seller">Vendedor</option>
             <option value="administrator">Administrador</option>
             <option value="customer">Cliente</option>
           </select>

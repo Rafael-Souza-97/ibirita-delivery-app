@@ -19,7 +19,7 @@ export default function DetailsOrders() {
     setLoaded(true);
     setOrder([orderNumber]);
     console.log(orders);
-  }, [params.id, orderResponse]);
+  }, [params.id, orderResponse, orders]);
 
   function formatDate(dateString) {
     const date = new Date(dateString);

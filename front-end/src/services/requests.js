@@ -99,9 +99,11 @@ export const requestUsers = async (id) => {
   }
 };
 
-export const requestUsersAdmin = async (body) => {
+export const requestUsersAdmin = async (body, token) => {
   try {
+    setToken(token);
     const { data } = await api.post('http://localhost:3001/register/admin', body);
+    console.log('USER BY ADMIN -->', data);
 
     return data;
   } catch (error) {
@@ -120,7 +122,8 @@ export const requestUsersAdmin = async (body) => {
 
 export const requestAllUsers = async () => {
   try {
-    const { data } = await api.get('http://localhost:3001/users');
+    const { data } = await api.get('http://localhost:3001/login/users');
+    console.log('ALL USERS -->', data);
 
     return data;
   } catch (error) {

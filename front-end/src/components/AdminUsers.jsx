@@ -7,12 +7,11 @@ function AdminUsers() {
   useEffect(() => {
     async function fetchUsers() {
       const response = await requestAllUsers();
-      setUsers(response.data);
+      setUsers(response);
     }
 
     fetchUsers();
   }, []);
-
   return (
     <div
       className="admin-table__order-table"
