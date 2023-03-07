@@ -68,7 +68,6 @@ function AdminUsers() {
                 <button
                   type="button"
                   className="admin-table__button"
-                  onClick={ handleRemove(user.id) }
                 >
                   Remover
                 </button>
