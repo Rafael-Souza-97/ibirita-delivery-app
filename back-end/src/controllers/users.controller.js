@@ -54,6 +54,22 @@ const sellerRegister = async (req, res) => {
   return res.status(201).json(response);
 };
 
+const adminRegister = async (req, res) => {
+  const { name, email, password, role } = req.body;
+  const newUser = await usersService.adminRegister({ name, email, password, role });
+
+  if (!newUser.created) {
+    return res.status(409).json({ message: 'User already registered' });
+  }
+  const token = generateToken(newUser.data);
+  const response = {
+    ...newUser.data,
+    token,
+  };
+
+  return res.status(201).json(response);
+};
+
 const getUserById = async (req, res) => {
   const { id } = req.params;
 
@@ -70,4 +86,5 @@ module.exports = {
   userRegister,
   getUserById,
   sellerRegister,
+  adminRegister,
 };

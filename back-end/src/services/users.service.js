@@ -53,6 +53,24 @@ const sellerRegister = async (body) => {
   return { data: newSellerWithoutPassword, created };
 };
 
+const adminRegister = async (body) => {
+  const { name, email, password, role } = body;
+
+  const [newUser, created] = await User.findOrCreate({
+    where: { email },
+    defaults: {
+      name,
+      email,
+      password: convertToMD5(password),
+      role,
+    },
+  });
+
+  const { password: _, ...newUserWithoutPassword } = newUser.dataValues;
+
+  return { data: newUserWithoutPassword, created };
+};
+
 const getUserById = async (id) => {
   const user = await User.findByPk(id);
   if (!user) {
@@ -66,4 +84,5 @@ module.exports = {
   userRegister,
   getUserById,
   sellerRegister,
+  adminRegister,
 };
