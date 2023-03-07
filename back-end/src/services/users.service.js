@@ -87,15 +87,13 @@ const getUsers = async () => {
   return users;
 };
 
-// const getAllStaff = async () => {
-//   const staff = await User.findAll({
-//     attributes: ['seller', 'administrator'],
-//   });
-//   if (!staff) {
-//     throw new Error('Staff not found');
-//   }
-//   return staff;
-// };
+const deleteUserById = async (id) => {
+  const user = await User.findByPk(id);
+  if (!user) {
+    throw new Error('User not found');
+  }
+  await user.destroy();
+};
 
 module.exports = {
   userLogin,
@@ -104,5 +102,5 @@ module.exports = {
   sellerRegister,
   adminRegister,
   getUsers,
-  // getAllStaff,
+  deleteUserById,
 };
