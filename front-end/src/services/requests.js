@@ -99,4 +99,42 @@ export const requestUsers = async (id) => {
   }
 };
 
+export const requestUsersAdmin = async (body) => {
+  try {
+    const { data } = await api.post('http://localhost:3001/register/admin', body);
+
+    return data;
+  } catch (error) {
+    if (error.response) {
+      console.log(
+        'Status:',
+        error.response.status,
+        ' Message:',
+        error.response.data.message,
+      );
+      return error.response.data.message;
+    }
+    console.log('Error', error.response.data.message);
+  }
+};
+
+export const requestAllUsers = async () => {
+  try {
+    const { data } = await api.get('http://localhost:3001/users');
+
+    return data;
+  } catch (error) {
+    if (error.response) {
+      console.log(
+        'Status:',
+        error.response.status,
+        ' Message:',
+        error.response.data.message,
+      );
+      return error.response.data.message;
+    }
+    console.log('Error', error.response.data.message);
+  }
+};
+
 export default api;

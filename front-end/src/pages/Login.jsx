@@ -40,9 +40,9 @@ export default function LoginPage() {
       const data = await requestLogin(endpoint, body);
       localStorage.setItem('user', JSON.stringify(data));
       const userLocalStorage = localStorage.getItem('user');
-      const { role } = userLocalStorage;
-      console.log(JSON.parse(role));
-      switch (JSON.parse(role)) {
+      const user = JSON.parse(userLocalStorage);
+      const { role } = user;
+      switch (role) {
       case 'seller':
         history.push('/seller/orders');
         break;
