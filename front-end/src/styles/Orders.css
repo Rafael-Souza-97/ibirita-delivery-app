@@ -1,0 +1,38 @@
+.orders-page-container {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+
+.orders-page-orders-container {
+  align-items: center;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  height: 250px;
+  justify-content: center;
+  margin: 20px;
+  padding: 20px;
+  width: 300px;
+}
+
+.orders-page-orders-container:hover {
+  box-shadow: 1px 8px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+  transition: all 0.3s ease-in-out;
+}
+
+.orders-page-orders-container h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.orders-page-orders-container p {
+  color: rgb(51, 51, 51);
+  font-size: 18px;
+  margin-top: 10px;
+}
