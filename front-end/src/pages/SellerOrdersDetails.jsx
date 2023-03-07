@@ -1,36 +1,28 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import NavBar from '../components/NavBar';
-import Context from '../context/context';
-import mock from '../MOCKS/OREDERSUSER';
-import { requestData, requestUpdateStatus } from '../services/requests';
+import { requestSales, requestUpdateStatus } from '../services/requests';
 
 const prefix = 'seller_order_details__';
 const prefixStatus = 'seller_order_details__element-order-details-label-delivery-status';
 
 export default function SellerOrdersDetails() {
   const [orders, setOrder] = useState({});
-  const [loaded, setLoaded] = useState(0);
-  const [reload, setReload] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+  const [reload, setReload] = useState(0);
 
-  const { productsArray } = useContext(Context);
   const params = useParams();
 
-  console.log(productsArray);
-
   useEffect(() => {
-    const orderNumber = mock.find((item) => item.id
-    === Number(params.id));
-    setOrder(orderNumber);
-    const endpoint = `http://localhost:3001/sales/${params.id}`;
-    const { token } = JSON.parse(localStorage.getItem('user'));
-    const fetchProducts = async () => {
-      const products = await requestData(endpoint, token);
-      setOrder(products);
+    const fetchSales = async () => {
+      const products = await requestSales();
+      const salesOfSeller = products.find((item) => item.id === Number(params.id));
+      console.log(salesOfSeller);
+      setOrder(salesOfSeller);
+      setLoaded(true);
     };
-    fetchProducts();
-    setLoaded(true);
-  }, [params.id, reload]);
+    fetchSales();
+  }, [params.id, reload, loaded]);
 
   const handlePreparing = () => {
     const body = {
@@ -41,8 +33,9 @@ export default function SellerOrdersDetails() {
       const products = await requestUpdateStatus(endpoint, body);
       return products;
     };
-    fetchProducts();
+    setLoaded(false);
     setReload(1);
+    fetchProducts();
   };
 
   const handleDispatch = () => {
@@ -54,9 +47,9 @@ export default function SellerOrdersDetails() {
       const products = await requestUpdateStatus(endpoint, body);
       return products;
     };
-    fetchProducts();
+    setLoaded(false);
     setReload(2);
-    setReload(true);
+    fetchProducts();
   };
 
   return (
@@ -118,55 +111,47 @@ export default function SellerOrdersDetails() {
                 <th>Sub-Total</th>
               </tr>
             </thead>
-            {/* <tbody>
-              {orders.products.map((product, index) => {
-                const item = productsArray.find((element) => element.id
-                === product.productId);
-                const itemName = item ? item.name : undefined;
-                const itemPrice = item ? item.price : undefined;
-                const subTotal = item ? (item.price * product.quantity)
-                  .toFixed(2) : undefined;
-                return (
-                  <tr key={ index + 1 }>
-                    <td
-                      data-testid={
-                        `${prefix}element-order-table-item-numbers-${index}`
-                      }
-                    >
-                      {index + 1}
-                    </td>
-                    <td
-                      data-testid={
-                        `${prefix}element-order-table-name-${index}`
-                      }
-                    >
-                      {itemName}
-                    </td>
-                    <td
-                      data-testid={
-                        `${prefix}element-order-table-quantity-${index}`
-                      }
-                    >
-                      {product.quantity}
-                    </td>
-                    <td
-                      data-testid={
-                        `${prefix}element-order-table-unit-price-${index}`
-                      }
-                    >
-                      {itemPrice}
-                    </td>
-                    <td
-                      data-testid={
-                        `${prefix}element-order-table-sub-total-${index}`
-                      }
-                    >
-                      {subTotal}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody> */}
+            <tbody>
+              {orders.products.map((product, index) => (
+                <tr key={ index + 1 }>
+                  <td
+                    data-testid={
+                      `${prefix}element-order-table-item-numbers-${index}`
+                    }
+                  >
+                    {index + 1}
+                  </td>
+                  <td
+                    data-testid={
+                      `${prefix}element-order-table-name-${index}`
+                    }
+                  >
+                    {product.name}
+                  </td>
+                  <td
+                    data-testid={
+                      `${prefix}element-order-table-quantity-${index}`
+                    }
+                  >
+                    {product.SalesProducts.quantity}
+                  </td>
+                  <td
+                    data-testid={
+                      `${prefix}element-order-table-unit-price-${index}`
+                    }
+                  >
+                    {product.price}
+                  </td>
+                  <td
+                    data-testid={
+                      `${prefix}element-order-table-sub-total-${index}`
+                    }
+                  >
+                    { (product.SalesProducts.quantity * product.price).toFixed(2) }
+                  </td>
+                </tr>
+              ))}
+            </tbody>
           </table>
           <div className="Valor Total">
             <p

@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import Context from '../context/context';
 import users from '../MOCKS/USERS';
+import { requestUpdateStatus } from '../services/requests';
 
 export default function DetailsOrders() {
   const [orders, setOrder] = useState([{}]);
@@ -17,12 +18,25 @@ export default function DetailsOrders() {
     === Number(params.id));
     setLoaded(true);
     setOrder([orderNumber]);
+    console.log(orders);
   }, [params.id, orderResponse]);
 
   function formatDate(dateString) {
     const date = new Date(dateString);
     return date.toLocaleDateString('pt-BR');
   }
+
+  const handleDelivered = () => {
+    const body = {
+      status: 'Entregue',
+    };
+    const endpoint = `http://localhost:3001/sales/status/${params.id}`;
+    const fetchProducts = async () => {
+      const products = await requestUpdateStatus(endpoint, body);
+      return products;
+    };
+    fetchProducts();
+  };
 
   const dataTestPrefix = 'customer_order_details__';
   const dataTestPrefix2 = 'customer_order_details__element-order-details-label-delivery';
@@ -77,8 +91,8 @@ export default function DetailsOrders() {
                 <button
                   type="button"
                   data-testid="customer_order_details__button-delivery-check"
-                  onClick={ () => console.log('clicou em mim') }
-                  disabled
+                  onClick={ () => handleDelivered() }
+                  disabled={ order.status !== 'Em Trânsito' }
                 >
                   Marcar como entregue
                 </button>
