@@ -79,10 +79,30 @@ const getUserById = async (id) => {
   return user;
 };
 
+const getUsers = async () => {
+  const users = await User.findAll();
+  if (!users) {
+    throw new Error('Users not found');
+  }
+  return users;
+};
+
+// const getAllStaff = async () => {
+//   const staff = await User.findAll({
+//     attributes: ['seller', 'administrator'],
+//   });
+//   if (!staff) {
+//     throw new Error('Staff not found');
+//   }
+//   return staff;
+// };
+
 module.exports = {
   userLogin,
   userRegister,
   getUserById,
   sellerRegister,
   adminRegister,
+  getUsers,
+  // getAllStaff,
 };

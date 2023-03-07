@@ -81,10 +81,30 @@ const getUserById = async (req, res) => {
   }
 };
 
+const getUsers = async (req, res) => {
+  try {
+    const users = await usersService.getUsers();
+    return res.status(200).json(users);
+  } catch (error) {
+    return res.status(404).json({ message: error.message });
+  }
+};
+
+// const getAllStaff = async (_req, res) => {
+//   try {
+//     const staff = await usersService.getAllStaff();
+//     return res.status(200).json(staff);
+//   } catch (error) {
+//     return res.status(404).json({ message: error.message });
+//   }
+// };
+
 module.exports = {
   userLogin,
   userRegister,
   getUserById,
   sellerRegister,
   adminRegister,
+  getUsers,
+  // getAllStaff,
 };
