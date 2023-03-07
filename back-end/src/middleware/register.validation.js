@@ -4,7 +4,7 @@ const registerValidation = async (req, res, next) => {
   const verifyEmail = email.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g);
 
   if (!req.body) {
-    return res.status(404).json({ message: 'Email and password are required' });
+    return res.status(404).json({ message: 'There are missing fields' });
   }
 
   if (name.length < 12) {
@@ -22,6 +22,21 @@ const registerValidation = async (req, res, next) => {
   next();
 };
 
+const roleValidation = async (req, res, next) => {
+  const { role } = req.body;
+
+  if (!role) {
+    return res.status(404).json({ message: 'Role is required' });
+  }
+
+  if (role !== 'customer' && role !== 'seller' && role !== 'administrator') {
+    return res.status(404).json({ message: 'Role must be customer, seller or administrator' });
+  }
+
+  next();
+};
+
 module.exports = {
   registerValidation,
+  roleValidation,
 };
