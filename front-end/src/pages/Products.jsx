@@ -37,7 +37,7 @@ export default function Products() {
       setProductsArray(products);
     };
     fetchProducts();
-  }, []);
+  }, [setProductsArray]);
 
   const handlePlusItem = (id) => {
     const numberId = +id;

@@ -20,10 +20,10 @@ function CheckoutAddress() {
 
   async function sellRegister() {
     try {
-      if (cartProducts.length === 0) {
-        alert('Não há produtos no carrinho.');
-        return;
-      }
+      // if (cartProducts.length === 0) {
+      //   alert('Não há produtos no carrinho.');
+      //   return;
+      // }
       const user = localStorage.getItem('user');
       if (!user) {
         history.push('/login');

@@ -22,7 +22,7 @@ export default function SellerOrdersDetails() {
       setLoaded(true);
     };
     fetchSales();
-  }, [reload, loaded]);
+  }, [params.id, reload, loaded]);
 
   const handlePreparing = () => {
     const body = {

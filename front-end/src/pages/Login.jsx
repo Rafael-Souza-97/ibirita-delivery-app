@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
+import Context from '../context/context';
 import { requestLogin } from '../services/requests';
 
 export default function LoginPage() {
@@ -7,15 +8,19 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [registration, setRegistration] = useState(false);
   const [invisibleElement, setInvisibleElement] = useState(false);
-  const history = useHistory();
-  if (registration) return <Redirect to="/register" />;
+  const { isLoged, setIsLoged } = useContext(Context);
 
-  localStorage.clear();
+  const history = useHistory();
 
   const userJson = localStorage.getItem('user');
-  const userData = JSON.parse(userJson);
+  const userData = userJson ? JSON.parse(userJson) : null;
+  const roleUser = userData ? userData.role : null;
 
-  if (userData) setIsLoged(true);
+  useEffect(() => {
+    if (userData) {
+      setIsLoged(true);
+    }
+  }, [userData, setIsLoged]);
 
   const handleEmail = ({ target: { value } }) => setEmail(value);
 
@@ -34,19 +39,39 @@ export default function LoginPage() {
       const body = { email, password };
       const data = await requestLogin(endpoint, body);
       localStorage.setItem('user', JSON.stringify(data));
-      const { role } = JSON.parse(userJson);
-      switch (role) {
+      const userLocalStorage = localStorage.getItem('user');
+      const { role } = userLocalStorage;
+      console.log(JSON.parse(role));
+      switch (JSON.parse(role)) {
       case 'seller':
-        return history.push('/seller/orders');
+        history.push('/seller/orders');
+        break;
       case 'administrator':
-        return history.push('/admin/manage');
+        history.push('/admin/manage');
+        break;
       default:
-        return history.push('/customer/products');
+        history.push('/customer/products');
+        break;
       }
     } catch (error) {
       setInvisibleElement(true);
     }
   };
+
+  if (registration) {
+    return <Redirect to="/register" />;
+  }
+
+  if (isLoged) {
+    switch (roleUser) {
+    case 'seller':
+      return <Redirect to="/seller/orders" />;
+    case 'administrator':
+      return <Redirect to="/admin/manage" />;
+    default:
+      return <Redirect to="/customer/products" />;
+    }
+  }
 
   return (
     <div>
