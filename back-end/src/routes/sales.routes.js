@@ -1,7 +1,9 @@
 const express = require('express');
 const salesController = require('../controllers/sales.controller');
-const validateToken = require('../middleware/token.validation');
 const { salesValidation, typeOfValidation } = require('../middleware/sales.validation');
+const {
+  validateToken,
+} = require('../middleware/token.validation');
 
 const router = express.Router();
 
