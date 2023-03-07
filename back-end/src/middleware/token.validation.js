@@ -2,7 +2,7 @@ const {
   TOKEN_NOT_FOUND,
   EXPIRED_INVALID_TOKEN,
 } = require('../utils/error.messages');
-const { checkToken } = require('../utils/jwtConfig');
+const { checkToken, getUserFromToken } = require('../utils/jwtConfig');
 
 const validateToken = (req, res, next) => {
   const { authorization } = req.headers;
@@ -26,7 +26,7 @@ const tokenSeller = (req, res, next) => {
     return res.status(404).json(TOKEN_NOT_FOUND);
   }
 
-  if (authorization.role !== 'seller') {
+  if (getUserFromToken(authorization).data.role !== 'seller') {
     return res.status(404).json({ message: 'Token must have seller role' });
   }
 
@@ -45,7 +45,7 @@ const adminToken = (req, res, next) => {
     return res.status(404).json(TOKEN_NOT_FOUND);
   }
 
-  if (authorization.role !== 'administrator') {
+  if (getUserFromToken(authorization).data.role !== 'administrator') {
     return res.status(404).json({ message: 'Token must have administrator role' });
   }
 

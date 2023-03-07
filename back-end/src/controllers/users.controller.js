@@ -90,14 +90,16 @@ const getUsers = async (req, res) => {
   }
 };
 
-// const getAllStaff = async (_req, res) => {
-//   try {
-//     const staff = await usersService.getAllStaff();
-//     return res.status(200).json(staff);
-//   } catch (error) {
-//     return res.status(404).json({ message: error.message });
-//   }
-// };
+const deleteUserById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const user = await usersService.deleteUserById(id);
+    return res.status(200).json(user);
+  } catch (error) {
+    return res.status(404).json({ message: error.message });
+  }
+};
 
 module.exports = {
   userLogin,
@@ -106,5 +108,5 @@ module.exports = {
   sellerRegister,
   adminRegister,
   getUsers,
-  // getAllStaff,
+  deleteUserById,
 };
