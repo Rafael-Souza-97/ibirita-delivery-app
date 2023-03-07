@@ -27,7 +27,7 @@ export default function Orders() {
     return date.toLocaleDateString('pt-BR');
   }
 
-  if (sales.length === 0) {
+  if (sales.length === 0 || Object.keys(sales).length === 0) {
     return (
       <div>
         <NavBar />

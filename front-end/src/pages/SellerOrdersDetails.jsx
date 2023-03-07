@@ -52,6 +52,11 @@ export default function SellerOrdersDetails() {
     fetchProducts();
   };
 
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('pt-BR');
+  }
+
   return (
     <div>
       <NavBar />
@@ -59,7 +64,7 @@ export default function SellerOrdersDetails() {
         <div key={ orders.id }>
           <div className="Topo da tabela">
             <h2
-              data-testid={ `${prefix}element-order-details-label-order-${orders.id}` }
+              data-testid={ `${prefix}element-order-details-label-order-id` }
               id={ orders.id }
             >
               ID da compra:
@@ -67,15 +72,14 @@ export default function SellerOrdersDetails() {
               {orders.id}
             </h2>
             <h2
-              data-testid={ `${prefix}element-order-date-${orders.id}` }
+              data-testid={ `${prefix}element-order-details-label-order-date` }
               id={ orders.id }
             >
-              Data da compra:
               <br />
-              {orders.saleDate}
+              {formatDate(orders.saleDate)}
             </h2>
             <h2
-              data-testid={ `${prefixStatus}-${orders.id}` }
+              data-testid={ `${prefixStatus}` }
               id={ orders.id }
             >
               Status da compra:
@@ -158,9 +162,9 @@ export default function SellerOrdersDetails() {
               data-testid="seller_order_details__element-order-total-price"
               id={ orders.id }
             >
-              Valor Total:
               <br />
-              {orders.totalPrice}
+              {parseFloat(orders.totalPrice)
+                .toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
             </p>
           </div>
         </div>
