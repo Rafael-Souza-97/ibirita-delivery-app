@@ -9,7 +9,7 @@ const prefixStatus = 'seller_order_details__element-order-details-label-delivery
 export default function SellerOrdersDetails() {
   const [orders, setOrder] = useState({});
   const [loaded, setLoaded] = useState(false);
-  const [reload, setReload] = useState(false);
+  const [reload, setReload] = useState(0);
 
   const params = useParams();
 
@@ -22,7 +22,7 @@ export default function SellerOrdersDetails() {
       setLoaded(true);
     };
     fetchSales();
-  }, [reload]);
+  }, [reload, loaded]);
 
   const handlePreparing = () => {
     const body = {
@@ -33,8 +33,9 @@ export default function SellerOrdersDetails() {
       const products = await requestUpdateStatus(endpoint, body);
       return products;
     };
-    fetchProducts();
+    setLoaded(false);
     setReload(1);
+    fetchProducts();
   };
 
   const handleDispatch = () => {
@@ -46,8 +47,9 @@ export default function SellerOrdersDetails() {
       const products = await requestUpdateStatus(endpoint, body);
       return products;
     };
-    fetchProducts();
+    setLoaded(false);
     setReload(2);
+    fetchProducts();
   };
 
   return (
