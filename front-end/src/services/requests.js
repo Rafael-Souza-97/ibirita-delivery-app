@@ -82,7 +82,7 @@ export const requestSales = async () => {
 
 export const requestUsers = async (id) => {
   try {
-    const { data } = await api.get(`http://localhost:3001/users/${id}`);
+    const { data } = await api.get(`http://localhost:3001/login/users/${id}`);
 
     return data;
   } catch (error) {

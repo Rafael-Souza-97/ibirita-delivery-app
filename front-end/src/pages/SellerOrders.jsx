@@ -71,7 +71,7 @@ export default function SellerOrders() {
               </p>
             </button>
           ))
-          : <h1>Loadin</h1>}
+          : <h1>Loading</h1>}
       </div>
     </div>
   );
