@@ -47,7 +47,6 @@ function CheckoutAddress() {
       setOrderResponse(request);
 
       const lastOrder = request[request.length - 1];
-      console.log('ULTIMA ORDEM --> ', lastOrder);
 
       const { id } = lastOrder;
       history.push(`/customer/orders/${id}`);

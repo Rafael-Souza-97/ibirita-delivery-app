@@ -9,14 +9,14 @@ function Provider({ children }) {
   const [cartProducts, setCartProducts] = useState([]);
   const [totalValue, setTotalValue] = useState(0);
   const [checkoutTotal, setCheckoutTotal] = useState(0);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [orderResponse, setOrderResponse] = useState({});
+  const [newUserRegisterByAdmin, setNewUserRegisterByAdmin] = useState(false);
   const [adressValues, setAdressValues] = useState({
     seller: 'fulana',
     address: '',
     number: '',
   });
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [orderResponse, setOrderResponse] = useState({});
-  const [newUserRegisterByAdmin, setNewUserRegisterByAdmin] = useState(false);
 
   const contextValue = useMemo(() => {
     const objState = {
@@ -64,6 +64,7 @@ function Provider({ children }) {
     setOrderResponse,
     setNewUserRegisterByAdmin,
   ]);
+
   return (
     <context.Provider value={ contextValue }>
       { children }

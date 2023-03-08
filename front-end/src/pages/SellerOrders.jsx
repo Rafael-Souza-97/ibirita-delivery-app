@@ -15,7 +15,7 @@ export default function SellerOrders() {
   };
 
   useEffect(() => {
-    const endpoint = 'http://localhost:3001/sales/';
+    const endpoint = 'http://localhost:3001/orders/';
     const { token, id } = JSON.parse(localStorage.getItem('user'));
     const fetchProducts = async () => {
       const products = await requestData(endpoint, token);
@@ -29,13 +29,13 @@ export default function SellerOrders() {
   return (
     <div>
       <NavBar />
-      <div>
+      <div className="orders-page-container">
         { loaded
           ? pedidos.map((orders) => (
             <button
               key={ orders.id }
               type="button"
-              className="product-card"
+              className="orders-page-orders-container"
               id={ orders.id }
               onClick={ (e) => handleClick(e) }
             >

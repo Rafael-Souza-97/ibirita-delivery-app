@@ -11,3 +11,4 @@ router.get('/:id', userController.getUserById);
 router.delete('/:id', adminToken, userController.deleteUserById);
 
 module.exports = router;
+
