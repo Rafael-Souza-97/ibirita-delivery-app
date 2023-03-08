@@ -35,12 +35,13 @@ describe('Testa as funções da página de Login', () => {
 
   describe('Testa a rota de Login', () => {
     it('Testa a rota de Login', async () => {
-      sinon.stub(User, 'findOne').resolves(dataUser.dataValues);
+      sinon.stub(User, 'findOne').resolves(dataUser);
       const response = await chai.request(app).post('/login').send(
         {
           email: 'adm@deliveryapp.com',
           password: '--adm2@21!!--'
         });
+        console.log('STATUS', response.status);
       const { body, status } = response;
       expect(status).to.be.equal(200);
       expect(body.id).to.be.equal(1);
