@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import Context from '../context/context';
-import { requestSales, requestUpdateStatus, requestUsers } from '../services/requests';
+import { requestSales, requestUpdateStatus, requestUserById } from '../services/requests';
 
 export default function DetailsOrders() {
   const [orders, setOrder] = useState([{}]);
@@ -18,7 +18,7 @@ export default function DetailsOrders() {
       const products = await requestSales();
       const salesOfSeller = products.find((item) => item.id === Number(params.id));
       const { sellerId } = salesOfSeller;
-      const userRequested = await requestUsers(Number(sellerId));
+      const userRequested = await requestUserById(Number(sellerId));
       setSeller(userRequested);
       setOrder(salesOfSeller);
       setLoaded(true);
@@ -32,12 +32,9 @@ export default function DetailsOrders() {
   }
 
   const handleDelivered = () => {
-    const body = {
-      status: 'Entregue',
-    };
-    const endpoint = `http://localhost:3001/sales/status/${params.id}`;
+    const body = { status: 'Entregue' };
     const fetchProducts = async () => {
-      const products = await requestUpdateStatus(endpoint, body);
+      const products = await requestUpdateStatus(params.id, body);
       setReload(1);
       return products;
     };

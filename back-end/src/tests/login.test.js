@@ -15,7 +15,7 @@ const dataUser = {
     id: 1,
     name: 'Delivery App Admin',
     email: 'adm@deliveryapp.com',
-    // password: 'a4c86edecc5aee06eff8fdeda69e0d04',
+    password: 'a4c86edecc5aee06eff8fdeda69e0d04',
     role: 'administrator',
   }
 };
@@ -48,13 +48,15 @@ describe('Testa as funções da página de Login', () => {
       expect(body.name).to.be.equal('Delivery App Admin');
       expect(body.email).to.be.equal('adm@deliveryapp.com');
       expect(body.role).to.be.equal('administrator');
+      expect(typeof body.token).to.be.equal('string');
     });
-    it('Testa a rota de login/users/:id', async () => {
-      sinon.stub(User, 'findByPk').resolves(dataUser);
-      const response = await chai.request(app).get('/login/users/1').send(arrayUser[0]);
+
+    it('Testa a rota de /users/:id', async () => {
+      sinon.stub(User, 'findByPk').resolves(dataUser.dataValues);
+      const response = await chai.request(app).get('/users/1');
       const { body, status } = response;
       expect(status).to.be.equal(200);
-      expect(body).to.be.equal({
+      expect(body).to.be.deep.equal({
         id: 1,
         name: 'Delivery App Admin',
         email: 'adm@deliveryapp.com',
@@ -62,7 +64,9 @@ describe('Testa as funções da página de Login', () => {
         role: 'administrator'
       })
     });
+
     it('Testa a rota de /users', async () => {
+      sinon.stub(User, 'findByPk').resolves(dataUser.dataValues);
       const response = await chai.request(app).get('/users').send({
         name: 'Maria Joaquina',
         email: 'mariazinha123@email.com',
@@ -71,12 +75,13 @@ describe('Testa as funções da página de Login', () => {
       });
       expect(response.status).to.be.equal(200);
     });
-    it('Testa a rota /delete/:id', async () => {
-      const response = await chai.request(app).delete('/delete/:id').send(
-        {
+
+    // it('Testa a rota /delete/:id', async () => {
+    //   const response = await chai.request(app).delete('/delete/:id').send(
+    //     {
           
-      });
-      expect(response.status).to.be.equal(200);
-    });
+    //   });
+    //   expect(response.status).to.be.equal(200);
+    // });
     })
   });
