@@ -16,7 +16,6 @@ const getAllSales = async () => {
         model: Product,
         as: 'products',
         through: {
-          model: SalesProducts,
           attributes: ['quantity'],
         },
       },
