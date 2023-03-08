@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { requestAllUsers } from '../services/requests';
+import React, { useState, useEffect, useContext } from 'react';
+import Context from '../context/context';
+import { requestAllUsers, deleteUserByID } from '../services/requests';
 
 function AdminUsers() {
+  const { newUserRegisterByAdmin } = useContext(Context);
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -12,6 +14,25 @@ function AdminUsers() {
 
     fetchUsers();
   }, []);
+
+  useEffect(() => {
+    async function fetchUsers() {
+      if (newUserRegisterByAdmin) {
+        const response = await requestAllUsers();
+        setUsers(response);
+      }
+    }
+
+    fetchUsers();
+  }, [newUserRegisterByAdmin]);
+
+  const handleDeleteUser = async (id) => {
+    const adminData = JSON.parse(localStorage.getItem('user'));
+    const { token } = adminData;
+    await deleteUserByID(id, token);
+    const updatedUsers = users.filter((user) => user.id !== id);
+    setUsers(updatedUsers);
+  };
 
   return (
     <div
@@ -68,6 +89,7 @@ function AdminUsers() {
                 <button
                   type="button"
                   className="admin-table__button"
+                  onClick={ () => handleDeleteUser(user.id) }
                 >
                   Remover
                 </button>
