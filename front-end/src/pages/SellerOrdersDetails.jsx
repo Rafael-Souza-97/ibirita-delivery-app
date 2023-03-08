@@ -17,7 +17,6 @@ export default function SellerOrdersDetails() {
     const fetchSales = async () => {
       const products = await requestSales();
       const salesOfSeller = products.find((item) => item.id === Number(params.id));
-      console.log(salesOfSeller);
       setOrder(salesOfSeller);
       setLoaded(true);
     };
@@ -28,9 +27,9 @@ export default function SellerOrdersDetails() {
     const body = {
       status: 'Preparando',
     };
-    const endpoint = `http://localhost:3001/sales/status/${params.id}`;
+
     const fetchProducts = async () => {
-      const products = await requestUpdateStatus(endpoint, body);
+      const products = await requestUpdateStatus(params.id, body);
       return products;
     };
     setLoaded(false);
@@ -42,9 +41,9 @@ export default function SellerOrdersDetails() {
     const body = {
       status: 'Em Trânsito',
     };
-    const endpoint = `http://localhost:3001/sales/status/${params.id}`;
+
     const fetchProducts = async () => {
-      const products = await requestUpdateStatus(endpoint, body);
+      const products = await requestUpdateStatus(params.id, body);
       return products;
     };
     setLoaded(false);

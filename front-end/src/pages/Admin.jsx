@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import AdminNavBar from '../components/AdminNavBar';
 import AdminUsers from '../components/AdminUsers';
 import Context from '../context/context';
-import { requestUsersAdmin } from '../services/requests';
+import { createNewUserAdmin } from '../services/requests';
 import {
   NUMBER_ZERO,
   NUMBER_SIX,
@@ -53,7 +53,7 @@ function Admin() {
     const adminData = JSON.parse(localStorage.getItem('user'));
     const { token } = adminData;
 
-    const newUser = await requestUsersAdmin(newUserData, token);
+    const newUser = await createNewUserAdmin(newUserData, token);
 
     if (newUser === 'User already registered') {
       setErrorMessage('Usuário já registrado. Por favor, faça login');

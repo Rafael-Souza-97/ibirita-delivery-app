@@ -5,8 +5,16 @@ const { adminToken } = require('../middleware/token.validation');
 
 const router = express.Router();
 
-router.post('/', registerValidation, userController.userRegister);
-router.post('/seller', registerValidation, userController.sellerRegister);
+router.post(
+  '/',
+  registerValidation,
+  userController.userRegister,
+  );
+router.post(
+  '/seller',
+  registerValidation,
+  userController.sellerRegister,
+  );
 router.post(
   '/admin',
   adminToken,

@@ -10,6 +10,7 @@ import DetailsOrders from './pages/DetailsOrders';
 import SellerOrders from './pages/SellerOrders';
 import SellerOrdersDetails from './pages/SellerOrdersDetails';
 import Admin from './pages/Admin';
+// import PageNotFound from './pages/PageNotFound';
 import './App.css';
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
           <Route exact path="/seller/orders" component={ SellerOrders } />
           <Route exact path="/seller/orders/:id" component={ SellerOrdersDetails } />
           <Route exact path="/admin/manage" component={ Admin } />
+          {/* <Route path="*" component={ PageNotFound } /> */}
         </Provider>
       </Switch>
     </BrowserRouter>

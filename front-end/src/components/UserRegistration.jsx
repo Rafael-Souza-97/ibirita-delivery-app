@@ -53,17 +53,12 @@ function UserRegistration() {
   async function handleSubmit(event) {
     event.preventDefault();
 
-    const endpoint = 'http://localhost:3001/register';
-    const registerToken = await requestRegister(endpoint, newUserData);
+    const registerToken = await requestRegister(newUserData);
 
     if (registerToken === 'User already registered') {
       setErrorMessage('Usuário já registrado. Por favor, faça login');
       return;
     }
-
-    console.log(registerToken);
-
-    console.log('Cadastro realizado com sucesso!');
 
     localStorage.setItem('user', JSON.stringify(registerToken));
 
