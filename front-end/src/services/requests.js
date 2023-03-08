@@ -44,7 +44,7 @@ export const requestRegister = async (endpoint, body) => {
 
 export const requestCheckout = async (body) => {
   try {
-    const { data } = await api.post('http://localhost:3001/sales', body);
+    const { data } = await api.post('http://localhost:3001/orders', body);
 
     return data;
   } catch (error) {
@@ -63,7 +63,7 @@ export const requestCheckout = async (body) => {
 
 export const requestSales = async () => {
   try {
-    const { data } = await api.get('http://localhost:3001/sales');
+    const { data } = await api.get('http://localhost:3001/orders');
 
     return data;
   } catch (error) {
@@ -82,7 +82,7 @@ export const requestSales = async () => {
 
 export const requestUsers = async (id) => {
   try {
-    const { data } = await api.get(`http://localhost:3001/login/users/${id}`);
+    const { data } = await api.get(`http://localhost:3001/users/${id}`);
 
     return data;
   } catch (error) {
@@ -99,7 +99,7 @@ export const requestUsers = async (id) => {
   }
 };
 
-export const requestUsersAdmin = async (body, token) => {
+export const createNewUserAdmin = async (body, token) => {
   try {
     setToken(token);
     const { data } = await api.post('http://localhost:3001/register/admin', body);
@@ -122,7 +122,7 @@ export const requestUsersAdmin = async (body, token) => {
 
 export const requestAllUsers = async () => {
   try {
-    const { data } = await api.get('http://localhost:3001/login/users');
+    const { data } = await api.get('http://localhost:3001/users');
     console.log('ALL USERS -->', data);
 
     return data;
@@ -143,7 +143,7 @@ export const requestAllUsers = async () => {
 export const deleteUserByID = async (id, token) => {
   try {
     setToken(token);
-    const { data } = await api.delete(`http://localhost:3001/login/delete/${id}`);
+    const { data } = await api.delete(`http://localhost:3001/users/${id}`);
     console.log('ALL USERS -->', data);
 
     return data;
