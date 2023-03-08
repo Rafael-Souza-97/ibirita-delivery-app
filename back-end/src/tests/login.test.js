@@ -20,13 +20,15 @@ const dataUser = {
   }
 };
 
-const arrayUser = [{
-    id: 1,
-    name: 'Delivery App Admin',
-    email: 'adm@deliveryapp.com',
-    password: 'a4c86edecc5aee06eff8fdeda69e0d04',
-    role: 'administrator',
-}];
+const dataUser2 = {
+  dataValues: {
+    id: 2,
+    name: 'Fulana Pereira',
+    email: 'fulana@deliveryapp.com',
+    password: '3c28d2b0881bf46457a853e0b07531c6', 
+    role: 'seller',
+  }
+};
 
 describe('Testa as funções da página de Login', () => {
   beforeEach(() => {
@@ -66,20 +68,21 @@ describe('Testa as funções da página de Login', () => {
 
     it('Testa a rota de /users', async () => {
       sinon.stub(User, 'findByPk').resolves(dataUser.dataValues);
-      const response = await chai.request(app).get('/users').send({
-        name: 'Maria Joaquina',
-        email: 'mariazinha123@email.com',
-        password: 'senhaSecreta123',
-        role: 'customer',        
-      });
+      const response = await chai.request(app).get('/users');
       expect(response.status).to.be.equal(200);
     });
-
-    // it('Testa a rota /delete/:id', async () => {
-    //   const response = await chai.request(app).delete('/delete/:id').send(
-    //     {
-          
-    //   });
+    
+    // it('Testa a rota /users/:id no método delete' , async () => {
+    //   sinon.stub(User, 'findOne').resolves(null);
+    //   // sinon.stub(User, 'findByPk').resolves(dataUser2.dataValues);
+    //   // const response = await chai.request(app).delete('/users/2');
+    //   // const response = await chai.request(app).delete('/users/2').set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoxLCJuYW1lIjoiRGVsaXZlcnkgQXBwIEFkbWluIiwiZW1haWwiOiJhZG1AZGVsaXZlcnlhcHAuY29tIiwicm9sZSI6ImFkbWluaXN0cmF0b3IifSwiaWF0IjoxNjc4MzE0MDcxLCJleHAiOjE2Nzg5MTg4NzF9.7AvoKYk4hwtOb4S83jXi7Gnd1d4IIsuDq2HReC1CnM8');
+    //   // expect(response.status).to.be.equal(200);
+    //   // expect(response.message).to.be.equal('User deleted');
+    //   // sinon.stub(User, 'destroy').resolves({ message: 'User deleted' });
+    //   const tokenStub = sinon.stub().returns('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoxLCJuYW1lIjoiRGVsaXZlcnkgQXBwIEFkbWluIiwiZW1haWwiOiJhZG1AZGVsaXZlcnlhcHAuY29tIiwicm9sZSI6ImFkbWluaXN0cmF0b3IifSwiaWF0IjoxNjc4MzE0MDcxLCJleHAiOjE2Nzg5MTg4NzF9.7AvoKYk4hwtOb4S83jXi7Gnd1d4IIsuDq2HReC1CnM8');
+    //   const headers = { Authorization: `Bearer ${tokenStub()}` };
+    //   const response = await chai.request(app).delete('/users/2').set(headers);
     //   expect(response.status).to.be.equal(200);
     // });
     })
