@@ -5,8 +5,7 @@ const userValidation = async (req, res, next) => {
     return res.status(404).json({ message: 'Email and password are required' });
   }
 
-  const verifyEmail = email.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g);
-
+  const verifyEmail = email.match(/^[\w\-.]+@([\w-]+\.)+[\w-]{2,4}$/g);
   if (!verifyEmail) {
     return res.status(401).json({ message: 'Email must be valid' });
   }

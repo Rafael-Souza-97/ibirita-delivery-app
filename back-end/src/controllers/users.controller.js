@@ -6,7 +6,7 @@ const userLogin = async (req, res) => {
   try {
     const user = await usersService.userLogin(req.body);
 
-    if (user.password !== convertToMD5(req.body.password)) {
+    if (user.dataValues.password !== convertToMD5(req.body.password)) {
       return res.status(401).json({ message: 'Email or password must be valid' });
     }
 
