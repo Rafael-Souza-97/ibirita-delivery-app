@@ -5,11 +5,12 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Products from './pages/Products';
 import Checkout from './pages/Checkout';
-import './App.css';
 import Orders from './pages/Orders';
 import DetailsOrders from './pages/DetailsOrders';
 import SellerOrders from './pages/SellerOrders';
 import SellerOrdersDetails from './pages/SellerOrdersDetails';
+import Admin from './pages/Admin';
+import './App.css';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route exact path="/customer/orders/:id" component={ DetailsOrders } />
           <Route exact path="/seller/orders" component={ SellerOrders } />
           <Route exact path="/seller/orders/:id" component={ SellerOrdersDetails } />
+          <Route exact path="/admin/manage" component={ Admin } />
         </Provider>
       </Switch>
     </BrowserRouter>

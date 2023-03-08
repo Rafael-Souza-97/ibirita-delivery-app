@@ -169,7 +169,7 @@ export default function SellerOrdersDetails() {
           </div>
         </div>
       ) : (
-        <div>Loading</div>
+        <div>Loading...</div>
       )}
     </div>
   );
