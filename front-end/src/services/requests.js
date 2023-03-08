@@ -140,4 +140,25 @@ export const requestAllUsers = async () => {
   }
 };
 
+export const deleteUserByID = async (id, token) => {
+  try {
+    setToken(token);
+    const { data } = await api.delete(`http://localhost:3001/login/delete/${id}`);
+    console.log('ALL USERS -->', data);
+
+    return data;
+  } catch (error) {
+    if (error.response) {
+      console.log(
+        'Status:',
+        error.response.status,
+        ' Message:',
+        error.response.data.message,
+      );
+      return error.response.data.message;
+    }
+    console.log('Error', error.response.data.message);
+  }
+};
+
 export default api;
