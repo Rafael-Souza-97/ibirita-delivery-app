@@ -43,14 +43,11 @@ export default function LoginPage() {
       const { role } = user;
       switch (role) {
       case 'seller':
-        history.push('/seller/orders');
-        break;
+        return history.push('/seller/orders');
       case 'administrator':
-        history.push('/admin/manage');
-        break;
+        return history.push('/admin/manage');
       default:
-        history.push('/customer/products');
-        break;
+        return history.push('/customer/products');
       }
     } catch (error) {
       setInvisibleElement(true);
