@@ -6,7 +6,8 @@ const { User } = require('../database/models');
 const app = require('../api/app');
 const { expect } = chai;
 const chaiHttp = require('chai-http');
-const { allDataUsers, dataAdminUser } = require('./mocks/backendMocks');
+const { allDataUsers, dataAdminUser, authenticatedAdminUser, verifiedUser, dataUserToDelete } = require('./mocks/backendMocks');
+const jwt = require('jsonwebtoken');
 
 chai.use(chaiHttp);
 
@@ -35,7 +36,16 @@ describe('CAMADA SERVICES', () => {
       });
     });
 
-    // it('Testa se SOMENTE o admin é capaz de deletar um usuário', async () => {
-    // });
+    it('Testa se SOMENTE o admin é capaz de deletar um usuário', async () => {
+      sinon.stub(jwt, 'decode').returns(authenticatedAdminUser);
+      sinon.stub(jwt, 'verify').returns(verifiedUser);
+      const response = await chai.request(app).delete('/users/2').set('Authorization', 'validAdminToken');
+      sinon.stub(User, 'findByPk').resolves(dataUserToDelete);
+      const { body, status } = response;
+      expect(status).to.be.equal(200);
+      expect(body).to.be.deep.equal({
+        message: 'User deleted',
+      });
+    });
   });
 });

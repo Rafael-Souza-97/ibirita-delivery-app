@@ -32,8 +32,6 @@ const userRegister = async (body) => {
 
   const { password: _, ...newUserWithoutPassword } = newUser.dataValues;
 
-  console.log(newUserWithoutPassword);
-
   return { data: newUserWithoutPassword, created };
 };
 
@@ -59,7 +57,7 @@ const adminRegister = async (body) => {
   const { name, email, password, role } = body;
 
   const [newUser, created] = await User.findOrCreate({
-    where: { email },
+    where: { email, name, password: convertToMD5(password), role },
     defaults: {
       name,
       email,

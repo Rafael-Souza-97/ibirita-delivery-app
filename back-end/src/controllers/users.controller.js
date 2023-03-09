@@ -1,4 +1,4 @@
-const { generateToken, checkToken } = require('../utils/jwtConfig');
+const { generateToken, checkToken, getUserFromToken } = require('../utils/jwtConfig');
 const { convertToMD5 } = require('../utils/md5Config');
 const usersService = require('../services/users.service');
 
@@ -13,6 +13,9 @@ const userLogin = async (req, res) => {
     const { password: _, ...userWithoutPassword } = user.dataValues;
 
     const token = generateToken(userWithoutPassword);
+
+    console.log(checkToken(token));
+    console.log(getUserFromToken(token).data);
 
     if (checkToken(token).hasError) {
       return res.status(401).json({ message: 'Token is invalid' });

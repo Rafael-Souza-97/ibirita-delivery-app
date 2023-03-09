@@ -34,7 +34,7 @@ const dataCustomerUser = {
     email: 'zebirita@email.com',
     password: '1c37466c159755ce1fa181bd247cb925',
     role: 'customer',
-  }
+  },
 };
 
 const dataCustomerUserToRegister = {
@@ -44,8 +44,7 @@ const dataCustomerUserToRegister = {
       name: 'Cliente Homer Simpson',
       email: 'homer@email.com',
       role: 'customer',
-    },
-    created: true,
+    }
   }
 };
 
@@ -102,6 +101,23 @@ const allDataUsers = [
   }
 ];
 
+const authenticatedAdminUser = {
+  data: {
+    role: 'administrator',
+  }
+}
+
+const verifiedUser = {
+  data: {
+    dataValues: {
+      id: 1,
+      name: 'Delivery App Admin',
+      email: 'adm@deliveryapp.com',
+      role: 'administrator',
+    }
+  }
+}
+
 const dataUserToDelete = {
   dataValues: {
     id: 2,
@@ -121,4 +137,6 @@ module.exports = {
   dataAdminUserToRegister,
   allDataUsers,
   dataUserToDelete,
+  authenticatedAdminUser,
+  verifiedUser,
 }
