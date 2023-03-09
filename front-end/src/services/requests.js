@@ -11,6 +11,7 @@ export const setToken = (token) => {
 export const requestData = async (endpoint, token) => {
   setToken(token);
   const { data } = await api.get(endpoint);
+  console.log({ data });
   return data;
 };
 
