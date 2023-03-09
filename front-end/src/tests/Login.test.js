@@ -4,7 +4,8 @@ import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import Context from '../context/context';
 import LoginPage from '../pages/Login';
-import { contextValues, loginDataMock } from './Mocks/Context.mock';
+import loginDataMock from './mocks/Login.mock';
+import { contextValues } from './mocks/Context.mock';
 import { api } from '../services/requests';
 
 const mockSetIsLoged = jest.fn();
