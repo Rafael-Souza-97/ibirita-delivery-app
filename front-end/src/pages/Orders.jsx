@@ -9,8 +9,11 @@ export default function Orders() {
   const history = useHistory();
 
   async function fetchSales() {
+    const userJson = localStorage.getItem('user');
+    const data = JSON.parse(userJson);
     const request = await requestSales();
-    setSales(request);
+    const userOrders = request.filter((item) => item.userId === data.id);
+    setSales(userOrders);
   }
 
   useEffect(() => {

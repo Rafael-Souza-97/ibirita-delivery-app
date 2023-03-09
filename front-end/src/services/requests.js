@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const api = axios.create({
+export const api = axios.create({
   baseURL: `http://localhost:${process.env.REACT_APP_API_PORT || '3001'}`,
 });
 
@@ -11,6 +11,7 @@ export const setToken = (token) => {
 export const requestData = async (endpoint, token) => {
   setToken(token);
   const { data } = await api.get(endpoint);
+  console.log({ data });
   return data;
 };
 

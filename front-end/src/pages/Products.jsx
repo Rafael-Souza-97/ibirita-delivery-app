@@ -56,9 +56,6 @@ export default function Products() {
       element.quantity -= 1;
       element.totalValue = (element.quantity * +element.price).toFixed(2);
       setProductsArray(copyProducts);
-    } else {
-      const filteredProducts = productsArray.filter((products) => products.id !== id);
-      setProductsArray(filteredProducts);
     }
   };
 
@@ -69,8 +66,7 @@ export default function Products() {
 
   useEffect(() => {
     const updatedCartProducts = productsArray
-      .filter((product) => product.quantity > 0)
-      .sort((a, b) => a.id - b.id);
+      .filter((product) => product.quantity > 0).sort((a, b) => a.id - b.id);
     setCartProducts(updatedCartProducts);
   }, [productsArray, setCartProducts]);
 
@@ -116,7 +112,7 @@ export default function Products() {
                 placeholder="0"
                 id={ products.id }
                 value={ products.quantity }
-                min="0"
+                min={ 0 }
                 className="input-quantity-products"
                 onChange={ (e) => handleQuantityChange(e) }
               />
