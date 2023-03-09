@@ -32,6 +32,8 @@ const userRegister = async (body) => {
 
   const { password: _, ...newUserWithoutPassword } = newUser.dataValues;
 
+  console.log(newUserWithoutPassword);
+
   return { data: newUserWithoutPassword, created };
 };
 
