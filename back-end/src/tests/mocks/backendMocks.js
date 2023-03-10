@@ -124,7 +124,8 @@ const dataUserToDelete = {
     name: 'Fulana Pereira',
     email: 'fulana@deliveryapp.com',
     role: 'seller',
-  }
+  },
+  destroy: async () => await Promise.resolve(true)
 };
 
 module.exports = {

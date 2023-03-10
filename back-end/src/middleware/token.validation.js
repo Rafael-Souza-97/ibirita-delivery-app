@@ -49,12 +49,11 @@ const adminToken = (req, res, next) => {
     return res.status(404).json({ message: 'Token must have administrator role' });
   }
 
-  
   const payload = checkToken(authorization);
   if (payload.hasError) {
     return res.status(401).json(EXPIRED_INVALID_TOKEN);
   }
-  console.log('PASSANDO DO IF', payload);
+
   req.user = payload.data.dataValues;
   next();
 };

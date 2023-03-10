@@ -57,7 +57,7 @@ const adminRegister = async (body) => {
   const { name, email, password, role } = body;
 
   const [newUser, created] = await User.findOrCreate({
-    where: { email, name, password: convertToMD5(password), role },
+    where: { email },
     defaults: {
       name,
       email,

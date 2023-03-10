@@ -7,25 +7,30 @@ const app = require('../api/app');
 const { expect } = chai;
 const chaiHttp = require('chai-http');
 const { dataCustomerUserToRegister } = require('./mocks/backendMocks');
+const { before, afterEach } = require('mocha');
 
 chai.use(chaiHttp);
 
 describe('CAMADA SERVICES', () => {
   describe('Testa as funções da rota /register', () => {
-    beforeEach(() => {
+    afterEach(() => {
       sinon.restore();
     });
 
-    it('Testa o funcionamento da rota /register', async () => {
-      sinon.stub(User, 'findOrCreate').resolves([dataCustomerUserToRegister.data, true]);
-      const { status } = await chai.request(app).post('/register').send(
-        {
-          name: 'Cliente Homer Simpson',
-          email: 'homer@email.com',
-          password: '$#homer#$',
-        }
-      );
-      expect(status).to.be.equal(201);
+    describe('POST /register', () => {
+      before(() => {
+        sinon.stub(User, 'findOrCreate').resolves([dataCustomerUserToRegister.data, true]);
+      });
+      it('Testa o funcionamento da rota /register', async () => {
+        const { status } = await chai.request(app).post('/register').send(
+          {
+            name: 'Cliente Homer Simpson',
+            email: 'homer@email.com',
+            password: '$#homer#$',
+          }
+        );
+        expect(status).to.be.equal(201);
+      });
     });
 
     // it('Testa o funcionamento da rota /users/seller', async () => {
@@ -43,4 +48,4 @@ describe('CAMADA SERVICES', () => {
 
     // it('Testa o funcionamento da rota /register/admin', async () => {})
   });
-})
+});
