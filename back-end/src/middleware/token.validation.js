@@ -13,6 +13,7 @@ const validateToken = (req, res, next) => {
 
   const payload = checkToken(authorization);
   if (payload.hasError) {
+    console.log('error', payload.error);
     return res.status(401).json(EXPIRED_INVALID_TOKEN);
   }
   req.user = payload.data.dataValues;
@@ -53,6 +54,7 @@ const adminToken = (req, res, next) => {
   if (payload.hasError) {
     return res.status(401).json(EXPIRED_INVALID_TOKEN);
   }
+
   req.user = payload.data.dataValues;
   next();
 };
