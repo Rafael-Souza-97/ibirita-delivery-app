@@ -109,7 +109,13 @@ const authenticatedAdminUser = {
   data: {
     role: 'administrator',
   }
-}
+};
+
+const authenticatedCustomerUser = {
+  data: {
+    role: 'customer',
+  }
+};
 
 const verifiedUser = {
   data: {
@@ -118,6 +124,17 @@ const verifiedUser = {
       name: 'Delivery App Admin',
       email: 'adm@deliveryapp.com',
       role: 'administrator',
+    }
+  }
+};
+
+const verifiedCustomer = {
+  data: {
+    dataValues: {
+      id: 3,
+      name: 'Cliente Zé Birita',
+      email: 'zebirita@email.com',
+      role: 'customer',
     }
   }
 }
@@ -133,34 +150,54 @@ const dataUserToDelete = {
 };
 
 const dataCreatedSalesProducts = {
-  saleId: 1,
-  productId: 1,
-  quantity: 6,
-}
+  dataValues: { saleId: 1, productId: 1, quantity: 6 },
+};
 
-const dataCreatedSale = [
-  {
+const dataCreatedSale = {
+  dataValues: {
+    saleDate: new Date(),
+    status: 'Pendente',
     id: 1,
     userId: 3,
     sellerId: 2,
     totalPrice: 13.20,
-    deliveryAddress: "Rua das Bananeiras",
-    deliveryNumber: 1350,
+    deliveryAddress: 'Rua das Bananeiras',
+    deliveryNumber: 1350
+  },
+};
+
+const saleData = {
+  userId: 3,
+  sellerId: 2,
+  totalPrice: 13.20,
+  deliveryAddress: 'Rua das Bananeiras',
+  deliveryNumber: 1350,
+  products: [ { productId: 1, quantity: 6 } ]
+};
+
+const dataCreatedFinalizedSale = {
+  dataValues: {
+    id: 1,
+    userId: 3,
+    sellerId: 2,
+    totalPrice: 13.20,
+    deliveryAddress: 'Rua das Bananeiras',
+    deliveryNumber: '1350',
     saleDate: new Date(),
-    status: "Pendente",
+    status: 'Pendente',
     products: [
       {
-        id: 1,
-        name: "Skol Lata 250ml",
-        price: "2.20",
-        urlImage: "http://localhost:3001/images/skol_lata_350ml.jpg",
-        SalesProducts: {
-          quantity: 6
+        "id": 1,
+        "name": "Skol Lata 250ml",
+        "price": "2.20",
+        "urlImage": "http://localhost:3001/images/skol_lata_350ml.jpg",
+        "SalesProducts": {
+          "quantity": 6
         }
       }
     ]
   }
-]
+}
 
 module.exports = {
   dataAdminUser,
@@ -173,7 +210,11 @@ module.exports = {
   allDataUsers,
   dataUserToDelete,
   authenticatedAdminUser,
+  authenticatedCustomerUser,
   verifiedUser,
+  verifiedCustomer,
   dataCreatedSale,
   dataCreatedSalesProducts,
+  saleData,
+  dataCreatedFinalizedSale,
 }
