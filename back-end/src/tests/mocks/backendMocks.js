@@ -132,6 +132,36 @@ const dataUserToDelete = {
   destroy: async () => await Promise.resolve(true)
 };
 
+const dataCreatedSalesProducts = {
+  saleId: 1,
+  productId: 1,
+  quantity: 6,
+}
+
+const dataCreatedSale = [
+  {
+    id: 1,
+    userId: 3,
+    sellerId: 2,
+    totalPrice: 13.20,
+    deliveryAddress: "Rua das Bananeiras",
+    deliveryNumber: 1350,
+    saleDate: new Date(),
+    status: "Pendente",
+    products: [
+      {
+        id: 1,
+        name: "Skol Lata 250ml",
+        price: "2.20",
+        urlImage: "http://localhost:3001/images/skol_lata_350ml.jpg",
+        SalesProducts: {
+          quantity: 6
+        }
+      }
+    ]
+  }
+]
+
 module.exports = {
   dataAdminUser,
   dataAdminUserLogin,
@@ -144,4 +174,6 @@ module.exports = {
   dataUserToDelete,
   authenticatedAdminUser,
   verifiedUser,
+  dataCreatedSale,
+  dataCreatedSalesProducts,
 }
