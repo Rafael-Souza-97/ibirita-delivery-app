@@ -113,6 +113,9 @@ const authenticatedAdminUser = {
 
 const authenticatedCustomerUser = {
   data: {
+    id: 3,
+    name: 'Cliente Zé Birita',
+    email: 'zebirita@email.com',
     role: 'customer',
   }
 };
@@ -187,12 +190,12 @@ const dataCreatedFinalizedSale = {
     status: 'Pendente',
     products: [
       {
-        "id": 1,
-        "name": "Skol Lata 250ml",
-        "price": "2.20",
-        "urlImage": "http://localhost:3001/images/skol_lata_350ml.jpg",
-        "SalesProducts": {
-          "quantity": 6
+        id: 1,
+        name: "Skol Lata 250ml",
+        price: "2.20",
+        urlImage: "http://localhost:3001/images/skol_lata_350ml.jpg",
+        SalesProducts: {
+          quantity: 6
         }
       }
     ]

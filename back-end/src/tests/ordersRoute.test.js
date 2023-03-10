@@ -5,7 +5,6 @@ const it = require('mocha').it;
 const {
   Sale,
   SalesProducts,
-  Product,
 } = require('../database/models');
 const app = require('../api/app');
 const { expect } = chai;
@@ -30,31 +29,31 @@ describe('CAMADA SERVICES', () => {
       sinon.restore();
     });
 
-    // describe('POST /orders', () => {
-    //   before(() => {
-    //     sinon.stub(jwt, 'decode').returns(authenticatedCustomerUser);
-    //     sinon.stub(jwt, 'verify').returns(verifiedCustomer);
-    //     sinon.stub(Sale, 'create').resolves(dataCreatedSale.dataValues);
-    //     sinon.stub(SalesProducts, 'create').resolves(dataCreatedSalesProducts.dataValues);
-    //     sinon.stub(Sale, 'findAll').resolves(dataCreatedFinalizedSale.dataValues);
-    //     });
+    describe('POST /orders', () => {
+      before(() => {
+        sinon.stub(jwt, 'decode').returns(authenticatedCustomerUser);
+        sinon.stub(jwt, 'verify').returns(verifiedCustomer);
+        sinon.stub(Sale, 'create').resolves(dataCreatedSale);
+        sinon.stub(SalesProducts, 'create').resolves(dataCreatedSalesProducts.dataValues);
+        sinon.stub(Sale, 'findAll').resolves(dataCreatedFinalizedSale.dataValues);
+        });
     
-    //     it('Testa o funcionamento da rota', async () => {
-    //       const { status } = await chai.request(app).post('/orders').send({
-    //         userId: 3,
-    //         sellerId: 2,
-    //         totalPrice: 13.20,
-    //         deliveryAddress: "Rua das Bananeiras",   
-    //         deliveryNumber: 1350,
-    //         products: [{
-    //           productId: 1,
-    //           quantity: 6
-    //         }]
-    //       }).set('Authorization', 'validToken');
+        it('Testa o funcionamento da rota', async () => {
+          const { status } = await chai.request(app).post('/orders').send({
+            userId: 3,
+            sellerId: 2,
+            totalPrice: 13.20,
+            deliveryAddress: "Rua das Bananeiras",   
+            deliveryNumber: 1350,
+            products: [{
+              productId: 1,
+              quantity: 6
+            }]
+          }).set('Authorization', 'validToken');
           
-    //       expect(status).to.be.equal(201);
-    //     });
-    //   });
+          expect(status).to.be.equal(201);
+        });
+      });
 
       describe('GET /sales', () => {
         before(() => {
