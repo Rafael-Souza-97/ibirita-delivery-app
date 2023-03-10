@@ -6,7 +6,8 @@ const { User } = require('../database/models');
 const app = require('../api/app');
 const { expect } = chai;
 const chaiHttp = require('chai-http');
-const { dataCustomerUserToRegister } = require('./mocks/backendMocks');
+const { dataCustomerUserToRegister, dataSellerUserToRegister, dataAdminUserToRegister, authenticatedAdminUser, verifiedUser } = require('./mocks/backendMocks');
+const jwt = require('jsonwebtoken');
 const { before, afterEach } = require('mocha');
 
 chai.use(chaiHttp);
@@ -21,31 +22,50 @@ describe('CAMADA SERVICES', () => {
       before(() => {
         sinon.stub(User, 'findOrCreate').resolves([dataCustomerUserToRegister.data, true]);
       });
+
       it('Testa o funcionamento da rota /register', async () => {
-        const { status } = await chai.request(app).post('/register').send(
-          {
+        const { status } = await chai.request(app).post('/register').send({
             name: 'Cliente Homer Simpson',
             email: 'homer@email.com',
             password: '$#homer#$',
-          }
-        );
+          });
         expect(status).to.be.equal(201);
       });
     });
 
-    // it('Testa o funcionamento da rota /users/seller', async () => {
-    //   sinon.stub(User, 'findByPk').resolves(dataAdminUserToRegister.dataValues);
-    //   const response = await chai.request(app).get('/users/1');
-    //   const { body, status } = response;
-    //   expect(status).to.be.equal(200);
-    //   expect(body).to.be.deep.equal({
-    //     id: 1,
-    //     name: 'Delivery App Admin',
-    //     email: 'adm@deliveryapp.com',
-    //     role: 'administrator',
-    //   });
-    // });
+    describe('POST /register/seller', () => {
+      before(() => {
+        sinon.stub(User, 'findOrCreate').resolves([dataSellerUserToRegister.data, true]);
+      });
 
-    // it('Testa o funcionamento da rota /register/admin', async () => {})
+      it('Testa o funcionamento da rota /register/seller', async () => {
+        const response = await chai.request(app).post('/register/seller').send({
+          name: 'Vendedor Appu do Mercadinho',
+          email: 'appudomercadinho@email.com',
+          password: 'appudomercadinho123',
+        });
+        const { status } = response;
+        expect(status).to.be.equal(201);
+      });
+    });
+
+    describe('POST /register/admin', () => {
+      before(() => {
+        sinon.stub(jwt, 'decode').returns(authenticatedAdminUser);
+        sinon.stub(jwt, 'verify').returns(verifiedUser);
+        sinon.stub(User, 'findOrCreate').resolves([dataAdminUserToRegister.data, true]);
+      });
+
+      it('Testa o funcionamento da rota /register/admin', async () => {
+        const response = await chai.request(app).post('/register/admin').send({
+          name: 'Administradora Marge',
+          email: 'marge@email.com',
+          password: 'senhadoadmin123',
+          role: 'administrator',
+        }).set('Authorization', 'validAdminToken');
+        const { status } = response;
+        expect(status).to.be.equal(201);
+      });
+    });
   });
 });

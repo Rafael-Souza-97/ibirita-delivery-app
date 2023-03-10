@@ -22,9 +22,20 @@ describe('CAMADA SERVICES', () => {
       before(() => {
         sinon.stub(User, 'findAll').resolves(allDataUsers.map((users) => users.dataValues));
       });
-      it('Testa o funcionamento da rota /users', async () => {
+      it('Testa o funcionamento da rota', async () => {
         const response = await chai.request(app).get('/users');
         expect(response.status).to.be.equal(200);
+      });
+    });
+
+    describe('GET /users', () => {
+      before(() => {
+        sinon.stub(User, 'findAll').resolves(null);
+      });
+      it('Testa o funcionamento da rota, quando não existe nenhum usuário', async () => {
+        const response = await chai.request(app).get('/users');
+        expect(response.status).to.be.equal(404);
+        expect(response.body).to.be.deep.equal({ message: 'Users not found' });
       });
     });
 
@@ -32,7 +43,7 @@ describe('CAMADA SERVICES', () => {
       before(() => {
         sinon.stub(User, 'findByPk').resolves(dataAdminUser.dataValues);
       });
-      it('Testa o funcionamento da rota /users/:id', async () => {
+      it('Testa o funcionamento da rota', async () => {
         const response = await chai.request(app).get('/users/1');
         const { body, status } = response;
         expect(status).to.be.equal(200);
@@ -45,18 +56,49 @@ describe('CAMADA SERVICES', () => {
       });
     });
 
+    describe('GET /users/:id', () => {
+      before(() => {
+        sinon.stub(User, 'findByPk').resolves(null);
+      });
+
+      it('Testa o funcionamento da rota /users/:id quando o id não existe', async () => {
+        const response = await chai.request(app).get('/users/99');
+        const { body, status } = response;
+        expect(status).to.be.equal(404);
+        expect(body).to.be.deep.equal({
+          message: 'User not found',
+        });
+      });
+    });
+
     describe('DELETE /users/:id', () => {
       before(() => {
         sinon.stub(jwt, 'decode').returns(authenticatedAdminUser);
         sinon.stub(jwt, 'verify').returns(verifiedUser);
         sinon.stub(User, 'findByPk').resolves(dataUserToDelete);
       });
-      it('Testa se SOMENTE o admin é capaz de deletar um usuário', async () => {
+      it('Testa o funcionamento da rota e se somente alguém validado como admin pode usá-la', async () => {
         const response = await chai.request(app).delete('/users/2').set('Authorization', 'validAdminToken');
         const { body, status } = response;
         expect(status).to.be.equal(200);
         expect(body).to.be.deep.equal({
           message: 'User deleted',
+        });
+      });
+    });
+
+    describe('DELETE /users/:id', () => {
+      before(() => {
+        sinon.stub(jwt, 'decode').returns(authenticatedAdminUser);
+        sinon.stub(jwt, 'verify').returns(verifiedUser);
+        sinon.stub(User, 'findByPk').resolves(null);
+      });
+      it('Testa o funcionamento da rota quando o usuário a ser deletado já não existe', async () => {
+        const response = await chai.request(app).delete('/users/99').set('Authorization', 'validAdminToken');
+        const { body, status } = response;
+        expect(status).to.be.equal(404);
+        expect(body).to.be.deep.equal({
+          message: 'User not found',
         });
       });
     });

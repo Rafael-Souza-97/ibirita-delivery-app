@@ -50,19 +50,23 @@ const dataCustomerUserToRegister = {
 
 const dataSellerUserToRegister = {
   data: {
-    id: 2,
-    name: 'Fulana Pereira',
-    email: 'fulana@deliveryapp.com',
-    role: 'seller',
+    dataValues: {
+      id: 5,
+      name: 'Vendedor Appu do Mercadinho',
+      email: 'appudomercadinho@email.com',
+      role: 'seller',
+    }
   }
 };
 
 const dataAdminUserToRegister = {
   data: {
-    id: 1,
-    name: 'Delivery App Admin',
-    email: 'adm@deliveryapp.com',
-    role: 'administrator',
+    dataValues: {
+      id: 6,
+      name: 'Admistradora Marge',
+      email: 'marge@email.com',
+      role: 'administrator',
+    }
   }
 };
 
