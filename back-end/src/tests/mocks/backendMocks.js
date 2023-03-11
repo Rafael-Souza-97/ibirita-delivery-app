@@ -347,6 +347,21 @@ const salesDeleted = {
   }
 };
 
+const allProductsData = [
+  dataValues = {
+    id: 1,
+    name: "Skol Lata 250ml",
+    price: "2.20",
+    urlImage: "http://localhost:3001/images/skol_lata_350ml.jpg",
+  },
+  dataValues = {
+    id: 2,
+    name: "Skol Lata 350ml",
+    price: "2.20",
+    urlImage: "http://localhost:3001/images/skol_lata_350ml.jpg",
+  },
+];
+
 module.exports = {
   dataAdminUser,
   dataInvalidToken,
@@ -372,4 +387,5 @@ module.exports = {
   saleToDelete,
   salesDeleted,
   allSalesData,
+  allProductsData,
 }
