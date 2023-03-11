@@ -17,6 +17,18 @@ const dataAdminUser = {
   }
 };
 
+const dataInvalidToken = {
+  data:{
+    dataValues: {
+      id: 1,
+      name: 'Delivery App Admin',
+      email: 'adm@deliveryapp.com',
+      role: 'administrator',
+    },
+    hasError: true,
+  }
+}
+
 const dataSellerUser = {
   dataValues: {
     id: 2,
@@ -178,6 +190,31 @@ const saleData = {
   products: [ { productId: 1, quantity: 6 } ]
 };
 
+const allSalesData = [
+  {
+    id: 1,
+    userId: 3,
+    sellerId: 2,
+    totalPrice: '150.50',
+    deliveryAddress: 'Rua das Bananeiras',
+    deliveryNumber: '1350',
+    saleDate: new Date(),
+    status: 'Pendente',
+    products: [Array]
+  },
+  {
+    id: 2,
+    userId: 3,
+    sellerId: 2,
+    totalPrice: '150.50',
+    deliveryAddress: 'Rua das Bananeiras',
+    deliveryNumber: '1350',
+    saleDate: new Date(),
+    status: 'Pendente',
+    products: [Array]
+  }
+];
+
 const dataCreatedFinalizedSale = {
   dataValues: {
     id: 1,
@@ -312,6 +349,7 @@ const salesDeleted = {
 
 module.exports = {
   dataAdminUser,
+  dataInvalidToken,
   dataAdminUserLogin,
   dataSellerUser,
   dataCustomerUser,
@@ -333,4 +371,5 @@ module.exports = {
   saleToFind,
   saleToDelete,
   salesDeleted,
+  allSalesData,
 }

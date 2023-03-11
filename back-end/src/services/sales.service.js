@@ -21,6 +21,7 @@ const getAllSales = async () => {
       },
     ],
   });
+
   if (sales.length === 0) {
     throw SALES_NOT_FOUND_ERROR;
   }
