@@ -200,7 +200,115 @@ const dataCreatedFinalizedSale = {
       }
     ]
   }
-}
+};
+
+const saleStatusToUpdate = {
+  dataValues: {
+    id: 1,
+    userId: 3,
+    sellerId: 2,
+    totalPrice: '150.50',
+    deliveryAddress: 'Rua das Bananeiras',
+    deliveryNumber: '1350',
+    saleDate: new Date(),
+    status: 'Pendente',
+  },
+};
+
+const saleStatusUpdated = {
+  dataValues: {
+    id: 1,
+    userId: 3,
+    sellerId: 2,
+    totalPrice: '150.50',
+    deliveryAddress: 'Rua das Bananeiras',
+    deliveryNumber: '1350',
+    saleDate: new Date(),
+    status: 'Em Trânsito',
+    products: [
+      {
+        id: 1,
+        name: "Skol Lata 250ml",
+        price: "2.20",
+        urlImage: "http://localhost:3001/images/skol_lata_350ml.jpg",
+        SalesProducts: {
+          quantity: 6
+        }
+      }
+    ]
+  },
+};
+
+const saleToFind = {
+  dataValues: {
+    id: 1,
+    userId: 3,
+    sellerId: 2,
+    totalPrice: '150.50',
+    deliveryAddress: 'Rua das Bananeiras',
+    deliveryNumber: '1350',
+    saleDate: new Date(),
+    status: 'Pendente',
+    products: [
+      {
+        id: 1,
+        name: "Skol Lata 250ml",
+        price: "2.20",
+        urlImage: "http://localhost:3001/images/skol_lata_350ml.jpg",
+        SalesProducts: {
+          quantity: 6
+        }
+      }
+    ]
+  },
+  destroy: async () => await Promise.resolve(true)
+};
+
+const saleToDelete = {
+  id: 1,
+  userId: 3,
+  sellerId: 2,
+  totalPrice: '150.50',
+  deliveryAddress: 'Rua das Bananeiras',
+  deliveryNumber: '1350',
+  saleDate: new Date(),
+  status: 'Pendente',
+  products: [
+    {
+      id: 1,
+      name: "Skol Lata 250ml",
+      price: "2.20",
+      urlImage: "http://localhost:3001/images/skol_lata_350ml.jpg",
+      SalesProducts: {
+        quantity: 6
+      }
+    }
+  ]
+};
+
+const salesDeleted = {
+  dataValues: {
+    id: 2,
+    userId: 3,
+    sellerId: 2,
+    totalPrice: '150.50',
+    deliveryAddress: 'Rua das Bananeiras',
+    deliveryNumber: '1350',
+    saleDate: new Date(),
+    status: 'Pendente',
+    products: [
+      {
+        id: 1,
+        name: "Skol Lata 250ml",
+        price: "2.20",
+        urlImage: "http://localhost:3001/images/skol_lata_350ml.jpg",
+        SalesProducts: {
+          quantity: 6
+        }
+      }
+    ]
+  }
+};
 
 module.exports = {
   dataAdminUser,
@@ -220,4 +328,9 @@ module.exports = {
   dataCreatedSalesProducts,
   saleData,
   dataCreatedFinalizedSale,
+  saleStatusToUpdate,
+  saleStatusUpdated,
+  saleToFind,
+  saleToDelete,
+  salesDeleted,
 }

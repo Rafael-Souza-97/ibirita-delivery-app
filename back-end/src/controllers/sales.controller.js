@@ -18,23 +18,6 @@ const getAllSales = async (_req, res) => {
   }
 };
 
-const getSaleById = async (req, res) => {
-  const { id } = req.params;
-
-  try {
-    const sale = await salesService.getSaleById(id);
-    return res.status(200).json(sale);
-  } catch (error) {
-    return res.status(404).json({ message: error.message });
-  }
-};
-
-const getSalesByUserId = async (req, res) => {
-  const { userId } = req.params;
-  const sales = await salesService.getSalesByUserId(userId);
-  return res.status(200).json(sales);
-};
-
 const updateStatusTo = async (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
@@ -59,8 +42,6 @@ const deleteSaleIfFinished = async (req, res) => {
 module.exports = {
   createSale,
   getAllSales,
-  getSaleById,
-  getSalesByUserId,
   updateStatusTo,
   deleteSaleIfFinished,
 };

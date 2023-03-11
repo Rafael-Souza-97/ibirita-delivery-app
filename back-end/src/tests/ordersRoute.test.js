@@ -19,6 +19,11 @@ const {
   dataCreatedSale,
   dataCreatedSalesProducts,
   dataCreatedFinalizedSale,
+  saleStatusToUpdate,
+  saleStatusUpdated,
+  saleToDelete,
+  salesDeleted,
+  saleToFind,
 } = require('./mocks/backendMocks');
 
 chai.use(chaiHttp);
@@ -55,18 +60,105 @@ describe('CAMADA SERVICES', () => {
         });
       });
 
-      describe('GET /sales', () => {
-        before(() => {
-          sinon.stub(jwt, 'decode').returns(authenticatedAdminUser);
-          sinon.stub(jwt, 'verify').returns(verifiedUser);
-          sinon.stub(Sale, 'findAll').resolves([]);
-        });
-    
-        it('Testa o funcionamento da rota quando não existe nenhuma venda', async () => {
-          const { body, status } = await chai.request(app).get('/orders').set('Authorization', 'validAdminToken');
-          expect(status).to.be.equal(404);
-          expect(body).to.be.deep.equal({ message: 'No sales found' });
-        });
+
+    describe('GET /orders', () => {
+      before(() => {
+        sinon.stub(jwt, 'decode').returns(authenticatedAdminUser);
+        sinon.stub(jwt, 'verify').returns(verifiedUser);
+        sinon.stub(Sale, 'findAll').resolves([]);
+      });
+  
+      it('Testa o funcionamento da rota quando não existe nenhuma venda', async () => {
+        const { body, status } = await chai.request(app).get('/orders').set('Authorization', 'validAdminToken');
+        expect(status).to.be.equal(404);
+        expect(body).to.be.deep.equal({ message: 'No sales found' });
       });
     });
+
+    describe('PUT /orders/:id', () => {
+      before(() => {
+        sinon.stub(jwt, 'decode').returns(authenticatedCustomerUser);
+        sinon.stub(jwt, 'verify').returns(verifiedCustomer);
+        sinon.stub(Sale, 'findByPk').resolves(saleStatusToUpdate.dataValues);
+        sinon.stub(Sale, 'update').resolves(saleStatusToUpdate.dataValues);
+        sinon.stub(Sale, 'findAll').resolves(saleStatusUpdated.dataValues);
+      });
+
+      it('Testa o funcionamento da rota', async () => {
+        const { status } = await chai.request(app).put('/orders/1').send({
+          status: 'Em Trânsito'
+        }).set('Authorization', 'validToken');
+
+        expect(status).to.be.equal(200);
+      });
+    });
+
+    describe('PUT /orders/:id', () => {
+      before(() => {
+        sinon.stub(jwt, 'decode').returns(authenticatedCustomerUser);
+        sinon.stub(jwt, 'verify').returns(verifiedCustomer);
+        sinon.stub(Sale, 'findByPk').resolves(null);
+        sinon.stub(Sale, 'update').resolves(null);
+        sinon.stub(Sale, 'findAll').resolves(null);
+      });
+
+      it('Testa o funcionamento da rota se o id não existe', async () => {
+        const { status } = await chai.request(app).put('/orders/99').send({
+          status: 'Em Trânsito'
+        }).set('Authorization', 'validToken');
+
+        expect(status).to.be.equal(404);
+      });
+    });
+
+    describe('PUT /orders/:id', () => {
+      before(() => {
+        sinon.stub(jwt, 'decode').returns(authenticatedCustomerUser);
+        sinon.stub(jwt, 'verify').returns(verifiedCustomer);
+        sinon.stub(Sale, 'findByPk').resolves(saleStatusToUpdate.dataValues);
+        sinon.stub(Sale, 'update').resolves(saleStatusToUpdate.dataValues);
+        sinon.stub(Sale, 'findAll').resolves(saleStatusUpdated.dataValues);
+      });
+
+      it('Testa o funcionamento da rota se o status não foi passado', async () => {
+        const { status } = await chai.request(app).put('/orders/1').send({
+        }).set('Authorization', 'validToken');
+
+        expect(status).to.be.equal(404);
+      });
+    });
+
+    describe('DELETE /orders/:id', () => {
+      before(() => {
+        sinon.stub(jwt, 'decode').returns(authenticatedCustomerUser);
+        sinon.stub(jwt, 'verify').returns(verifiedCustomer);
+        sinon.stub(Sale, 'findByPk').resolves(saleToFind);
+        sinon.stub(Sale, 'destroy').resolves(saleToDelete);
+        sinon.stub(Sale, 'findAll').resolves(salesDeleted.dataValues);
+      });
+
+      it('Testa o funcionamento da rota', async () => {
+        const { status } = await chai.request(app).delete('/orders/1').set('Authorization', 'validToken');
+
+        expect(status).to.be.equal(200);
+      })
+    });
+
+    describe('DELETE /orders/:id', () => {
+      before(() => {
+        sinon.stub(jwt, 'decode').returns(authenticatedCustomerUser);
+        sinon.stub(jwt, 'verify').returns(verifiedCustomer);
+        sinon.stub(Sale, 'findByPk').resolves(null);
+        sinon.stub(Sale, 'destroy').resolves(saleToDelete);
+        sinon.stub(Sale, 'findAll').resolves(salesDeleted.dataValues);
+      });
+
+      it('Testa o funcionamento da rota se o id não existe', async () => {
+        const { status } = await chai.request(app).delete('/orders/66').set('Authorization', 'validToken');
+
+        expect(status).to.be.equal(400);
+      });
+    });
+
   });
+});
