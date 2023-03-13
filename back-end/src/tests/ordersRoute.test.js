@@ -14,7 +14,7 @@ const { afterEach, before } = require('mocha');
 const {
   authenticatedCustomerUser,
   authenticatedAdminUser,
-  verifiedUser,
+  verifiedAdmin,
   verifiedCustomer,
   dataCreatedSale,
   dataCreatedSalesProducts,
@@ -63,7 +63,7 @@ describe('Testa as funções da rota /orders', () => {
   describe('GET /orders', () => {
     before(() => {
       sinon.stub(jwt, 'decode').returns(authenticatedAdminUser);
-      sinon.stub(jwt, 'verify').returns(verifiedUser);
+      sinon.stub(jwt, 'verify').returns(verifiedAdmin);
       sinon.stub(Sale, 'findAll').resolves(allSalesData);
       });
 
@@ -76,7 +76,7 @@ describe('Testa as funções da rota /orders', () => {
   describe('GET /orders', () => {
     before(() => {
       sinon.stub(jwt, 'decode').returns(authenticatedAdminUser);
-      sinon.stub(jwt, 'verify').returns(verifiedUser);
+      sinon.stub(jwt, 'verify').returns(verifiedAdmin);
       sinon.stub(Sale, 'findAll').resolves([]);
     });
 

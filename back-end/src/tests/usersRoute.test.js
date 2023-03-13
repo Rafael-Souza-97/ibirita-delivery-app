@@ -6,7 +6,7 @@ const { User } = require('../database/models');
 const app = require('../api/app');
 const { expect } = chai;
 const chaiHttp = require('chai-http');
-const { allDataUsers, dataAdminUser, authenticatedAdminUser, verifiedUser, dataUserToDelete } = require('./mocks/backendMocks');
+const { allDataUsers, dataAdminUser, authenticatedAdminUser, verifiedAdmin, dataUserToDelete } = require('./mocks/backendMocks');
 const jwt = require('jsonwebtoken');
 const { afterEach, before } = require('mocha');
 
@@ -73,7 +73,7 @@ describe('Testa as funções da rota /users', () => {
   describe('DELETE /users/:id', () => {
     before(() => {
       sinon.stub(jwt, 'decode').returns(authenticatedAdminUser);
-      sinon.stub(jwt, 'verify').returns(verifiedUser);
+      sinon.stub(jwt, 'verify').returns(verifiedAdmin);
       sinon.stub(User, 'findByPk').resolves(dataUserToDelete);
     });
     it('Testa o funcionamento da rota e se somente alguém validado como admin pode usá-la', async () => {
@@ -89,7 +89,7 @@ describe('Testa as funções da rota /users', () => {
   describe('DELETE /users/:id', () => {
     before(() => {
       sinon.stub(jwt, 'decode').returns(authenticatedAdminUser);
-      sinon.stub(jwt, 'verify').returns(verifiedUser);
+      sinon.stub(jwt, 'verify').returns(verifiedAdmin);
       sinon.stub(User, 'findByPk').resolves(null);
     });
     it('Testa o funcionamento da rota quando o usuário a ser deletado já não existe', async () => {

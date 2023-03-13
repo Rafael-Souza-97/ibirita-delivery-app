@@ -6,7 +6,15 @@ const { User } = require('../database/models');
 const app = require('../api/app');
 const { expect } = chai;
 const chaiHttp = require('chai-http');
-const { dataCustomerUserToRegister, dataSellerUserToRegister, dataAdminUserToRegister, authenticatedAdminUser, verifiedUser, authenticatedCustomerUser, verifiedCustomer } = require('./mocks/backendMocks');
+const {
+  dataCustomerUserToRegister,
+  dataSellerUserToRegister,
+  dataAdminUserToRegister,
+  authenticatedAdminUser,
+  verifiedAdmin,
+  authenticatedCustomerUser,
+  verifiedCustomer,
+} = require('./mocks/backendMocks');
 const jwt = require('jsonwebtoken');
 const { before, afterEach } = require('mocha');
 
@@ -52,7 +60,7 @@ describe('Testa as funções da rota /register', () => {
   describe('POST /register/seller', () => {
     before(() => {
       sinon.stub(jwt, 'decode').returns(authenticatedAdminUser);
-      sinon.stub(jwt, 'verify').returns(verifiedUser);
+      sinon.stub(jwt, 'verify').returns(verifiedAdmin);
       sinon.stub(User, 'findOrCreate').resolves([dataCustomerUserToRegister.data, false]);
     });
 
@@ -69,7 +77,7 @@ describe('Testa as funções da rota /register', () => {
   describe('POST /register/admin', () => {
     before(() => {
       sinon.stub(jwt, 'decode').returns(authenticatedAdminUser);
-      sinon.stub(jwt, 'verify').returns(verifiedUser);
+      sinon.stub(jwt, 'verify').returns(verifiedAdmin);
       sinon.stub(User, 'findOrCreate').resolves([dataAdminUserToRegister.data, false]);
     });
 
@@ -103,7 +111,7 @@ describe('Testa as funções da rota /register', () => {
   describe('POST /register/admin', () => {
     before(() => {
       sinon.stub(jwt, 'decode').returns(authenticatedAdminUser);
-      sinon.stub(jwt, 'verify').returns(verifiedUser);
+      sinon.stub(jwt, 'verify').returns(verifiedAdmin);
       sinon.stub(User, 'findOrCreate').resolves([dataAdminUserToRegister.data, true]);
     });
 

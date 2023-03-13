@@ -29,6 +29,14 @@ const dataInvalidToken = {
   }
 }
 
+const dataInvalidGenericToken = {
+  data:{
+    dataValues: {
+    },
+    hasError: true,
+  }
+}
+
 const dataSellerUser = {
   dataValues: {
     id: 2,
@@ -132,7 +140,7 @@ const authenticatedCustomerUser = {
   }
 };
 
-const verifiedUser = {
+const verifiedAdmin = {
   data: {
     dataValues: {
       id: 1,
@@ -142,6 +150,17 @@ const verifiedUser = {
     }
   }
 };
+
+const verifiedSeller = {
+  data: {
+    dataValues: {
+      id: 2,
+      name: 'Fulana Pereira',
+      email: 'fulana@deliveryapp.com',
+      role: 'seller',
+    }
+  }
+}
 
 const verifiedCustomer = {
   data: {
@@ -375,7 +394,8 @@ module.exports = {
   dataUserToDelete,
   authenticatedAdminUser,
   authenticatedCustomerUser,
-  verifiedUser,
+  verifiedAdmin,
+  verifiedSeller,
   verifiedCustomer,
   dataCreatedSale,
   dataCreatedSalesProducts,
@@ -388,4 +408,5 @@ module.exports = {
   salesDeleted,
   allSalesData,
   allProductsData,
+  dataInvalidGenericToken,
 }
