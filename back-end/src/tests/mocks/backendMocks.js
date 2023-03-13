@@ -17,6 +17,26 @@ const dataAdminUser = {
   }
 };
 
+const dataInvalidToken = {
+  data:{
+    dataValues: {
+      id: 1,
+      name: 'Delivery App Admin',
+      email: 'adm@deliveryapp.com',
+      role: 'administrator',
+    },
+    hasError: true,
+  }
+}
+
+const dataInvalidGenericToken = {
+  data:{
+    dataValues: {
+    },
+    hasError: true,
+  }
+}
+
 const dataSellerUser = {
   dataValues: {
     id: 2,
@@ -120,7 +140,7 @@ const authenticatedCustomerUser = {
   }
 };
 
-const verifiedUser = {
+const verifiedAdmin = {
   data: {
     dataValues: {
       id: 1,
@@ -130,6 +150,17 @@ const verifiedUser = {
     }
   }
 };
+
+const verifiedSeller = {
+  data: {
+    dataValues: {
+      id: 2,
+      name: 'Fulana Pereira',
+      email: 'fulana@deliveryapp.com',
+      role: 'seller',
+    }
+  }
+}
 
 const verifiedCustomer = {
   data: {
@@ -178,6 +209,31 @@ const saleData = {
   products: [ { productId: 1, quantity: 6 } ]
 };
 
+const allSalesData = [
+  {
+    id: 1,
+    userId: 3,
+    sellerId: 2,
+    totalPrice: '150.50',
+    deliveryAddress: 'Rua das Bananeiras',
+    deliveryNumber: '1350',
+    saleDate: new Date(),
+    status: 'Pendente',
+    products: [Array]
+  },
+  {
+    id: 2,
+    userId: 3,
+    sellerId: 2,
+    totalPrice: '150.50',
+    deliveryAddress: 'Rua das Bananeiras',
+    deliveryNumber: '1350',
+    saleDate: new Date(),
+    status: 'Pendente',
+    products: [Array]
+  }
+];
+
 const dataCreatedFinalizedSale = {
   dataValues: {
     id: 1,
@@ -200,10 +256,134 @@ const dataCreatedFinalizedSale = {
       }
     ]
   }
-}
+};
+
+const saleStatusToUpdate = {
+  dataValues: {
+    id: 1,
+    userId: 3,
+    sellerId: 2,
+    totalPrice: '150.50',
+    deliveryAddress: 'Rua das Bananeiras',
+    deliveryNumber: '1350',
+    saleDate: new Date(),
+    status: 'Pendente',
+  },
+};
+
+const saleStatusUpdated = {
+  dataValues: {
+    id: 1,
+    userId: 3,
+    sellerId: 2,
+    totalPrice: '150.50',
+    deliveryAddress: 'Rua das Bananeiras',
+    deliveryNumber: '1350',
+    saleDate: new Date(),
+    status: 'Em Trânsito',
+    products: [
+      {
+        id: 1,
+        name: "Skol Lata 250ml",
+        price: "2.20",
+        urlImage: "http://localhost:3001/images/skol_lata_350ml.jpg",
+        SalesProducts: {
+          quantity: 6
+        }
+      }
+    ]
+  },
+};
+
+const saleToFind = {
+  dataValues: {
+    id: 1,
+    userId: 3,
+    sellerId: 2,
+    totalPrice: '150.50',
+    deliveryAddress: 'Rua das Bananeiras',
+    deliveryNumber: '1350',
+    saleDate: new Date(),
+    status: 'Pendente',
+    products: [
+      {
+        id: 1,
+        name: "Skol Lata 250ml",
+        price: "2.20",
+        urlImage: "http://localhost:3001/images/skol_lata_350ml.jpg",
+        SalesProducts: {
+          quantity: 6
+        }
+      }
+    ]
+  },
+  destroy: async () => await Promise.resolve(true)
+};
+
+const saleToDelete = {
+  id: 1,
+  userId: 3,
+  sellerId: 2,
+  totalPrice: '150.50',
+  deliveryAddress: 'Rua das Bananeiras',
+  deliveryNumber: '1350',
+  saleDate: new Date(),
+  status: 'Pendente',
+  products: [
+    {
+      id: 1,
+      name: "Skol Lata 250ml",
+      price: "2.20",
+      urlImage: "http://localhost:3001/images/skol_lata_350ml.jpg",
+      SalesProducts: {
+        quantity: 6
+      }
+    }
+  ]
+};
+
+const salesDeleted = {
+  dataValues: {
+    id: 2,
+    userId: 3,
+    sellerId: 2,
+    totalPrice: '150.50',
+    deliveryAddress: 'Rua das Bananeiras',
+    deliveryNumber: '1350',
+    saleDate: new Date(),
+    status: 'Pendente',
+    products: [
+      {
+        id: 1,
+        name: "Skol Lata 250ml",
+        price: "2.20",
+        urlImage: "http://localhost:3001/images/skol_lata_350ml.jpg",
+        SalesProducts: {
+          quantity: 6
+        }
+      }
+    ]
+  }
+};
+
+const allProductsData = [
+  dataValues = {
+    id: 1,
+    name: "Skol Lata 250ml",
+    price: "2.20",
+    urlImage: "http://localhost:3001/images/skol_lata_350ml.jpg",
+  },
+  dataValues = {
+    id: 2,
+    name: "Skol Lata 350ml",
+    price: "2.20",
+    urlImage: "http://localhost:3001/images/skol_lata_350ml.jpg",
+  },
+];
 
 module.exports = {
   dataAdminUser,
+  dataInvalidToken,
   dataAdminUserLogin,
   dataSellerUser,
   dataCustomerUser,
@@ -214,10 +394,19 @@ module.exports = {
   dataUserToDelete,
   authenticatedAdminUser,
   authenticatedCustomerUser,
-  verifiedUser,
+  verifiedAdmin,
+  verifiedSeller,
   verifiedCustomer,
   dataCreatedSale,
   dataCreatedSalesProducts,
   saleData,
   dataCreatedFinalizedSale,
+  saleStatusToUpdate,
+  saleStatusUpdated,
+  saleToFind,
+  saleToDelete,
+  salesDeleted,
+  allSalesData,
+  allProductsData,
+  dataInvalidGenericToken,
 }

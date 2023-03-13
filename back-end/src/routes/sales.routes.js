@@ -15,8 +15,6 @@ router.post(
   salesController.createSale,
   );
 router.get('/', validateToken, salesController.getAllSales);
-router.get('/:id', validateToken, salesController.getSaleById);
-router.get('/:userId', validateToken, salesController.getSalesByUserId);
 router.put('/:id', validateToken, salesController.updateStatusTo);
 router.delete('/:id', validateToken, salesController.deleteSaleIfFinished);
 

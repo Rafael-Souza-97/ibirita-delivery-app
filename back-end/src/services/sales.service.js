@@ -21,6 +21,7 @@ const getAllSales = async () => {
       },
     ],
   });
+
   if (sales.length === 0) {
     throw SALES_NOT_FOUND_ERROR;
   }
@@ -42,19 +43,6 @@ const createSale = async (userId, saleData) => {
   return allSalesWithProducts;
 };
 
-const getSaleById = async (id) => {
-  const sale = await Sale.findByPk(id);
-  if (!sale) {
-    throw SALE_NOT_FOUND_ERROR;
-  }
-  return sale;
-};
-
-const getSalesByUserId = async (userId) => {
-  const sales = await Sale.findAll({ where: { userId } });
-  return sales;
-};
-
 const updateStatusTo = async (id, status) => {
   const sale = await Sale.findByPk(id);
   if (!sale) {
@@ -70,9 +58,11 @@ const updateStatusTo = async (id, status) => {
 
 const deleteSaleIfFinished = async (id) => {
   const sale = await Sale.findByPk(id);
+
   if (!sale) {
     throw SALE_NOT_FOUND_ERROR;
   }
+
   await sale.destroy();
   const allSalesWithProducts = await getAllSales();
   return allSalesWithProducts;
@@ -81,8 +71,6 @@ const deleteSaleIfFinished = async (id) => {
 module.exports = {
   createSale,
   getAllSales,
-  getSaleById,
-  getSalesByUserId,
   updateStatusTo,
   deleteSaleIfFinished,
 };
