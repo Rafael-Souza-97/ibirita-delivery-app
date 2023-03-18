@@ -51,7 +51,14 @@ O [ContextAPI](https://reactjs.org/docs/context.html) é uma das funcionalidades
 <br>
 
 ## Testes
-Foram implementados testes automatizados para garantir que a aplicação funcione corretamente e evitar possíveis erros no código. Esses testes foram escritos usando [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) e [Jest](https://jestjs.io/pt-BR/), e incluem testes unitários e de integração. Os testes unitários verificam a funcionalidade de componentes individuais da aplicação, enquanto os testes de integração verificam o comportamento de componentes quando interagem uns com os outros. A utilização de [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) e [Jest](https://jestjs.io/pt-BR/)  permite que os testes sejam escritos de forma simples e eficiente, garantindo que a aplicação continue funcionando corretamente mesmo após as alterações no código.
+
+Foram realizados testes automatizados durante o desenvolvimento da aplicação para garantir seu correto funcionamento e evitar possíveis erros no código. Foram implementados testes de integração e testes unitários tanto no front-end quanto no back-end.
+
+No front-end, os testes foram escritos utilizando a biblioteca [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) em conjunto com o framework [Jest](https://jestjs.io/pt-BR/). Os testes unitários verificam a funcionalidade de cada componente individualmente, enquanto os testes de integração testam o comportamento de múltiplos componentes em conjunto. Isso garante que a interface do usuário esteja funcionando corretamente, independentemente de qualquer mudança no código.
+
+No back-end, foram implementados testes de unidade utilizando a biblioteca [Mocha](https://mochajs.org/), o framework de asserção [Chai](https://www.chaijs.com/) e a biblioteca de simulação [Sinon](https://sinonjs.org/). Além disso, foram realizados testes de integração para garantir que os diferentes componentes do servidor estejam interagindo corretamente.
+
+A utilização de testes automatizados permite uma maior confiabilidade e segurança na aplicação, garantindo que ela continue funcionando corretamente mesmo após alterações no código.
 
 <br>
 <br>
@@ -66,7 +73,7 @@ Foram implementados testes automatizados para garantir que a aplicação funcion
 - Clone o repositório `git@github.com:Rafael-Souza-97/ibirita-delivery-app.git`:
 
 ```bash
-git clone git@github.com:Rafael-Souza-97/exchange-pokedex.git
+git clone git@github.com:Rafael-Souza-97/ibirita-delivery-app.git
 ```
 
 <br>
@@ -85,13 +92,19 @@ cd ibirita-delivery-app
 npm install
 ```
 
+- Instale as depëndencias do Front-end e Back-end, com `npm run dev:prestart`:
+
+```bash
+npm run dev:prestart
+```
+
 <hr>
 <br>
 
 ### Executando a aplicação:
 
 
-- Execute a aplicação com  com `npm start`:
+- Execute a aplicação com  com `npm start` na raiz do projeto:
 > Executará a aplicação em modo de desenvolvimento.
  
 ```bash
@@ -147,7 +160,7 @@ git push origin sua-feature-ou-correcao
 
 <br>
 
-## Autor
+## Equipe
 
 - [Artur Vidor](https://github.com/vidorartur)
 - [Julia Peres Kitzberger](https://github.com/xjujuperesx)
@@ -159,38 +172,37 @@ git push origin sua-feature-ou-correcao
 
  - [Trybe](https://www.betrybe.com/)
 
-## Tecnologias / Ferramentas utilizadas
+## Tecnologias e Ferramentas
 
-- [Javascript](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript)
-- [React](https://pt-br.reactjs.org/)
-- [ContextAPI](https://reactjs.org/docs/context.html)
-- [Axios](https://axios-http.com/ptbr/docs/intro)
-- [Node](https://nodejs.org/en/)
-- [Docker](https://www.docker.com/)
-- [API RESTful](https://blog.betrybe.com/desenvolvimento-web/api-rest-tudo-sobre/)
-- [Express](https://expressjs.com/)
-- [MySQL](https://www.mysql.com/)
-- [MySQL Workbench](https://www.mysql.com/products/workbench/)
-- [Sequelize](https://sequelize.org/)
-- [Criptografia MD-5](https://www.devmedia.com.br/criptografia-md5/2944)
-- [JWT](https://auth0.com/resources/ebooks/jwt-handbook?utm_content=latamptbrazilgenericauthentication-jwthandbook-jwthandbook&utm_source=google&utm_campaign=latam_mult_bra_all_ciam-all_dg-ao_auth0_search_google_text_kw_utm2&utm_medium=cpc&utm_id=aNK4z0000004ISoGAM&utm_term=json%20web%20token-c&gclid=Cj0KCQiAic6eBhCoARIsANlox86d1mgnR32Ojo_O7HQcmuTbch4oUFGFeAe5YcMjrVVTa3XlqlXDIGoaApm8EALw_wcB)
-- [Thunder Client](https://www.thunderclient.com/)
-- [ESLint](https://eslint.org/)
-- [Scrum](https://www.atlassian.com/br/agile/scrum)
-- [Kanban](https://www.totvs.com/blog/negocios/kanban/)
-- [Zoom](https://zoom.us/)
-- [Slack](https://slack.com/intl/pt-br/)
-- [VsCode](https://code.visualstudio.com/)
-- [Git](https://git-scm.com/) & [GitHub](https://github.com/)
-- [Linux - Ubuntu](https://ubuntu.com/)
+- Linguagem: [Javascript](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript)
+- Framework de Front-end: [React](https://pt-br.reactjs.org/)
+- Gerenciamento de estado: [ContextAPI](https://reactjs.org/docs/context.html)
+- Cliente HTTP: [Axios](https://axios-http.com/ptbr/docs/intro)
+- Plataforma de desenvolvimento: [Node](https://nodejs.org/en/)
+- Virtualização: [Docker](https://www.docker.com/)
+- Padrão de arquitetura de API: [API RESTful](https://blog.betrybe.com/desenvolvimento-web/api-rest-tudo-sobre/)
+- Padrão de arquitetura do Software: [Model-Service-Controller](https://www.devmedia.com.br/introducao-ao-padrao-mvc/29308) 
+- Framework de arquitetura de APIwork web: [Express](https://expressjs.com/)
+- Banco de dados: [MySQL](https://www.mysql.com/)
+- Ferramenta de modelagem de banco de dados: [MySQL Workbench](https://www.mysql.com/products/workbench/)
+- ORM: [Sequelize](https://sequelize.org/)
+- Criptografia de senhas: [MD-5](https://www.devmedia.com.br/criptografia-md5/2944)
+- Autenticação e autorização: [JWT](https://auth0.com/resources/ebooks/jwt-handbook?utm_content=latamptbrazilgenericauthentication-jwthandbook-jwthandbook&utm_source=google&utm_campaign=latam_mult_bra_all_ciam-all_dg-ao_auth0_search_google_text_kw_utm2&utm_medium=cpc&utm_id=aNK4z0000004ISoGAM&utm_term=json%20web%20token-c&gclid=Cj0KCQiAic6eBhCoARIsANlox86d1mgnR32Ojo_O7HQcmuTbch4oUFGFeAe5YcMjrVVTa3XlqlXDIGoaApm8EALw_wcB)
+- Cliente de teste de API: [Thunder Client](https://www.thunderclient.com/)
+- Linter de código: [ESLint](https://eslint.org/)
+- Metodologias ágeis: [Scrum](https://www.atlassian.com/br/agile/scrum) e [Kanban](https://www.totvs.com/blog/negocios/kanban/)
+- Ferramentas de comunicação: [Zoom](https://zoom.us/) e [Slack](https://slack.com/intl/pt-br/)
+- Editor de código: [Visual Studio Code](https://code.visualstudio.com/)
+- Sistema de controle de versão: [Git](https://git-scm.com/) e [GitHub](https://github.com/)
+- Sistema operacional: [Linux - Ubuntu](https://ubuntu.com/) e [Windows](https://www.microsoft.com/pt-br/windows/?r=1)
 
 ## Testes
 
-- [Jest](https://jestjs.io/pt-BR/)
-- [React Testing Library - RTL](https://testing-library.com/docs/react-testing-library/intro/)
-- [Mocha](https://mochajs.org/)
-- [Chai](https://www.chaijs.com/)
-- [Sinon](https://sinonjs.org/)
+- Framework de teste de unidade: [Jest](https://jestjs.io/pt-BR/)
+- Biblioteca de teste de componentes React: [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
+- Framework de teste de unidade: [Mocha](https://mochajs.org/)
+- Biblioteca de assertividade para teste de unidade: [Chai](https://www.chaijs.com/)
+- Biblioteca de espiões, stubs e mocks para testes: [Sinon](https://sinonjs.org/)
 
 <br>
 <hr>
