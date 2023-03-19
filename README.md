@@ -1,8 +1,10 @@
+![iBirita](https://user-images.githubusercontent.com/99055008/226148750-d1b974b7-bbf6-4325-8553-a7c36bc09347.png)
+
 # iBirit@
 
 Bem-vindo ao iBirita, um aplicativo de delivery de bebidas completo e fácil de usar! Com o iBirita, você pode escolher entre uma grande variedade de bebidas e recebê-las diretamente na sua porta.
 
-O iBirita foi desenvolvido por uma equipe de 5 pessoas dedicadas a fornecer a melhor experiência de compra online para seus usuários. Utilizando tecnologias como Javascript, React, Context, API, Axios, Node, MySQL, MD-5, JWT e Sequelize, o aplicativo inclui telas de login e cadastro para seus clientes, vendedores e administradores, bem como uma seleção de produtos, checkout e rastreamento de pedidos.
+O iBirita foi desenvolvido por uma equipe de 5 pessoas dedicadas a fornecer a melhor experiência de compra online para seus usuários. Utilizando tecnologias modernas, o aplicativo inclui telas de login e cadastro para seus clientes, vendedores e administradores, bem como uma seleção de produtos, checkout e rastreamento de pedidos.
 
 Além de ser uma opção conveniente para dispositivos móveis, o iBirita também pode ser usado em PCs. Isso permite que você faça seus pedidos diretamente do seu computador, sem precisar alternar entre diferentes dispositivos. Compatibilidade com dispositivos móveis e desktop é uma das nossas principais prioridades, garantindo que você possa acessar e utilizar o iBirita de qualquer lugar e em qualquer dispositivo.
 
@@ -50,6 +52,30 @@ O [ContextAPI](https://reactjs.org/docs/context.html) é uma das funcionalidades
 
 <br>
 
+## Arquitetura de Software MSC
+
+Optamos por utilizar a arquitetura MSC. que é uma estrutura de design de software que divide um aplicativo em três componentes principais: Model, Service e Controller.
+
+- `Model`: A camada Model é a representação de um objeto no banco de dados, com seus atributos e relacionamentos. Ela lida com a leitura e escrita de dados no banco de dados e fornece uma interface para manipular esses dados.
+
+- `Service`: A camada service é responsável por implementar a lógica de negócios do aplicativo. Ela geralmente encapsula uma ou mais operações do modelo e fornece uma camada adicional de abstração para o controller.
+
+- `Controller`: A camada controller é responsável por lidar com as requisições HTTP e coordenar as interações entre os modelos e os serviços. Ela recebe as solicitações do usuário e decide qual serviço ou modelo deve ser usado para lidar com essa solicitação.
+
+Ao usar a arquitetura MSC, a lógica de negócios é separada da camada de apresentação e da camada de armazenamento de dados, o que torna o código mais modular e escalável. Além disso, a separação de responsabilidades torna mais fácil testar cada componente separadamente.
+
+Aqui estão alguns benefícios da arquitetura MSC:
+
+- `Organização`: Com a divisão clara de responsabilidades, é mais fácil para os desenvolvedores entenderem e manterem o código.
+
+- `Escalabilidade`: Como cada componente é independente, é possível escalar o aplicativo de forma granular, sem precisar escalá-lo como um todo.
+
+- `Reutilização de código`: Como os serviços encapsulam a lógica de negócios, é possível reutilizar o mesmo serviço em várias partes do aplicativo.
+
+- `Testabilidade`: Como cada componente é independente, é mais fácil escrever testes automatizados para cada componente.
+
+<br>
+
 ## Testes
 
 Foram realizados testes automatizados durante o desenvolvimento da aplicação para garantir seu correto funcionamento e evitar possíveis erros no código. Foram implementados testes de integração e testes unitários tanto no front-end quanto no back-end.
@@ -64,7 +90,7 @@ A utilização de testes automatizados permite uma maior confiabilidade e segura
 <br>
 
 <details>
-  <summary><strong>COMO INSTALAR O APLICATIVO iBIRITA</strong></summary><br />
+  <summary><strong>COMO INSTALAção DO APLICATIVO iBIRITA</strong></summary><br />
 
 ## Instalação 
 
