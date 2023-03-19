@@ -87,6 +87,28 @@ No back-end, foram implementados testes de unidade utilizando a biblioteca [Moch
 A utilização de testes automatizados permite uma maior confiabilidade e segurança na aplicação, garantindo que ela continue funcionando corretamente mesmo após alterações no código.
 
 <br>
+
+## Segurança
+
+A segurança é uma preocupação primordial em nosso aplicativo. Utilizamos várias técnicas e tecnologias para garantir que nosso sistema seja seguro e confiável.
+
+Uma das tecnologias que usamos para garantir a segurança é o [JWT (JSON WEB TOKEN)](https://auth0.com/resources/ebooks/jwt-handbook?utm_content=latamptbrazilgenericauthentication-jwthandbook-jwthandbook&utm_source=google&utm_campaign=latam_mult_bra_all_ciam-all_dg-ao_auth0_search_google_text_kw_utm2&utm_medium=cpc&utm_id=aNK4z0000004ISoGAM&utm_term=json%20web%20token-c&gclid=Cj0KCQiAic6eBhCoARIsANlox86d1mgnR32Ojo_O7HQcmuTbch4oUFGFeAe5YcMjrVVTa3XlqlXDIGoaApm8EALw_wcB), que é uma maneira segura de transmitir informações entre dois ou mais sistemas de forma criptografada. Isso garante que apenas as partes autorizadas possam acessar as informações transmitidas.
+
+Além disso, utilizamos o [MD-5](https://www.devmedia.com.br/criptografia-md5/2944), que é um algoritmo de hash criptográfico, para proteger as senhas de nossos usuários. O [MD-5](https://www.devmedia.com.br/criptografia-md5/2944) é um algoritmo robusto e comprovadamente seguro para uso em senhas.
+
+Outra maneira pela qual garantimos a segurança é através da arquitetura de nosso software. Nossos sistemas são construídos com uma arquitetura modular e escalável, o que significa que podemos isolar e proteger cada componente do sistema de forma independente. Isso nos permite detectar e corrigir vulnerabilidades de segurança de forma mais rápida e eficiente.
+
+<br>
+
+## Estilização
+
+No aplicativo iBirita, utilizamos três ferramentas para estilizar a aplicação web: [Tailwind](https://tailwindcss.com/), [Material UI](https://mui.com/) e [CSS](https://developer.mozilla.org/pt-BR/docs/Web/CSS). O [Tailwind](https://tailwindcss.com/) é um framework [CSS](https://developer.mozilla.org/pt-BR/docs/Web/CSS) utilitário que nos permite criar estilos customizados rapidamente, enquanto o [Material UI](https://mui.com/) é um conjunto de componentes React pré-construídos que seguem as diretrizes de design do Google. Além disso, o [CSS](https://developer.mozilla.org/pt-BR/docs/Web/CSS) nativo foi utilizado em alguns casos para complementar o estilo dos componentes.
+
+Utilizamos [Tailwind](https://tailwindcss.com/) principalmente para estilizar os componentes criados do zero, enquanto [Material UI](https://mui.com/) foi utilizado para os campos de input e botões que utilizamos na aplicação. Ambos foram customizados para atender às necessidades de design e experiência do usuário específicas do projeto.
+
+No geral, a combinação dessas ferramentas nos permitiu criar uma interface web responsiva, atraente e funcional.
+
+<br>
 <br>
 
 <details>
@@ -221,6 +243,12 @@ git push origin sua-feature-ou-correcao
 - Editor de código: [Visual Studio Code](https://code.visualstudio.com/)
 - Sistema de controle de versão: [Git](https://git-scm.com/) e [GitHub](https://github.com/)
 - Sistema operacional: [Linux - Ubuntu](https://ubuntu.com/) e [Windows](https://www.microsoft.com/pt-br/windows/?r=1)
+
+## Estilização
+
+- Framework CSS: [Tailwind](https://tailwindcss.com/)
+- Biblioteca de componentes: [Material UI](https://mui.com/)
+- Linguagem de Estilização: [CSS](https://developer.mozilla.org/pt-BR/docs/Web/CSS)
 
 ## Testes
 
