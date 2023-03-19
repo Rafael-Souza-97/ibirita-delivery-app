@@ -18,8 +18,6 @@ function Checkout() {
       <NavBar />
 
       <div>
-        <h2>Finalizar Pedido</h2>
-
         <CheckoutTable
           products={ products }
           onRemove={ removeProduct }

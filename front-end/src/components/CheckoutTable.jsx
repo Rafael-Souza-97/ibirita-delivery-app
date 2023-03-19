@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import Context from '../context/context';
-import '../styles/CheckoutTable.css';
 
 function CheckoutTable({ products, onRemove }) {
   const { setCheckoutTotal, cartProducts, setCartProducts } = useContext(Context);
@@ -27,90 +26,61 @@ function CheckoutTable({ products, onRemove }) {
   };
 
   return (
-    <div
-      className="checkout-table__order-table"
-      data-testid="customer_element-order-table"
-    >
-      <table className="checkout-table__table">
-        <thead>
-          <tr>
-            <th className="checkout-table__header">Item</th>
-            <th className="checkout-table__header">Descrição</th>
-            <th className="checkout-table__header">Quantidade</th>
-            <th className="checkout-table__header">Valor Unitário</th>
-            <th className="checkout-table__header">Sub-Total</th>
-            <th className="checkout-table__header">Remover item</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map((product, index) => (
-            <tr key={ index + 1 }>
-              <td
-                className="checkout-table__data"
-                data-testid={
-                  `customer_checkout__element-order-table-item-number-${index}`
-                }
-              >
-                {index + 1}
-              </td>
-              <td
-                className="checkout-table__data"
-                data-testid={ `customer_checkout__element-order-table-name-${index}` }
-              >
-                {product.name}
-              </td>
-              <td
-                className="checkout-table__data"
-                data-testid={ `customer_checkout__element-order-table-quantity-${index}` }
-              >
-                {product.quantity}
-              </td>
-              <td
-                className="checkout-table__data"
-                data-testid={
-                  `customer_checkout__element-order-table-unit-price-${index}`
-                }
-              >
-                {`${(parseFloat(product.price)).toLocaleString('pt-BR', {
-                  minimumFractionDigits: 2,
-                })}`}
-              </td>
-              <td
-                className="checkout-table__data"
-                data-testid={
-                  `customer_checkout__element-order-table-sub-total-${index}`
-                }
-              >
-                {`${(parseFloat(product.price * product.quantity)).toLocaleString(
-                  'pt-BR',
-                  { minimumFractionDigits: 2 },
-                )}`}
-              </td>
-              <td
-                className="checkout-table__data"
-                data-testid={ `customer_checkout__element-order-table-remove-${index}` }
-              >
-                <button
-                  type="button"
-                  onClick={ () => handleRemoveProduct(product.id) }
-                  className="checkout-table__button"
-                >
-                  Remover
-                </button>
-              </td>
+    <div className="flex flex-col items-center bg-white">
+      <div className="w-full overflow-x-auto">
+        <table className="w-full whitespace-no-wrap">
+          <thead>
+            <tr className="bg-gray-200">
+              <th className="py-3 px-6 text-center uppercase font-semibold text-sm">Item</th>
+              <th className="py-3 px-6 text-center uppercase font-semibold text-sm">Descrição</th>
+              <th className="py-3 px-6 text-center uppercase font-semibold text-sm">Quantidade</th>
+              <th className="py-3 px-6 text-center uppercase font-semibold text-sm">Valor Unitário</th>
+              <th className="py-3 px-6 text-center uppercase font-semibold text-sm">Subtotal</th>
+              <th className="py-3 px-6 text-center uppercase font-semibold text-sm">Ações</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {products.map((product, index) => (
+              <tr key={ index + 1 } className="border-b border-gray-200">
+                <td className="py-4 px-6 text-center">{index + 1}</td>
+                <td className="py-4 px-6 text-center">{product.name}</td>
+                <td className="py-4 px-6 text-center">{product.quantity}</td>
+                <td className="py-4 px-6 text-center">
+                  {`R$ ${(parseFloat(product.price)).toLocaleString('pt-BR', {
+                    minimumFractionDigits: 2,
+                  })}`}
+                </td>
+                <td className="py-4 px-6 text-center">
+                  {`R$ ${(parseFloat(product.price * product.quantity)).toLocaleString(
+                    'pt-BR',
+                    { minimumFractionDigits: 2 },
+                  )}`}
+                </td>
+                <td className="py-4 px-6 text-center">
+                  <button
+                    type="button"
+                    onClick={ () => handleRemoveProduct(product.id) }
+                    className="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-md"
+                  >
+                    Remover
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
-      <div className="checkout-table__order-summary">
-        <h4 className="checkout-table__order-summary__title">Total:</h4>
-        <h3
-          className="checkout-table__order-summary__price"
-          data-testid="customer_checkout__element-order-total-price"
-        >
-          {`${getTotalPrice()}`}
-        </h3>
+      <div className="flex justify-end mt-8">
+        <div className="p-4 flex items-center">
+          <h2 className="text-lg md:text-2xl font-glacial-regular">Total:</h2>
+          <h2
+            className="text-lg md:text-2xl font-bold text-corLetra font-glacial-bold ml-2"
+            data-testid="customer_checkout__element-order-total-price"
+          >
+            {`R$ ${getTotalPrice().toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`}
+          </h2>
+        </div>
       </div>
     </div>
   );

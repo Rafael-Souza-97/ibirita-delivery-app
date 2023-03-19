@@ -1,7 +1,13 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
+import { ThemeProvider } from '@mui/material/styles';
+import { Button, TextField } from '@mui/material';
+import theme from '../themes/themes';
+import ibirita from '../images/ibirita.png';
 import Context from '../context/context';
 import { requestLogin } from '../services/requests';
+import '../index.css';
+import '../styles/Login.css';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -70,53 +76,76 @@ export default function LoginPage() {
   }
 
   return (
-    <div>
-      <h1>Login</h1>
-      <form onSubmit={ handleSubmit }>
-        <label htmlFor="email">
-          Email:
-          <input
-            data-testid="common_login__input-email"
-            type="email"
-            id="email"
-            value={ email }
-            onChange={ handleEmail }
-            placeholder="Login"
-          />
-        </label>
-        <br />
-        <label htmlFor="password">
-          Senha:
-          <input
-            data-testid="common_login__input-password"
-            type="password"
-            id="password"
-            value={ password }
-            onChange={ handlePassword }
-            placeholder="Senha"
-          />
-        </label>
-        <br />
-        <button
-          data-testid="common_login__button-login"
-          type="submit"
-          disabled={ !validUser() }
-        >
-          Login
-        </button>
-        <button
-          data-testid="common_login__button-register"
-          type="button"
-          onClick={ () => setRegistration(true) }
-        >
-          Ainda não tenho conta
-        </button>
-        {invisibleElement && (
-          <p data-testid="common_login__element-invalid-email">
-            E-mail ou Senha Invalidos
-          </p>
-        )}
-      </form>
+    <div className="min-h-screen bg-corFundo flex flex-col justify-center py-0 sm:px-6 lg:px-8">
+      <div className="w-full max-w-md mx-auto px-2 logo-ibirita">
+        <img src={ ibirita } alt="ibirita-logo" />
+        <div className="bg-white py-8 px-4 shadow rounded-lg sm:rounded-lg sm:px-10">
+          <div className="sm:mx-auto sm:w-full sm:max-w-md">
+            <h2 className="text-center text-3xl text-gray-900 my-5 font-glacial-bold">Acesse sua conta</h2>
+          </div>
+
+          <form onSubmit={ handleSubmit }>
+            <div>
+              <TextField
+                id="outlined-basic"
+                label="Email"
+                variant="outlined"
+                value={ email }
+                onChange={ handleEmail }
+                placeholder="Insira o seu email"
+                margin="normal"
+                fullWidth
+                required
+              />
+            </div>
+
+            <div className="mt-6">
+              <TextField
+                id="password"
+                name="password"
+                label="Senha"
+                type="password"
+                value={ password }
+                variant="outlined"
+                onChange={ handlePassword }
+                placeholder="**********"
+                margin="normal"
+                fullWidth
+                required
+              />
+            </div>
+
+            <div className="mt-6">
+              <ThemeProvider theme={ theme }>
+                <Button
+                  type="submit"
+                  size="large"
+                  variant="contained"
+                  color="primary"
+                  disabled={ !validUser() }
+                  onClick={ () => handleSubmit() }
+                  className="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-black bg-corBotao hover:bg-corBotaoHover hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                  Login
+                </Button>
+              </ThemeProvider>
+            </div>
+
+            <div className="mt-6 flex justify-center items-center">
+              <p className="text-gray-700">Não é cadastrado?</p>
+              <a href="#" className="ml-1 text-blue-600" onClick={ () => setRegistration(true) }>Faça o Registro</a>
+            </div>
+
+            { invisibleElement && (
+              <div className="mt-6">
+                <p data-testid="common_login__element-invalid-email" className="text-md text-red-600 text-center">
+                  E-mail ou Senha Inválidos
+                </p>
+              </div>
+            )}
+          </form>
+        </div>
+      </div>
     </div>
   );
 }

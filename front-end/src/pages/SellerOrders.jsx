@@ -39,30 +39,31 @@ export default function SellerOrders() {
               id={ orders.id }
               onClick={ (e) => handleClick(e) }
             >
+              <p
+                data-testid={ `seller_orders__element-order-id-${orders.id}` }
+                id={ orders.id }
+              >
+                { orders.id }
+              </p>
               <h2
                 data-testid={ `seller_orders__element-delivery-status-${orders.id}` }
                 id={ orders.id }
               >
                 { orders.status }
               </h2>
-              <h2
+              <p
                 data-testid={ `seller_orders__element-order-date-${orders.id}` }
                 id={ orders.id }
               >
                 { orders.saleDate.substring(0, NUMBER_TEN) }
-              </h2>
+              </p>
               <h2
-                data-testid={ `seller_orders__element-order-id-${orders.id}` }
-                id={ orders.id }
-              >
-                { orders.id }
-              </h2>
-              <p
                 data-testid={ `customer_orders__element-card-price-${orders.id}` }
                 id={ orders.id }
               >
+                { 'R$ ' }
                 {orders.totalPrice}
-              </p>
+              </h2>
               <p
                 data-testid={ `customer_orders__element-card-price-${orders.id}` }
                 id={ orders.id }

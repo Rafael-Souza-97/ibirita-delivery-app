@@ -1,0 +1,17 @@
+.logo-ibirita {
+  margin-top: -100px;
+}
+
+@font-face {
+  font-family: GlacialIndifferenceBold;
+  src: url('../../fonts/GlacialIndifference-Bold.woff') format('woff');
+}
+
+@font-face {
+  font-family: GlacialIndifference;
+  src: url('../../fonts/GlacialIndifference-Regular.woff') format('woff');
+}
+
+body {
+  font-family: GlacialIndifference, sans-serif;
+}

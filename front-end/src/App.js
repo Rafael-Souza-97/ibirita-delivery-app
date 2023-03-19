@@ -11,7 +11,7 @@ import SellerOrders from './pages/SellerOrders';
 import SellerOrdersDetails from './pages/SellerOrdersDetails';
 import Admin from './pages/Admin';
 // import PageNotFound from './pages/PageNotFound';
-import './App.css';
+import './index.css';
 
 function App() {
   return (

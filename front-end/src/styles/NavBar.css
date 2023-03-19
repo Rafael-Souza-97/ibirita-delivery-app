@@ -1,12 +1,4 @@
-.header {
-  align-items: center;
-  background-color: rgb(63, 63, 207);
-  color: white;
-  display: flex;
-  font-size: 16px;
-  justify-content: space-between;
-  padding: 10px;
-}
+
 
 .nav-item {
   display: inline-block;

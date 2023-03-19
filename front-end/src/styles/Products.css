@@ -2,6 +2,7 @@
   display: grid;
   gap: 32px;
   grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  justify-content: center;
   margin: 50px;
   margin-top: 32px;
   padding: 10px;
@@ -66,7 +67,7 @@
 }
 
 .btn_shopping-cart .button-plus-item:hover {
-  background-color: rgb(0, 200, 83);
+  background-color: #0786c7;
   color: white;
 }
 
@@ -83,6 +84,10 @@
   width: 100px;
 }
 
+.input-quantity-products:focus {
+  outline: none;
+}
+
 .btn_shopping-cart .button-minus-item {
   background-color: transparent;
   border: 1px solid black;
@@ -97,8 +102,8 @@
 }
 
 .btn_shopping-cart .button-minus-item:hover {
-  background-color: red;
-  color: white;
+  background-color: #ebbc00;
+  color: black;
 }
 
 .input-quantity-products::-webkit-inner-spin-button {

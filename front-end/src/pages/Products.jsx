@@ -75,7 +75,7 @@ export default function Products() {
       <NavBar />
       <div className="product-grid">
         { productsArray.map((products) => (
-          <div key={ products.id } className="product-card">
+          <div key={ products.id } className="product-card mb-16">
             <img
               src={ products.urlImage }
               alt={ products.name }
@@ -91,8 +91,8 @@ export default function Products() {
             <p
               data-testid={ `customer_products__element-card-price-${products.id}` }
             >
-              { parseFloat(products.price)
-                .toLocaleString('pt-BR', { minimumFractionDigits: 2 }) }
+              { `R$ ${parseFloat(products.price)
+                .toLocaleString('pt-BR', { minimumFractionDigits: 2 })}` }
             </p>
 
             <div className="btn_shopping-cart">
@@ -135,15 +135,15 @@ export default function Products() {
         <button
           type="button"
           data-testid="customer_products__button-cart"
-          className="submit-products"
+          className={ `fixed bottom-0 left-1/2 transform -translate-x-1/2 w-[250px] h-[70px] mb-10 inline-flex justify-center py-4 px-6 border border-transparent shadow-sm text-lg rounded-md text-white bg-gradient-to-b from-corBotao to-corBotaoHover hover:from-corBotaoHover hover:to-corBotao focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 items-center font-glacial-bold ${disableButtton() ? '' : 'hidden'}` }
+
           disabled={ !disableButtton() }
           onClick={ () => history.push('/customer/checkout') }
         >
-          Ver Carrinho: R$
           <p
             data-testid="customer_products__checkout-bottom-value"
           >
-            { `${
+            { `Ver Carrinho: R$ ${
               parseFloat(totalValue)
                 .toLocaleString('pt-BR', { minimumFractionDigits: 2 })
             }`}

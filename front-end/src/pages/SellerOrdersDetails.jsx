@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import { requestSales, requestUpdateStatus } from '../services/requests';
+import '../styles/DatailsOrders.css';
 
 const prefix = 'seller_order_details__';
 const prefixStatus = 'seller_order_details__element-order-details-label-delivery-status';
@@ -60,33 +61,34 @@ export default function SellerOrdersDetails() {
     <div>
       <NavBar />
       {loaded ? (
-        <div key={ orders.id }>
-          <div className="Topo da tabela">
+        <div
+          key={ orders.id }
+          className="orders_body"
+        >
+          <div className="Topo_da_tabela">
             <h2
               data-testid={ `${prefix}element-order-details-label-order-id` }
               id={ orders.id }
             >
-              ID da compra:
-              <br />
               {orders.id}
             </h2>
             <h2
               data-testid={ `${prefix}element-order-details-label-order-date` }
               id={ orders.id }
             >
-              <br />
               {formatDate(orders.saleDate)}
             </h2>
             <h2
               data-testid={ `${prefixStatus}` }
               id={ orders.id }
             >
-              Status da compra:
-              <br />
-              {orders.status}
+              <strong>
+                {orders.status}
+              </strong>
             </h2>
             <button
               type="button"
+              className="preparing_button"
               data-testid="seller_order_details__button-preparing-check"
               onClick={ () => handlePreparing() }
               id={ orders.id }
@@ -96,6 +98,7 @@ export default function SellerOrdersDetails() {
             </button>
             <button
               type="button"
+              className="deivery_button"
               data-testid="seller_order_details__button-dispatch-check"
               id={ orders.id }
               onClick={ () => handleDispatch() }
@@ -104,7 +107,7 @@ export default function SellerOrdersDetails() {
               Saiu para entrega
             </button>
           </div>
-          <table className="Tabela de produtos">
+          <table className="Tabela_de_produtos">
             <thead>
               <tr>
                 <th>Item</th>
@@ -143,28 +146,37 @@ export default function SellerOrdersDetails() {
                       `${prefix}element-order-table-unit-price-${index}`
                     }
                   >
-                    {product.price}
+                    { 'R$ ' }
+                    {
+                      parseFloat(product.price)
+                        .toLocaleString('pt-BR', { minimumFractionDigits: 2 })
+                    }
                   </td>
                   <td
                     data-testid={
                       `${prefix}element-order-table-sub-total-${index}`
                     }
                   >
-                    { (product.SalesProducts.quantity * product.price).toFixed(2) }
+                    { 'R$ ' }
+                    { parseFloat(product.SalesProducts.quantity * product.price)
+                      .toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-          <div className="Valor Total">
-            <p
+          <div className="Valor_Total">
+            <h2
               data-testid="seller_order_details__element-order-total-price"
               id={ orders.id }
             >
-              <br />
-              {parseFloat(orders.totalPrice)
-                .toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
-            </p>
+              <strong>
+
+                { 'R$ ' }
+                {parseFloat(orders.totalPrice)
+                  .toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+              </strong>
+            </h2>
           </div>
         </div>
       ) : (

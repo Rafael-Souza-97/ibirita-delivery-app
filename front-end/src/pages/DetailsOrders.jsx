@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import Context from '../context/context';
 import { requestSales, requestUpdateStatus, requestUserById } from '../services/requests';
+import '../styles/DatailsOrders.css';
 
 export default function DetailsOrders() {
   const [orders, setOrder] = useState([{}]);
@@ -45,17 +46,15 @@ export default function DetailsOrders() {
   const dataTestPrefix2 = 'customer_order_details__element-order-details-label-delivery';
 
   return (
-    <div>
+    <div className="body">
       <NavBar />
       {loaded ? (
-        <div>
-          <div className="Topo da tabela">
+        <div className="orders_body">
+          <div className="Topo_da_tabela">
             <h2
               data-testid={ `${dataTestPrefix}element-order-details-label-order-id` }
               id={ orders.id }
             >
-              ID da compra:
-              <br />
               {orders.id}
             </h2>
             <h2
@@ -64,8 +63,6 @@ export default function DetailsOrders() {
               }
               id={ orders.id }
             >
-              Vendedor:
-              <br />
               {seller.name}
             </h2>
             <h2
@@ -74,18 +71,16 @@ export default function DetailsOrders() {
               }
               id={ orders.id }
             >
-              Data da compra:
-              <br />
               {formatDate(orders.saleDate)}
             </h2>
             <h2
               data-testid={ `${dataTestPrefix2}-status-${orders.id}` }
               id={ orders.id }
             >
-              <br />
               { orders.status }
             </h2>
             <button
+              className="button-delivered"
               type="button"
               data-testid="customer_order_details__button-delivery-check"
               onClick={ () => handleDelivered() }
@@ -94,14 +89,24 @@ export default function DetailsOrders() {
               Marcar como entregue
             </button>
           </div>
-          <table className="Tabela de produtos">
+          <table className="Tabela_de_produtos">
             <thead>
               <tr>
-                <th>Item</th>
-                <th>Descrição</th>
-                <th>Quantidade</th>
-                <th>Valor Unitário</th>
-                <th>Sub-Total</th>
+                <th className="py-3 px-6 text-center uppercase font-semibold text-sm">
+                  Item
+                </th>
+                <th className="py-3 px-6 text-center uppercase font-semibold text-sm">
+                  Descrição
+                </th>
+                <th className="py-3 px-6 text-center uppercase font-semibold text-sm">
+                  Quantidade
+                </th>
+                <th className="py-3 px-6 text-center uppercase font-semibold text-sm">
+                  Valor Unitário
+                </th>
+                <th className="py-3 px-6 text-center uppercase font-semibold text-sm">
+                  Sub-Total
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -115,6 +120,7 @@ export default function DetailsOrders() {
                 return (
                   <tr key={ index + 1 }>
                     <td
+                      className="py-4 px-6 text-center"
                       data-testid={
                         `${dataTestPrefix}element-order-table-item-number-${index}`
                       }
@@ -122,6 +128,7 @@ export default function DetailsOrders() {
                       {index + 1}
                     </td>
                     <td
+                      className="py-4 px-6 text-center"
                       data-testid={
                         `customer_order_details__element-order-table-name-${index}`
                       }
@@ -129,6 +136,7 @@ export default function DetailsOrders() {
                       {itemName}
                     </td>
                     <td
+                      className="py-4 px-6 text-center"
                       data-testid={
                         `${dataTestPrefix}element-order-table-quantity-${index}`
                       }
@@ -136,39 +144,45 @@ export default function DetailsOrders() {
                       {product.SalesProducts.quantity}
                     </td>
                     <td
+                      className="py-4 px-6 text-center"
                       data-testid={
                         `${dataTestPrefix}element-order-table-unit-price-${index}`
                       }
                     >
+                      { 'R$ ' }
                       {parseFloat(itemPrice)
                         .toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
                     </td>
                     <td
+                      className="py-4 px-6 text-center"
                       data-testid={
                         `${dataTestPrefix}element-order-table-sub-total-${index}`
                       }
                     >
-                      { parseFloat(subTotal)
-                        .toLocaleString('pt-BR', { minimumFractionDigits: 2 }) }
+                      { 'R$ ' }
+                      { subTotal}
                     </td>
                   </tr>
                 );
               })}
             </tbody>
           </table>
-          <div className="Valor Total">
-            <p
+          <div className="Valor_Total">
+            <h2
               data-testid="customer_order_details__element-order-total-price"
               id={ orders.id }
             >
-              { parseFloat(orders.totalPrice)
-                .toLocaleString('pt-BR', { minimumFractionDigits: 2 }) }
-            </p>
+              <strong>
+                { 'R$ ' }
+                { parseFloat(orders.totalPrice)
+                  .toLocaleString('pt-BR', { minimumFractionDigits: 2 }) }
+              </strong>
+            </h2>
           </div>
         </div>
       )
         : (
-          <div>Loading</div>
+          <div>Loading...</div>
         )}
     </div>
   );

@@ -36,68 +36,70 @@ function AdminUsers() {
 
   return (
     <div
-      className="admin-table__order-table"
+      className="flex flex-col items-center mt-20"
       data-testid="customer_element-order-table"
     >
-      <h3>Lista de usuários</h3>
-      <table className="admin-table__table">
-        <thead>
-          <tr>
-            <th className="admin-table__header">Item</th>
-            <th className="admin-table__header">Nome</th>
-            <th className="admin-table__header">E-mail</th>
-            <th className="admin-table__header">Tipo</th>
-            <th className="admin-table__header">Excluir</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {users.map((user, index) => (
-            <tr key={ index + 1 }>
-              <td
-                className="admin-table__data"
-                data-testid={
-                  `admin_manage__element-user-table-item-number-${index}`
-                }
-              >
-                { index + 1 }
-              </td>
-              <td
-                className="admin-table__data"
-                data-testid={ `admin_manage__element-user-table-name-${index}` }
-              >
-                { user.name }
-              </td>
-              <td
-                className="admin-table__data"
-                data-testid={ `admin_manage__element-user-table-email-${index}` }
-              >
-                { user.email }
-              </td>
-              <td
-                className="admin-table__data"
-                data-testid={
-                  `admin_manage__element-user-table-role-${index}`
-                }
-              >
-                { user.role }
-              </td>
-              <td
-                className="admin-table__data"
-                data-testid={ `admin_manage__element-user-table-remove-${index}` }
-              >
-                <button
-                  type="button"
-                  className="admin-table__button"
-                  onClick={ () => handleDeleteUser(user.id) }
-                >
-                  Remover
-                </button>
-              </td>
+      <div className="w-full overflow-x-auto text-center">
+        <h3 className="text-3xl mb-6 font-glacial-bold md:mr-16">Lista de usuários</h3>
+        <table className="w-full whitespace-no-wrap">
+          <thead>
+            <tr className="bg-gray-200">
+              <th className="py-3 px-6 text-center uppercase font-semibold text-sm">Item</th>
+              <th className="py-3 px-6 text-center uppercase font-semibold text-sm">Nome</th>
+              <th className="py-3 px-6 text-center uppercase font-semibold text-sm">E-mail</th>
+              <th className="py-3 px-6 text-center uppercase font-semibold text-sm">Tipo</th>
+              <th className="py-3 px-6 text-center uppercase font-semibold text-sm">Excluir</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            {users.map((user, index) => (
+              <tr key={ index + 1 } className="border-b border-gray-200 font-glacial-regular">
+                <td
+                  className="py-4 px-6 text-center"
+                  data-testid={
+                    `admin_manage__element-user-table-item-number-${index}`
+                  }
+                >
+                  { index + 1 }
+                </td>
+                <td
+                  className="py-4 px-6 text-center"
+                  data-testid={ `admin_manage__element-user-table-name-${index}` }
+                >
+                  { user.name }
+                </td>
+                <td
+                  className="py-4 px-6 text-center"
+                  data-testid={ `admin_manage__element-user-table-email-${index}` }
+                >
+                  { user.email }
+                </td>
+                <td
+                  className="py-4 px-6 text-center"
+                  data-testid={
+                    `admin_manage__element-user-table-role-${index}`
+                  }
+                >
+                  { user.role }
+                </td>
+                <td
+                  className="py-4 px-6 text-center"
+                  data-testid={ `admin_manage__element-user-table-remove-${index}` }
+                >
+                  <button
+                    type="button"
+                    className="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-md"
+                    onClick={ () => handleDeleteUser(user.id) }
+                  >
+                    Remover
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

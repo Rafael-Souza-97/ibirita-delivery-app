@@ -1,8 +1,13 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import Context from '../context/context';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import { TextField } from '@mui/material';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 import { requestCheckout } from '../services/requests';
-import '../styles/CheckoutAddress.css';
+import Context from '../context/context';
+// import '../styles/CheckoutAddress.css';
 
 function CheckoutAddress() {
   const {
@@ -20,10 +25,10 @@ function CheckoutAddress() {
 
   async function sellRegister() {
     try {
-      // if (cartProducts.length === 0) {
-      //   alert('Não há produtos no carrinho.');
-      //   return;
-      // }
+      if (cartProducts.length === 0) {
+        alert('Não há produtos no carrinho.');
+        return;
+      }
       const user = localStorage.getItem('user');
       if (!user) {
         history.push('/login');
@@ -42,7 +47,9 @@ function CheckoutAddress() {
         deliveryAddress: adressValues.address,
         deliveryNumber: Number(adressValues.number),
       };
+      console.log(saleData);
       const request = await requestCheckout(saleData);
+      console.log(request);
 
       setOrderResponse(request);
 
@@ -56,59 +63,73 @@ function CheckoutAddress() {
   }
 
   return (
-    <div className="checkout-form">
-      <h2 className="checkout-title">Detalhes e Endereço para Entrega</h2>
+    <div className="flex flex-col items-center py-6 pt-12 w-full bg-white">
+      <h2 className="text-2xl mb-4 font-medium">Detalhes e Endereço para Entrega</h2>
 
-      <form className="checkout-form-fields">
-        <label htmlFor="seller" className="checkout-label">
-          P. Vendedora Responsável:
-          <select
-            id="seller"
-            name="seller"
-            data-testid="customer_checkout__select-seller"
-            value={ adressValues.seller }
-            onChange={ handleChange }
-            className="checkout-select"
-          >
-            <option value="Fulana Pereira">Fulana Pereira</option>
-          </select>
-        </label>
+      <form className="flex flex-wrap w-full xl:w-4/6 items-center justify-center">
+        <div className="flex flex-col md:flex-row flex-evenly justify-evenly items-center w-full mb-4 md:pr-4">
+          <div className="mt-2">
+            <FormControl sx={ { m: 1, minWidth: 120 } }>
+              <InputLabel id="demo-simple-select-helper-label">Vendedor (a)</InputLabel>
+              <Select
+                labelId="demo-simple-select-helper-label"
+                id="demo-simple-select-helper"
+                label="Vendedor (a)"
+                name="seller"
+                value={ adressValues.seller }
+                onChange={ handleChange }
+                className="w-60"
+              >
+                <MenuItem value="Fulana Pereira">Katia Francisca</MenuItem>
+                <MenuItem value="Waldir Silva">Waldir Silva</MenuItem>
+                <MenuItem value="Beatriz Santos">Beatriz Santos</MenuItem>
+              </Select>
+            </FormControl>
+          </div>
 
-        <label htmlFor="address" className="checkout-label">
-          Endereço
-          <input
-            type="text"
-            id="address"
-            name="address"
-            data-testid="customer_checkout__input-address"
-            placeholder="Travessia Terceira da castanheira, Bairro Muruci"
-            value={ adressValues.address }
-            onChange={ handleChange }
-            className="checkout-input"
-          />
-        </label>
+          <div>
+            <TextField
+              id="outlined-required"
+              label="Endereço"
+              value={ adressValues.address }
+              onChange={ handleChange }
+              name="address"
+              data-testid="customer_checkout__input-address"
+              placeholder="Insira o seu endereço completo"
+              className="md:w-96"
+              margin="normal"
+              required
+            />
+          </div>
 
-        <label htmlFor="number" className="checkout-label">
-          Número
-          <input
-            type="number"
-            id="number"
-            name="number"
-            data-testid="customer_checkout__input-address-number"
-            placeholder="Número"
-            value={ adressValues.number }
-            onChange={ handleChange }
-            className="checkout-input"
-          />
-        </label>
+          <div>
+            <TextField
+              id="outlined-number"
+              label="Número"
+              type="number"
+              InputLabelProps={ {
+                shrink: true,
+              } }
+              variant="outlined"
+              name="number"
+              data-testid="customer_checkout__input-address-number"
+              value={ adressValues.number }
+              onChange={ handleChange }
+              placeholder="Número da casa/apto"
+              margin="normal"
+              className="md:w-60"
+              required
+            />
+          </div>
+        </div>
 
-        <div className="checkout-button">
+        <div className="flex items-center w-full justify-center mt-14">
           <button
             type="button"
             data-testid="customer_checkout__button-submit-order"
             onClick={ () => sellRegister() }
             disabled={ !adressValues.address || !adressValues.number }
-            className="checkout-button"
+            className="w-[220px] h-[50px] mb-10 inline-flex justify-center py-4 px-6 border border-transparent shadow-sm text-lg rounded-md text-white bg-gradient-to-b from-corBotao to-corBotaoHover hover:from-corBotaoHover hover:to-corBotao focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 items-center font-glacial-bold cursor-pointer"
           >
             FINALIZAR PEDIDO
           </button>

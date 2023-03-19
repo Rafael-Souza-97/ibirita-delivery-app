@@ -53,31 +53,34 @@ export default function Orders() {
             role="presentation"
             onClick={ (e) => handleClick(e) }
           >
+            <p
+              data-testid={ `customer_orders__element-order-id-${orders.id}` }
+              id={ orders.id }
+            >
+              { orders.id }
+            </p>
+            <br />
             <h2
               data-testid={ `customer_orders__element-delivery-status-${orders.id}` }
               id={ orders.id }
             >
               { orders.status }
             </h2>
-            <h2
+            <p
               data-testid={ `customer_orders__element-order-date-${orders.id}` }
               id={ orders.id }
             >
               { formatDate(orders.saleDate) }
-            </h2>
+            </p>
+            <br />
             <h2
-              data-testid={ `customer_orders__element-order-id-${orders.id}` }
-              id={ orders.id }
-            >
-              { orders.id }
-            </h2>
-            <p
               data-testid={ `customer_orders__element-card-price-${orders.id}` }
               id={ orders.id }
             >
+              { 'R$ ' }
               { parseFloat(orders.totalPrice)
                 .toLocaleString('pt-BR', { minimumFractionDigits: 2 }) }
-            </p>
+            </h2>
           </div>
         ))}
       </div>
