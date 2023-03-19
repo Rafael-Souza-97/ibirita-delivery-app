@@ -297,3 +297,4 @@ back-end/.env
 **/reports/**/*
 **/coverage
 **/.nyc_output
+prototype.fig

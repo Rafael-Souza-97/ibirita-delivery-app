@@ -8,7 +8,13 @@ const { expect } = chai;
 const chaiHttp = require('chai-http');
 const { getUserFromToken, checkToken } = require('../utils/jwtConfig');
 const { convertToMD5 } = require('../utils/md5Config');
-const { dataAdminUser, dataSellerUser, dataCustomerUser, dataAdminUserLogin, dataInvalidToken } = require('./mocks/backendMocks');
+const {
+  dataAdminUser,
+  dataSellerUser,
+  dataCustomerUser,
+  dataAdminUserLogin,
+  dataInvalidToken
+} = require('./mocks/backendMocks');
 const { afterEach } = require('mocha');
 const jwt = require('jsonwebtoken');
 
