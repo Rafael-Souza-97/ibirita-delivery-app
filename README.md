@@ -112,7 +112,7 @@ No geral, a combinação dessas ferramentas nos permitiu criar uma interface web
 <br>
 
 <details>
-  <summary><strong>COMO INSTALAção DO APLICATIVO iBIRITA</strong></summary><br />
+  <summary><strong>INSTALAÇÃO DO APLICATIVO iBIRITA</strong></summary><br />
 
 ## Instalação 
 
@@ -259,4 +259,9 @@ git push origin sua-feature-ou-correcao
 - Biblioteca de espiões, stubs e mocks para testes: [Sinon](https://sinonjs.org/)
 
 <br>
+<hr>
+
+## Preview
+https://user-images.githubusercontent.com/99055008/226149136-98ba20a3-1ea4-4e78-99da-507f0bad666c.mp4
+
 <hr>
