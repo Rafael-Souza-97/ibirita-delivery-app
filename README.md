@@ -1,8 +1,6 @@
 ![iBirita](https://user-images.githubusercontent.com/99055008/226148750-d1b974b7-bbf6-4325-8553-a7c36bc09347.png)
 
-# iBirit@
-
-Bem-vindo ao iBirita, um aplicativo de delivery de bebidas completo e fácil de usar! Com o iBirita, você pode escolher entre uma grande variedade de bebidas e recebê-las diretamente na sua porta.
+Bem-vindo(a) ao iBirita, um aplicativo de delivery de bebidas completo e fácil de usar! Com o iBirita, você pode escolher entre uma grande variedade de bebidas e recebê-las diretamente na sua porta.
 
 O iBirita foi desenvolvido por uma equipe de 5 pessoas dedicadas a fornecer a melhor experiência de compra online para seus usuários. Utilizando tecnologias modernas, o aplicativo inclui telas de login e cadastro para seus clientes, vendedores e administradores, bem como uma seleção de produtos, checkout e rastreamento de pedidos.
 
