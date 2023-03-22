@@ -259,6 +259,9 @@ git push origin sua-feature-ou-correcao
 <br>
 <hr>
 
+## Deploy
+https://delivery-7g9vbnf8q-pedrohassen.vercel.app/login
+
 ## Preview
 https://user-images.githubusercontent.com/99055008/226149136-98ba20a3-1ea4-4e78-99da-507f0bad666c.mp4
 
