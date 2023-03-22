@@ -260,7 +260,17 @@ git push origin sua-feature-ou-correcao
 <hr>
 
 ## Deploy
-https://delivery-7g9vbnf8q-pedrohassen.vercel.app/login
+Este projeto foi implantado em três serviços diferentes: Vercel para o front-end, Render para o back-end e Railway para o banco de dados.
+
+- `Front-end`: O front-end foi implantado no [Vercel](https://vercel.com/). Você pode acessar o link do site aqui: [iBirit@](https://delivery-7g9vbnf8q-pedrohassen.vercel.app/login)
+
+- `Back-end`: O back-end foi implantado no [Render](https://render.com/).
+
+- `Banco de dados`: O banco de dados foi implantado no [Railway](https://railway.app/).
+
+<br>
+<hr>
+
 
 ## Preview
 https://user-images.githubusercontent.com/99055008/226149136-98ba20a3-1ea4-4e78-99da-507f0bad666c.mp4
