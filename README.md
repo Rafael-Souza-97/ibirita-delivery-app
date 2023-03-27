@@ -262,7 +262,7 @@ git push origin sua-feature-ou-correcao
 ## Deploy
 Este projeto foi implantado em três serviços diferentes: Vercel para o front-end, Render para o back-end e Railway para o banco de dados.
 
-- `Front-end`: O front-end foi implantado no [Vercel](https://vercel.com/). Você pode acessar o link do site aqui: [iBirit@](https://delivery-7g9vbnf8q-pedrohassen.vercel.app/login)
+- `Front-end`: O front-end foi implantado no [Vercel](https://vercel.com/). Você pode acessar o link do site aqui: [iBirit@](delivery-app-lovat.vercel.app/login)
 
 - `Back-end`: O back-end foi implantado no [Render](https://render.com/).
 
